@@ -349,6 +349,6 @@ $spmy_plugins_url = plugins_url().'/dpaBottomofPostPage';
 <tr><td><a target="_blank" href="https://www.dpabadbot.com">Block Hackers at your WordPress website</a></td><td><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmy_plugins_url.'/BlockBadBoth30.png'; ?>" width="402" height="30"></a></td></tr>
 <tr><td><a target="_blank" href="http://www.dpaxfc.com">PHP Caching Software</a></td><td><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmy_plugins_url.'/XFCPHPCacheh30.png'; ?>" width="402" height="30"></a></td></tr>
 <tr><td><a target="_blank" href="http://www.dpaic.com">Image Compression</a></td><td><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmy_plugins_url.'/ImageCompressionh30.png'; ?>"  width="402" height="30"></a></td></tr>
-<tr><td><a target="_blank" href="http://www.dpawhs.com">Web Hosting Services</a></td><td><a target="_blank" href="http://www.dpawhs.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
+<tr><td><a target="_blank" href="http://www.peterpublishing.com">Web Hosting Services</a></td><td><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
 </table>
 
