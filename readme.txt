@@ -39,8 +39,16 @@ This plugin can add one or more messages or advertisements to the bottom of ever
 = How can I edit the message? =
 
 In your WordPress Control Panel, go to menu option Settings > dpaBottomofPostPageMenu and you will see several options and settings. The first is the number of messages you want displayed at the bottom of every post and every page. They can be a different number of messages for posts and for pages. Set this figure to at least 1 and click Submit button if you want something displayed.  
+
 Then click on radio buttons to display messages in Posts and or Pages and save by clicking on Set Display button.
-You will see one or more text areas appear in the POST section and in the PAGE section depending on the figures you entered. Select whterh the message you add in here "AFFECTS SEO" or "DOES NOT AFFECT SEO". If it FFECTS SEO then specify the dimensions of the message in pixels. Fill the message text areas with your HTML code then click on Save Post Messages button or Save Page Message button to save. After this go back and select the "Display or Dont Display" options and then click on the "Set Display" button to save the settings. If you had selected "Dont Display" for either posts or pages then those will not be displayed. You are done. View your webpages and you will see those messages at the bottom of every post or page.
+
+You will see one or more text areas appear in the POST section and in the PAGE section depending on the figures you entered. Select whether the message you add in here "AFFECTS SEO" or "DOES NOT AFFECT SEO". If it FFECTS SEO then specify the dimensions of the message in pixels. 
+
+Fill the message text areas with your HTML code then click on Save Post Messages button or Save Page Message button to save. 
+
+After this go back and select the "Display or Dont Display" options and then click on the "Set Display" button to save the settings. If you had selected "Dont Display" for either posts or pages then those will not be displayed. 
+
+You are done. View your webpages and you will see those messages at the bottom of every post or page.
 
 = Where can I see the change? =
 
