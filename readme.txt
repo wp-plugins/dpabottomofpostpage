@@ -52,7 +52,9 @@ Version 1.01
 
 1. Any messages that might affect your SEO can be saved elsewhere and not on your webpage. 
 
-2. All file names and sub-directory names were changed to lower case so that it will be more compatible with all servers. Due to the filename changes to lower case, if you have problems when you upgrade, then delete Version 1.00 first and then reinstall version 1.01. Do save, copy and paste into a text file, ll you messages before deleting the plugin.
+
+2. All file names and sub-directory names were changed to lower case so that it will be more compatible with all servers. Due to the filename changes to lower case, if you have problems when you upgrade, then delete Version 1.00 first and then reinstall version 1.01. Do save, copy and paste into a text file, all your messages before deleting the plugin.
+
 
 
 == Upgrade Notice ==
@@ -61,7 +63,9 @@ Version 1.01
 
 1. now understands that webpages can be tuned for SEO, so any message that you think might affect your webpage can be saved outside your webpage by clicking on 'Affects SEO' radio buttons.
 
+
 2. Changed all file and sub-directory names to lower case. If you see images or files missing, save your messages in a text file then delete earlier version ( 1.00 ) plugin and then download and install version 1.01
+
 
 
 
