@@ -467,4 +467,4 @@ $spmy_plugins_url = plugins_url().'/dpabottomofpostpage';
 <tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;">Web Hosting Services</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
 </table>
 
-  
+    
