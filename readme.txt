@@ -64,6 +64,8 @@ Version 1.01
 2. All file names and sub-directory names were changed to lower case so that it will be more compatible with all servers. Due to the filename changes to lower case, if you have problems when you upgrade, then delete Version 1.00 first and then reinstall version 1.01. Do save, copy and paste into a text file, all your messages before deleting the plugin.
 
 
+You can visit our [plugin webpage] (https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php  " anytime ")
+
 
 == Upgrade Notice ==
 
@@ -75,6 +77,6 @@ Version 1.01
 2. Changed all file and sub-directory names to lower case. If you see images or files missing, save your messages in a text file then delete earlier version ( 1.00 ) plugin and then download and install version 1.01
 
 
-You can visit our [plugin webpage] (https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php " anytime ")
+
 
 
