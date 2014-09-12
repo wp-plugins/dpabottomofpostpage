@@ -13,6 +13,7 @@ This plugin can add several messages or adverts to the bottom of every WordPress
 
 This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms.
 
+You can visit our website, https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php, too.
 
 == Installation ==
 
@@ -64,7 +65,6 @@ Version 1.01
 2. All file names and sub-directory names were changed to lower case so that it will be more compatible with all servers. Due to the filename changes to lower case, if you have problems when you upgrade, then delete Version 1.00 first and then reinstall version 1.01. Do save, copy and paste into a text file, all your messages before deleting the plugin.
 
 
-You can visit our [plugin webpage] (https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php  " anytime ")
 
 
 == Upgrade Notice ==
