@@ -3,7 +3,7 @@
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
 Description: Add some messages to the bottom of each post or page. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. With version 1.01 you can save your messages elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.
-Version: 1.01
+Version: 1.01  
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
