@@ -466,5 +466,3 @@ $spmy_plugins_url = plugins_url().'/dpabottomofpostpage';
 <tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;">Image Compression. Compresses images you have saved on your websites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmy_plugins_url.'/ich30.png'; ?>"  width="402" height="30"></a></td></tr>
 <tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;">Web Hosting Services</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
 </table>
-
-    
