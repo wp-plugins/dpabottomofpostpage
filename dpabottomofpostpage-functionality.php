@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
