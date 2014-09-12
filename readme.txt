@@ -76,7 +76,3 @@ Version 1.01
 
 2. Changed all file and sub-directory names to lower case. If you see images or files missing, save your messages in a text file then delete earlier version ( 1.00 ) plugin and then download and install version 1.01
 
-
-
-
-
