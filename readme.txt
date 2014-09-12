@@ -43,7 +43,7 @@ In your WordPress Control Panel, go to menu option Settings > dpaBottomofPostPag
 
 Then click on radio buttons to display messages in Posts and or Pages and save by clicking on Set Display button.
 
-You will see one or more text areas appear in the POST section and in the PAGE section depending on the figures you entered. Select whether the message you add in here "AFFECTS SEO" or "DOES NOT AFFECT SEO". If it AFFECTS SEO then specify the dimensions of the message in pixels. 
+You will see one or more text areas appear in the POST section and in the PAGE section depending on the figures you entered. Select whether the message you add in here "AFFECTS SEO" or "DOES NOT AFFECT SEO". If it AFFECTS SEO then specify the dimensions of the message in pixels. Do remember that Facebook, Google, Twitter, ... like buttons should be part of your page so they should be marked as "DOES NOT AFFECT SEO".
 
 Fill the message text areas with your HTML code then click on Save Post Messages button or Save Page Message button to save. 
 
