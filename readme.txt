@@ -3,8 +3,8 @@ Contributors: Dr. Peter Achutha
 Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
-Tested up to: 3.9.1
-Stable tag: 1.0
+Tested up to: 4.0
+Stable tag: 1.1
 License: GPLv2 or later
 
 This plugin can add several messages or adverts to the bottom of every WordPress post and page. 
@@ -16,9 +16,9 @@ This plugin allows you to add more than one message at the bottom of your WordPr
 
 == Installation ==
 
-1. Upload 'dpaBottomofPostPage.zip' to the '/wp-content/plugins/' directory and unzip it.
+1. Upload 'dpabottomofpostpage.zip' to the '/wp-content/plugins/' directory and unzip it.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Go to 'Settings > dpaBottomofPostPageMenu' and edit and save settings.
+3. Go to 'Settings > dpabottomofpostpagemenu' and edit and save settings.
 
 
 == Screenshots ==
@@ -34,7 +34,7 @@ This plugin allows you to add more than one message at the bottom of your WordPr
 
 = What does this plugin do? =
 
-This plugin can add one or more messages or advertisements to the bottom of every post and every page. You can have different content for your posts and pages. 
+This plugin can add one or more messages or advertisements to the bottom of every post and every page. You can have different content for your posts and pages. With version 1.01 you cat set the message to be outside the webpage so that it does not affect your SEO tuning of the webpage.
 
 = How can I edit the message? =
 
@@ -46,9 +46,16 @@ When you view the posts or pages.
 
 == Changelog ==
 
-First version so no changes.
+Version 1.01 
+1. Any messages that might affect your SEO can be saved elsewhere and not on your webpage. 
+2. All file names and sub-directory names were changed to lower case so that it will be more compatible with all servers. Due to the filename changes to lower case, if you have problems when you upgrade, then delete Version 1.00 first and then reinstall version 1.01. Do save, copy and paste into a text file, ll you messages before deleting the plugin.
 
 
 == Upgrade Notice ==
 
-First version so no upgrades.
+Version 1.01 
+1. now understands that webpages can be tuned for SEO, so any message that you think might affect your webpage can be saved outside your webpage by clicking on 'Affects SEO' radio buttons.
+2. Changed all file and sub-directory names to lower case. If you see images or files missing, save your messages in a text file then delete earlier version ( 1.00 ) plugin and then download and install version 1.01
+
+
+
