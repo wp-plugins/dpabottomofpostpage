@@ -13,7 +13,7 @@ This plugin can add several messages or adverts to the bottom of every WordPress
 
 This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms. The plugin is SEO sensitive by allowing or diasbling a message to be part of the webpage SEO. You can show post messages in Home, Category & Archives summary pages. 
 
-With version 1.02 some of the data is stored differently. If you are upgrading from and earlier version do click on the 'Save Post Messages' and 'Save Page Messages' to update the way the data is stored.
+With version 1.02 some of the data is stored differently. If you are upgrading from an earlier version do click on the 'Save Post Messages' and 'Save Page Messages' to update the way the data is stored.
 
 My thanks to Cynthia K. Wunsch, http://www.striketherightnote.com, for requesting me to allow the posts to be shown in Home, Category & Archives summary pages.
 
