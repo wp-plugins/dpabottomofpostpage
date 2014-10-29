@@ -4,14 +4,18 @@ Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
 Tested up to: 4.0
-Stable tag: 1.1
+Stable tag: 1.02
 License: GPLv2 or later
 
-This plugin can add several messages or adverts to the bottom of every WordPress post and page. 
+This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. 
 
 == Description ==
 
-This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms.
+This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms. The plugin is SEO sensitive by allowing or diasbling a message to be part of the webpage SEO. You can show post messages in Home, Category & Archives summary pages. 
+
+With version 1.02 some of the data is stored differently. If you are upgrading from and earlier version do click on the 'Save Post Messages' and 'Save Page Messages' to update the way the data is stored.
+
+My thanks to Cynthia K. Wunsch, http://www.striketherightnote.com, for requesting me to allow the posts to be shown in Home, Category & Archives summary pages.
 
 You can visit our website, https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php, too.
 
@@ -24,9 +28,9 @@ You can visit our website, https://www.dpabadbot.com/customise-wordpress-plugin-
 
 == Screenshots ==
 
-1. Shows an example settings when you are the dpaBottomofPostPage plugin. screenshot-1.png
-2. Shows what dpaBottomofPostPage screen will look like when first run. screenshot-2.png
-3. Shows shows example code entered into the different Post Message Areas. screenshot-3.png
+1. Shows an example settings when you are the dpaBottomofPostPage plugin. This section is to setup how many messages you need in your Posts and in your Pages and whether they are to be displayed. screenshot-1.png
+2. Shows what dpaBottomofPostPage screen will look like when first install dpaBottomofPostPage as no messages have been created. screenshot-2.png
+3. Shows example code entered into the different Post Message Areas. Notice the AFFECTS SEO & DOES NOT AFFECT SEO radio buttons. With version 1.02 you now have the ability to display, by checking the checkboxes, individual messages in HOME and/or CATEGORY and/or ARCHIVES pages. screenshot-3.png
 4. Shows example code entered into the different Page Message Areas. screenshot-4.png
 5. Shows example of what your Bottom of Post can look like. screenshot-5.png
 
@@ -57,22 +61,32 @@ When you view the posts or pages.
 
 == Changelog ==
 
-Version 1.01 
+== 1.01 ==
 
 1. Any messages that might affect your SEO can be saved elsewhere and not on your webpage. 
 
 
 2. All file names and sub-directory names were changed to lower case so that it will be more compatible with all servers. Due to the filename changes to lower case, if you have problems when you upgrade, then delete Version 1.00 first and then reinstall version 1.01. Do save, copy and paste into a text file, all your messages before deleting the plugin.
 
+== 1.02 ==
 
+Add ability to display messages in Home, Category & Archives summary pages. Add a title for each message area so that when you return months later you have a Title to describe each meaasge and not forget what you did.
 
 
 == Upgrade Notice ==
 
-Version 1.01 
+== 1.01 ==
 
 1. now understands that webpages can be tuned for SEO, so any message that you think might affect your webpage can be saved outside your webpage by clicking on 'Affects SEO' radio buttons.
 
 
 2. Changed all file and sub-directory names to lower case. If you see images or files missing, save your messages in a text file then delete earlier version ( 1.00 ) plugin and then download and install version 1.01
+
+== 1.02 ==
+
+Add ability to display messages in Home, Category & Archives summary pages. Add a title for each message area so that when you return months later you have a Title to describe each meaasge and not forget what you did.
+
+
+
+
 

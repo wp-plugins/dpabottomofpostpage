@@ -1,6 +1,6 @@
 <?php
 defined('ABSPATH') or die("No script kiddies please!");
-//include 'spmyfunctions.php';
+
 //define the filename of setup file; 
 $spmy_plugins_url = plugins_url().'/dpabottomofpostpage';
 
@@ -113,8 +113,13 @@ $spmy_msg[ $spmy_i ] = '';
 $spmy_filename[ $spmy_i ] = dirname(__FILE__) .'/mybotmsg'.$spmy_i.'.txt';
 $spmy_filename_html[ $spmy_i ] = dirname(__FILE__) .'/seopostmsg'.$spmy_i.'.html';
 $spmy_post_SEO[$spmy_i][0] = 'NOT SEO';
-$spmy_post_SEO[$spmy_i][1] = 790;
-$spmy_post_SEO[$spmy_i][2] = 140;
+$spmy_post_SEO[$spmy_i][1] = 790; //width of message
+$spmy_post_SEO[$spmy_i][2] = 140; //height message
+$spmy_post_SEO[$spmy_i][3] = ''; //used base encode 64 of iframe code 
+$spmy_post_SEO[$spmy_i][4] = ''; //Home summany page
+$spmy_post_SEO[$spmy_i][5] = ''; //Category summary page
+$spmy_post_SEO[$spmy_i][6] = ''; //Archive summary page
+$spmy_post_SEO[$spmy_i][7] = ''; //Title of Message - so that you will remember what it is about months later
 }
 }
 //read in which page message affects SEO and should be in iframe
@@ -129,8 +134,13 @@ $spmy_msg[ $spmy_i ] = '';
 $spmy_filename[ $spmy_i ] = dirname(__FILE__) .'/mybotpagemsg'.$spmy_i.'.txt';
 $spmy_filename_html[ $spmy_i ] = dirname(__FILE__) .'/seopagemsg'.$spmy_i.'.html';
 $spmy_page_SEO[$spmy_i][0] = 'NOT SEO';
-$spmy_page_SEO[$spmy_i][1] = 790;
-$spmy_page_SEO[$spmy_i][2] = 140;
+$spmy_page_SEO[$spmy_i][1] = 790; //width of message
+$spmy_page_SEO[$spmy_i][2] = 140; //height of message
+$spmy_page_SEO[$spmy_i][3] = ''; //used base encode 64 of <iframe code >
+$spmy_page_SEO[$spmy_i][4] = ''; //Home summany page
+$spmy_page_SEO[$spmy_i][5] = ''; //Category summary page
+$spmy_page_SEO[$spmy_i][6] = ''; //Archive summary page
+$spmy_page_SEO[$spmy_i][7] = ''; //Title of Message - so that you will remember what it is months later
 }
 }
 
@@ -222,8 +232,8 @@ if( $_POST[spmy_bottom_messages] == 'Save Post Messages' ){
 			spmy_bowpp_write_file( $spmy_filename_html[ $spmy_i ], $spmy_tmpstr_html );
 			}
 	}
-	for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++) { 
 
+	for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++) { 
 		if( isset( $_POST[spmy_ppost_SEO][$spmy_i] ) ) {
 			$spmy_post_SEO[$spmy_i][0] =  $_POST[spmy_ppost_SEO][$spmy_i] ;
 			}
@@ -232,10 +242,16 @@ if( $_POST[spmy_bottom_messages] == 'Save Post Messages' ){
 			}	
 		if( isset( $_POST[spmy_ppost_height][$spmy_i] ) ) {
 			$spmy_post_SEO[$spmy_i][2] =  $_POST[spmy_ppost_height][$spmy_i] ;
-			}		
+			}	
+
+			$spmy_post_SEO[$spmy_i][4] =  $_POST[spmy_ppost_HOME][$spmy_i] ;
+			$spmy_post_SEO[$spmy_i][5] =  $_POST[spmy_ppost_CAT][$spmy_i] ;
+			$spmy_post_SEO[$spmy_i][6] =  $_POST[spmy_ppost_ARC][$spmy_i] ;
+
+		$spmy_post_SEO[$spmy_i][7] =  trim($_POST[spmy_ppost_TITLE][$spmy_i]) ;	//version 1.02 add title
 	if( $spmy_post_SEO[$spmy_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
-		$spmy_tempstr = '<iframe src="'.plugins_url( 'seopostmsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_post_SEO[$spmy_i][1].'" height="'.$spmy_post_SEO[$spmy_i][2].'"></iframe>' ; 
+		$spmy_tempstr = base64_encode ( '<iframe src="'.plugins_url( 'seopostmsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_post_SEO[$spmy_i][1].'" height="'.$spmy_post_SEO[$spmy_i][2].'"></iframe>' ) ; 
 		$spmy_post_SEO[$spmy_i][3] = $spmy_tempstr;
 		}
 	}	
@@ -264,9 +280,10 @@ if( $_POST[spmy_bottom_page_messages] == 'Save Page Messages' ){
 		if( isset( $_POST[spmy_ppage_height][$spmy_i] ) ) {
 			$spmy_page_SEO[$spmy_i][2] =  $_POST[spmy_ppage_height][$spmy_i] ;
 			}	
+		$spmy_page_SEO[$spmy_i][7] =  trim($_POST[spmy_ppage_TITLE][$spmy_i]) ;				
 	if( $spmy_page_SEO[$spmy_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
-		$spmy_tempstr = '<div width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'"><iframe src="'.plugins_url( 'seopagemsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'">   scrolling="auto" </iframe></div>' ; 
+		$spmy_tempstr = base64_encode ( '<div width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'"><iframe src="'.plugins_url( 'seopagemsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
 		$spmy_page_SEO[$spmy_i][3] = $spmy_tempstr;
 		}
 
@@ -362,9 +379,36 @@ $checkflag2 = '';
 } else if( $spmy_post_SEO[$spmy_i][0] == 'NOT SEO') {
 $checkflag1 = '';
 $checkflag2 = 'checked';
+} 
+
+if( $spmy_post_SEO[$spmy_i][4] == 'HOME' ){
+$checkHOME = 'checked';
+} else {
+$checkHOME = '';
 }
+
+if( $spmy_post_SEO[$spmy_i][5] == 'CAT' ){
+$checkCAT = 'checked';
+} else {
+$checkCAT = '';
+}
+
+if( $spmy_post_SEO[$spmy_i][6] == 'ARC' ){
+$checkARC = 'checked';
+} else {
+$checkARC = '';
+}
+
+
 ?>
-<span style="color:blue">Your Message Area <?php echo $spmy_j; ?> [ AFFECTS SEO<input type="radio" name="spmy_ppost_SEO[<?php echo $spmy_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio"  name="spmy_ppost_SEO[<?php echo $spmy_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppost_width[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppost_height[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][2];?>"  >]</span>
+<span style="color:blue">Your Message Area <?php echo $spmy_j; ?> [ AFFECTS SEO<input type="radio" name="spmy_ppost_SEO[<?php echo $spmy_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio"  name="spmy_ppost_SEO[<?php echo $spmy_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppost_width[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppost_height[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][2];?>"  >]
+
+<br>Show in Summary of: Home Page
+<input type="checkbox" name="spmy_ppost_HOME[<?php echo $spmy_i;?>]" value="HOME"  <?php echo $checkHOME; ?> > Category Page
+<input type="checkbox" name="spmy_ppost_CAT[<?php echo $spmy_i;?>]" value="CAT"  <?php echo $checkCAT; ?> >Archive Page
+<input type="checkbox" name="spmy_ppost_ARC[<?php echo $spmy_i;?>]" value="ARC"  <?php echo $checkARC; ?> ></span>
+<br>Title of Message: <br><input type="text" name="spmy_ppost_TITLE[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][7];?>"  size="80" >
+<br>The Message:<br>
 <?php
 }
 ?>
@@ -424,6 +468,8 @@ $checkflag2 = 'checked';
 }
 ?>
 <span style="color:blue">Your Message Area <?php echo $spmy_j; ?> [ AFFECTS SEO<input type="radio"  name="spmy_ppage_SEO[<?php echo $spmy_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio" name="spmy_ppage_SEO[<?php echo $spmy_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppage_width[<?php echo $spmy_i;?>]" value="<?php echo $spmy_page_SEO[$spmy_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppage_height[<?php echo $spmy_i;?>]" value="<?php echo $spmy_page_SEO[$spmy_i][2];?>"  >]</span>
+<br>Title of Message: <br><input type="text" name="spmy_ppage_TITLE[<?php echo $spmy_i;?>]" value="<?php echo $spmy_page_SEO[$spmy_i][7];?>"  size="80" >
+<br>The Message:<br>
 <?php
 }
 ?>
@@ -457,12 +503,14 @@ if( $spmy_page_counter > 0){
 <br><br><br>
 <?php
 $spmy_plugins_url = plugins_url().'/dpabottomofpostpage';
+//echo '<br>plugins url : '.plugins_url().'  ';
+//echo '<br>full plugins url : '.plugins_url().'/dpabottomofpostpage'.'  ';
 ?>
 <h3>Other Products by Software Propulsion</h3>
 <table width="800">
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;">Contact Form that makes life difficult for spammers. Multiple websites can share one email address.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpacu.com"><img src="<?php echo $spmy_plugins_url.'/cufh30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;">Very effective anti hacking software that blocks hackers, stop brute force login attemtps and defends against ddos attacks to protect your WordPress website</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmy_plugins_url.'/bbbh30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;">Not for WordPress, Joomla or other blogs but for other php websites. PHP Caching Software</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmy_plugins_url.'/xfch30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;">Image Compression. Compresses images you have saved on your websites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmy_plugins_url.'/ich30.png'; ?>"  width="402" height="30"></a></td></tr>
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;">Web Hosting Services</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaContactUs</span> - Contact Form that makes life difficult for spammers. Multiple websites can share one email address.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpacu.com"><img src="<?php echo $spmy_plugins_url.'/cufh30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaBadBot</span> - Very effective anti hacking software that blocks hackers, stop brute force login attemtps and defends against ddos attacks to protect your WordPress website</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmy_plugins_url.'/bbbh30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">xfcPHPCache</span> - Not for WordPress, Joomla or other blogs but for other php websites. PHP Caching Software</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmy_plugins_url.'/xfch30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaImageCompression</span> - Image Compression. Compresses images you have saved on your websites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmy_plugins_url.'/ich30.png'; ?>"  width="402" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">Web Hosting Services</span> - from budget hosting to high performance sites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
 </table>
