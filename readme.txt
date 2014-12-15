@@ -76,6 +76,10 @@ Add ability to display messages in Home, Category & Archives summary pages. Add 
 
 Fixed a bug that was not displaying messages correctly at the bottom of a page.
 
+== 1.04 ==
+
+Changed some of the PHP code to be more compatible with WordPress PHP and no errors when debug is turned on.
+
 
 
 == Upgrade Notice ==
@@ -94,6 +98,10 @@ Add ability to display messages in Home, Category & Archives summary pages. Add 
 == 1.03 ==
 
 Fixed a bug that was not displaying messages correctly at the bottom of a page.
+
+== 1.04 ==
+
+Changed some of the PHP code to be more compatible with WordPress PHP and no errors when debug is turned on.
 
 
 
