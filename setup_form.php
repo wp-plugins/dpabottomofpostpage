@@ -145,20 +145,22 @@ $spmy_page_SEO[$spmy_i][7] = ''; //Title of Message - so that you will remember 
 }
 
 
-
-if( $_POST[spmy_type_of_display] == 'Set Display' ){
+if( isset( $_POST['spmy_type_of_display'] ) ){
+if( $_POST['spmy_type_of_display'] == 'Set Display' ){
 	//echo '<br>Yes Submit detected';
-	if( isset( $_POST[spmy_display_posts] ) ) {
-	$spmy_data_str[2] = $_POST[spmy_display_posts];
+	if( isset( $_POST['spmy_display_posts'] ) ) {
+	$spmy_data_str[2] = $_POST['spmy_display_posts'];
 	$spmy_posts = $spmy_data_str[2] ;
 	}
-	if( isset( $_POST[spmy_display_pages] ) ) {
-	$spmy_data_str[3] = $_POST[spmy_display_pages] ;
+	if( isset( $_POST['spmy_display_pages'] ) ) {
+	$spmy_data_str[3] = $_POST['spmy_display_pages'] ;
 	$spmy_pages = $spmy_data_str[3] ;
 	}
 	$spmy_tmpstr = serialize( $spmy_data_str );	
 	spmy_bowpp_write_file( $spmy_setup_file, $spmy_tmpstr );
 } 
+} 
+
 
 if( $spmy_posts == 'DISPLAY' ){
 $spmy_post_button = 'checked="checked"' ;
@@ -175,8 +177,9 @@ $spmy_page_button1 = '' ;
 $spmy_page_button = '' ;
 $spmy_page_button1 = 'checked="checked"' ;
 }		
-		
-if( $_POST[spmy_total_messages] == 'Submit' ){
+
+if( isset( $_POST['spmy_total_messages'] )) {
+if( $_POST['spmy_total_messages'] == 'Submit' ){
 	//echo '<br>Yes Submit detected';
 	if( isset( $_POST[spmy_message_counter] ) ) {
 	$spmy_counter = trim( $_POST[spmy_message_counter] )*1;
@@ -187,7 +190,7 @@ if( $_POST[spmy_total_messages] == 'Submit' ){
 	spmy_bowpp_write_file( $spmy_setup_file, $spmy_tmpstr );
 	}
 } 
-		
+}		
 
 //initialise variables
 for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++){
@@ -221,7 +224,9 @@ if( file_exists( $spmy_page_filename[ $spmy_i] )){
 	} 
 } 	
 
-if( $_POST[spmy_bottom_messages] == 'Save Post Messages' ){
+
+if( isset( $_POST['spmy_bottom_messages'] )){
+if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 	//echo '<br>Yes Submit detected';
 	for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++) {
 		if( isset( $_POST[spmy_txtarea][$spmy_i] ) ) {
@@ -232,6 +237,8 @@ if( $_POST[spmy_bottom_messages] == 'Save Post Messages' ){
 			spmy_bowpp_write_file( $spmy_filename_html[ $spmy_i ], $spmy_tmpstr_html );
 			}
 	}
+}
+
 
 	for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++) { 
 		if( isset( $_POST[spmy_ppost_SEO][$spmy_i] ) ) {
@@ -259,7 +266,8 @@ if( $_POST[spmy_bottom_messages] == 'Save Post Messages' ){
 } 
 
 
-if( $_POST[spmy_bottom_page_messages] == 'Save Page Messages' ){
+if( isset( $_POST['spmy_bottom_page_messages'] ) ){
+if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 	//echo '<br>Yes Submit detected';
 	for( $spmy_i=0; $spmy_i<$spmy_page_counter; $spmy_i++) {
 	if( isset( $_POST[spmy_page_txtarea][$spmy_i] ) ) {
@@ -291,7 +299,7 @@ if( $_POST[spmy_bottom_page_messages] == 'Save Page Messages' ){
 	}	
 	spmy_bowpp_write_file( $spmy_setup_seopage_file, serialize( $spmy_page_SEO ) );	
 } 
-
+}
 
 
 
@@ -303,7 +311,7 @@ if( $_POST[spmy_bottom_page_messages] == 'Save Page Messages' ){
 echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
-<h3>Whats new in Version 1.01</h3>
+<h3>Whats new in Version 1.04</h3>
 <p><span style="color:blue;font-size:14px;font-style:normal;">This version has a major improvement. If you are finely tuning your webpage SEO Optimsation, you can disable the individual messages from being part of the webpage. This will prevent any messages displayed affecting you page SEO. Just click on [AFFECTS SEO] (to take it out of the webpage) or [DOES NOT AFFECT SEO] (to keep it as part of the webpage) options shown on the top of the individual message area. </span></p>
 <h3>Uses</h3>
 <p><span style="color:blue;font-size:14px;font-style:normal;">Use the message areas to place text, advertisements, Sign Up forms, Affliate program ads HTML code, ... etc. If you need it displayed, just try it out. It is amazing what you can display in these message areas.</span></p>
