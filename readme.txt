@@ -3,19 +3,20 @@ Contributors: Dr. Peter Achutha
 Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
-Tested up to: 4.0.1
-Stable tag: 1.04
+Tested up to: 4.1
+Stable tag: 1.05
 License: GPLv2 or later
 
-This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. 
+This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. You can select which post or page displays the messages.
 
 == Description ==
 
 This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms. The plugin is SEO sensitive by allowing or diasbling a message to be part of the webpage SEO. You can show post messages in Home, Category & Archives summary pages. 
 
-With version 1.02 some of the data is stored differently. If you are upgrading from an earlier version do click on the 'Save Post Messages' and 'Save Page Messages' to update the way the data is stored.
+With version 1.05 you can disable some pages or post from displaying messages.
 
 My thanks to Cynthia K. Wunsch, http://www.striketherightnote.com, for requesting me to allow the posts to be shown in Home, Category & Archives summary pages.
+My thanks to Scott Million, http://www.apartmentforrentinsaigon.com, for requesting me for some pages and some post not to display messages.
 
 You can visit our website, https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php, too.
 
@@ -33,7 +34,8 @@ You can visit our website, https://www.dpabadbot.com/customise-wordpress-plugin-
 3. Shows example code entered into the different Post Message Areas. Notice the AFFECTS SEO & DOES NOT AFFECT SEO radio buttons. With version 1.02 you now have the ability to display, by checking the checkboxes, individual messages in HOME and/or CATEGORY and/or ARCHIVES pages. screenshot-3.png
 4. Shows example code entered into the different Page Message Areas. screenshot-4.png
 5. Shows example of what your Bottom of Post can look like. screenshot-5.png
-
+6. Shows example of how to allow post to display message or stop displaying message. screenshot-6.png
+7. Shows example of how to allow page to display message or stop displaying message. screenshot-7.png
 
 == Frequently Asked Questions ==
 
@@ -80,6 +82,9 @@ Fixed a bug that was not displaying messages correctly at the bottom of a page.
 
 Changed some of the PHP code to be more compatible with WordPress PHP and no errors when debug is turned on.
 
+== 1.05 ==
+
+Added feature to allow or to stop display messages at bottom of individual post or pages.
 
 
 == Upgrade Notice ==
@@ -102,6 +107,10 @@ Fixed a bug that was not displaying messages correctly at the bottom of a page.
 == 1.04 ==
 
 Changed some of the PHP code to be more compatible with WordPress PHP and no errors when debug is turned on.
+
+== 1.05 ==
+
+Added feature to allow or to stop display messages at bottom of individual post or pages.
 
 
 
