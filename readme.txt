@@ -18,7 +18,7 @@ With version 1.05 you can disable some pages or post from displaying messages.
 My thanks to Cynthia K. Wunsch, http://www.striketherightnote.com, for requesting me to allow the posts to be shown in Home, Category & Archives summary pages.
 My thanks to Scott Million, http://www.apartmentforrentinsaigon.com, for requesting me for some pages and some post not to display messages.
 
-You can visit our website, https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php, too.
+You can visit our website, https://www.dpabadbot.com/wordpress-plugins/add-messages-footers-ads-to-bottom-of-every-post-and-page.php, too.
 
 == Installation ==
 
