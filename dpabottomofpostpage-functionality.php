@@ -3,7 +3,7 @@
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
 Description: Add some messages to the bottom of each post or page. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
-Version: 1.05  
+Version: 1.06 [20150219]  
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
@@ -71,7 +71,7 @@ $spmy_postslist_sz = count( $spmy_postslist );
 $spmy_i =0;
 $spmy_imax = 0 ;
 
-if( count($spmy_pplist) != $spmy_bottom_post_nos['publish'] ){
+//if( count($spmy_pplist) != $spmy_bottom_post_nos['publish'] ){
 foreach( $spmy_postslist as $key => $post ) { //get the permalink and strip '/'
        setup_postdata($post); 
 	   $spmy_file_list[ $spmy_i ] = get_permalink();
@@ -100,7 +100,7 @@ wp_reset_postdata();
 //save table
 $spmy_tmpstr = serialize( $spmy_pplist ) ;
 spmy_bowpp_write_file( $spmy_published_posts_file, $spmy_tmpstr );
-}
+//}
 
 
 //pages settings
@@ -196,6 +196,7 @@ $spmy_pplistflag = 'NoFile';
 if( file_exists( $spmy_published_posts_file ) && filesize( $spmy_published_posts_file ) > 6 ){
 $spmy_tmpstr = spmy_bowpp_read_file( $spmy_published_posts_file );
 $spmy_pplist = unserialize( $spmy_tmpstr );
+
 $spmy_pplistflag = 'FileExist';
 }
 //pages settings
@@ -234,11 +235,15 @@ $spmy_pages = $spmy_data_str[3] ;
 $spmy_tmpstrx = '';
 	if( (is_single() || is_archive()  || is_category() || is_home()) && $spmy_posts == 'DISPLAY' && $spmy_counter > 0)  {
 		$spmy_permalink = get_permalink();
+		//echo '<br>1. permalink: '.$spmy_permalink.' ';
 		$spmy_pos = strrpos( $spmy_permalink, '/' );
 	   $spmy_myfilename = substr($spmy_permalink, 0, $spmy_pos );
 	   $spmy_pos = strrpos( $spmy_myfilename, '/' );
 	   $spmy_permalinkfilename = substr($spmy_myfilename, ($spmy_pos+1) );
-
+		//echo '<br>2. permalinkfilename: '.$spmy_permalinkfilename.' ';
+		//echo '<br>pplist<br>';
+		//var_dump( $spmy_pplist );
+		//echo '<br><br>';
 	   if( $spmy_pplist[$spmy_permalinkfilename] == 'Checked' ) {	   
 		//if something to be displayed the get files and display
 		//initialise variables

@@ -32,7 +32,6 @@ div.mydisplay { &nbsp;
  height: 550px; 
 }
 </style>
-
 <?php
 defined('ABSPATH') or die("No script kiddies please!");
 global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post, $_SERVER;
@@ -514,11 +513,9 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 <div class="wrap">
 <?php
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.06 [20150219]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
-<h3>Whats new in Version 1.05</h3>
-<p><span style="color:blue;font-size:14px;font-style:normal;">This version has a major improvement. You can now disable some pages and posts from displaying the messages</span></p>
 <h3>Uses</h3>
 <p><span style="color:blue;font-size:14px;font-style:normal;">Use the message areas to place text, advertisements, Sign Up forms, Affliate program ads HTML code, ... etc. If you need it displayed, just try it out. It is amazing what you can display in these message areas.</span></p>
 <h3>How to use</h3>
@@ -860,4 +857,3 @@ $spmy_pageslist = NULL;
 unset( $spmy_pageslist );
 
 ?>
-

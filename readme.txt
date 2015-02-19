@@ -4,7 +4,7 @@ Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
 Tested up to: 4.1
-Stable tag: 1.05
+Stable tag: 1.06
 License: GPLv2 or later
 
 This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. You can select which post or page displays the messages.
@@ -86,6 +86,11 @@ Changed some of the PHP code to be more compatible with WordPress PHP and no err
 
 Added feature to allow or to stop display messages at bottom of individual post or pages.
 
+== 1.06 ==
+
+Undid some of upgradres in version 1.04 upgrades to minimise the spurious memory errors.
+
+
 
 == Upgrade Notice ==
 
@@ -111,6 +116,10 @@ Changed some of the PHP code to be more compatible with WordPress PHP and no err
 == 1.05 ==
 
 Added feature to allow or to stop display messages at bottom of individual post or pages.
+
+== 1.06 ==
+
+Undid some of upgradres in version 1.04 upgrades to minimise the spurious memory errors.
 
 
 
