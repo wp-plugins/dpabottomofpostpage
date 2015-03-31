@@ -391,11 +391,13 @@ if( $_POST['spmy_total_messages'] == 'Submit' ){
 	if( isset( $_POST['spmy_message_counter'] ) ) {
 	$spmy_counter = trim( $_POST['spmy_message_counter'] )*1;
 	$spmy_data_str[0] = $spmy_counter;
+	}
+	if( isset( $_POST['spmy_message_page_counter'] ) ) {
 	$spmy_page_counter = trim( $_POST['spmy_message_page_counter'] )*1;
 	$spmy_data_str[1] = $spmy_page_counter;
+	}
 	$spmy_tmpstr = serialize( $spmy_data_str );	
 	spmy_bowpp_write_file( $spmy_setup_file, $spmy_tmpstr );
-	}
 } 
 }		
 
@@ -456,12 +458,18 @@ if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 		if( isset( $_POST['spmy_ppost_height'][$spmy_i] ) ) {
 			$spmy_post_SEO[$spmy_i][2] =  $_POST['spmy_ppost_height'][$spmy_i] ;
 			}	
-
+		if( isset( $_POST['spmy_ppost_HOME'][$spmy_i] ) ) {
 			$spmy_post_SEO[$spmy_i][4] =  $_POST['spmy_ppost_HOME'][$spmy_i] ;
+			}
+		if( isset( $_POST['spmy_ppost_CAT'][$spmy_i] ) ) {	
 			$spmy_post_SEO[$spmy_i][5] =  $_POST['spmy_ppost_CAT'][$spmy_i] ;
+			}
+		if( isset( $_POST['spmy_ppost_ARC'][$spmy_i] ) ) {	
 			$spmy_post_SEO[$spmy_i][6] =  $_POST['spmy_ppost_ARC'][$spmy_i] ;
-
+			}
+		if( isset( $_POST['spmy_ppost_TITLE'][$spmy_i] ) ) {
 		$spmy_post_SEO[$spmy_i][7] =  trim($_POST['spmy_ppost_TITLE'][$spmy_i]) ;	//version 1.02 add title
+		}
 	if( $spmy_post_SEO[$spmy_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
 		$spmy_tempstr = base64_encode ( '<iframe src="'.plugins_url( 'seopostmsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_post_SEO[$spmy_i][1].'" height="'.$spmy_post_SEO[$spmy_i][2].'"></iframe>' ) ; 
@@ -493,7 +501,9 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 		if( isset( $_POST['spmy_ppage_height'][$spmy_i] ) ) {
 			$spmy_page_SEO[$spmy_i][2] =  $_POST['spmy_ppage_height'][$spmy_i] ;
 			}	
-		$spmy_page_SEO[$spmy_i][7] =  trim($_POST['spmy_ppage_TITLE'][$spmy_i]) ;				
+		if( isset( $_POST['spmy_ppage_TITLE'][$spmy_i] ) ) {	
+		$spmy_page_SEO[$spmy_i][7] =  trim($_POST['spmy_ppage_TITLE'][$spmy_i]) ;
+		}
 	if( $spmy_page_SEO[$spmy_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
 		$spmy_tempstr = base64_encode ( '<div width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'"><iframe src="'.plugins_url( 'seopagemsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
@@ -513,7 +523,7 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 <div class="wrap">
 <?php
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.06 [20150219]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.07 [20150401]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
