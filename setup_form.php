@@ -36,7 +36,7 @@ div.mydisplay { &nbsp;
 defined('ABSPATH') or die("No script kiddies please!");
 global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post, $_SERVER;
 //define the filename of setup file; 
-$spmy_plugins_url = plugins_url().'/dpabottomofpostpage';
+$spmybp_plugins_url = plugins_url().'/dpabottomofpostpage';
 
 
 $samplemsg[0] = '<br><br><table><tr><td style="vertical-align: center;"><a style="text-decoration: none;" rel="author" href="https://plus.google.com/XXXXXXXXXXXXXXXXXXXX?rel=author"><img style="border: 0; width: 16px; height: 16px;" src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" /></a></td><td><span style="color: #000080;font-size:10px;">Copyright (c) 2013 - 2014 MY COMPANY - All Rights Reserved<br>
@@ -93,260 +93,361 @@ $samplemsg[2] = '<table>
 $samplemsg[3] = '<table>
 <tr><td style="color:green;font-size:10px;">Other Advertisements</td><tr>
 <tr><td>
-<img alt="Insert Ads Here" src="'.$spmy_plugins_url.'/advertspace.png'.'" width="728" height="90">
+<img alt="Insert Ads Here" src="'.$spmybp_plugins_url.'/advertspace.png'.'" width="728" height="90">
 </td></tr>
 </table>';
 
+//echo '<br>dirname: '.dirname(__FILE__).' '; 
+$spmybp_datadir = dirname(__FILE__) ;
+$spmybp_string_position = strpos( $spmybp_datadir , 'dpabottomofpostpage');
+$spmybp_datadiralt = substr_replace( $spmybp_datadir , 'dpabottomofpostpagedata' , $spmybp_string_position  );
 
-$spmy_setup_file = dirname(__FILE__) ."/setup.txt";
-$spmy_published_posts_file = dirname(__FILE__) ."/publishedposts.txt";
-$spmy_published_pages_file = dirname(__FILE__) ."/publishedpages.txt";
-$spmy_setup_seopost_file = dirname(__FILE__) ."/seopost.txt";
-$spmy_setup_seopage_file = dirname(__FILE__) ."/seopage.txt";
-$spmy_post_scroll_data_file = dirname(__FILE__) ."/scrollposts.txt";
-$spmy_page_scroll_data_file = dirname(__FILE__) ."/scrollpages.txt";
+$spmybp_setup_file_org = dirname(__FILE__) ."/setup.txt";
+$spmybp_published_posts_file_org = dirname(__FILE__) ."/publishedposts.txt";
+$spmybp_published_pages_file_org = dirname(__FILE__) ."/publishedpages.txt";
+$spmybp_setup_seopost_file_org = dirname(__FILE__) ."/seopost.txt";
+$spmybp_setup_seopage_file_org = dirname(__FILE__) ."/seopage.txt";
+$spmybp_post_scroll_data_file_org = dirname(__FILE__) ."/scrollposts.txt";
+$spmybp_page_scroll_data_file_org = dirname(__FILE__) ."/scrollpages.txt";
 
-$spmy_tmpstr = '';
-$spmy_counter = 0;
-$spmy_page_counter = 0;
-$spmy_msg = '';
-unset( $spmy_msg );
-$spmy_filename = '';
-unset( $spmy_filename );
-$spmy_filename_html = '';
-unset( $spmy_filename_html );
-$spmy_page_msg = '';
-unset( $spmy_page_msg );
-$spmy_page_filename = '';
-unset( $spmy_page_filename );
-$spmy_page_filename = '';
-unset( $spmy_page_filename_html );
-$spmy_bottom_post_nos['publish'] = 0;
-$spmy_pplist = '';
-$spmy_ppplist = '';
-$spmy_pageslist = '';
-$spmy_post_offset = 0;
 
-$spmy_postslist_sz = 0;
-$spmy_pageslist_sz = 0;
+$spmybp_setup_file = $spmybp_datadiralt ."/setup.txt";
+$spmybp_published_posts_file = $spmybp_datadiralt ."/publishedposts.txt";
+$spmybp_published_pages_file = $spmybp_datadiralt ."/publishedpages.txt";
+$spmybp_setup_seopost_file = $spmybp_datadiralt ."/seopost.txt";
+$spmybp_setup_seopage_file = $spmybp_datadiralt ."/seopage.txt";
+$spmybp_post_scroll_data_file = $spmybp_datadiralt ."/scrollposts.txt";
+$spmybp_page_scroll_data_file = $spmybp_datadiralt ."/scrollpages.txt";
+
+//echo '<br>$spmybp_setup_file : '.$spmybp_setup_file.'  ';
+//echo '<br>$spmybp_published_posts_file : '.$spmybp_published_posts_file.'  ';
+//echo '<br>$spmybp_published_pages_file : '.$spmybp_published_pages_file.'  ';
+//echo '<br>$spmybp_setup_seopost_file : '.$spmybp_setup_seopost_file.'  ';
+//echo '<br>$spmybp_setup_seopage_file : '.$spmybp_setup_seopage_file.'  ';
+//echo '<br>$spmybp_post_scroll_data_file : '.$spmybp_post_scroll_data_file.'  ';
+//echo '<br>$spmybp_page_scroll_data_file : '.$spmybp_page_scroll_data_file.'  ';
+
+if( !file_exists($spmybp_datadiralt) ){
+mkdir( $spmybp_datadiralt );
+//echo '<br>made alt dir';
+if( file_exists( $spmybp_setup_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_setup_file_org );
+spmy_bowpp_write_file( $spmybp_setup_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_published_posts_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_published_posts_file_org );
+spmy_bowpp_write_file( $spmybp_published_posts_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_published_pages_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_published_pages_file_org );
+spmy_bowpp_write_file( $spmybp_published_pages_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_setup_seopost_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_setup_seopost_file_org );
+spmy_bowpp_write_file( $spmybp_setup_seopost_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_setup_seopage_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_setup_seopage_file_org );
+spmy_bowpp_write_file( $spmybp_setup_seopage_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_post_scroll_data_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_post_scroll_data_file_org );
+spmy_bowpp_write_file( $spmybp_post_scroll_data_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_post_scroll_data_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_post_scroll_data_file_org );
+spmy_bowpp_write_file( $spmybp_post_scroll_data_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_page_scroll_data_file_org) ) {
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_page_scroll_data_file_org );
+spmy_bowpp_write_file( $spmybp_page_scroll_data_file, $spmybp_tempstr );
+}
+if( file_exists( $spmybp_setup_file ) ) {
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
+	if( strlen( $spmybp_tmpstr ) > 2 ){
+	$spmybp_data_str = unserialize( $spmybp_tmpstr);
+	$spmybp_counter = $spmybp_data_str[0];
+	$spmybp_page_counter = $spmybp_data_str[1];
+	$spmybp_posts = $spmybp_data_str[2];
+	$spmybp_pages = $spmybp_data_str[3];
+	}
+}
+for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){
+$spmybp_filename_tmp1 = dirname(__FILE__) .'/mybotmsg'.$spmybp_i.'.txt'; 
+$spmybp_filename_tmp2 = $spmybp_datadiralt .'/mybotmsg'.$spmybp_i.'.txt';
+if( file_exists($spmybp_filename_tmp1) ){
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_filename_tmp1 );
+spmy_bowpp_write_file( $spmybp_filename_tmp2, $spmybp_tempstr );
+}
+$spmybp_filename_tmp_html1 = dirname(__FILE__) .'/seopostmsg'.$spmybp_i.'.html';
+$spmybp_filename_tmp_html2 = $spmybp_datadiralt.'/seopostmsg'.$spmybp_i.'.html';
+if( file_exists($spmybp_filename_tmp_html1) ){
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_filename_tmp_html1 );
+spmy_bowpp_write_file( $spmybp_filename_tmp_html2, $spmybp_tempstr );
+}
+}
+for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++){
+$spmybp_page_filename_tmp1 = dirname(__FILE__) .'/mybotpagemsg'.$spmybp_i.'.txt';
+$spmybp_page_filename_tmp2 = $spmybp_datadiralt .'/mybotpagemsg'.$spmybp_i.'.txt';
+if( file_exists($spmybp_page_filename_tmp1) ){
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_page_filename_tmp1 );
+spmy_bowpp_write_file( $spmybp_page_filename_tmp2, $spmybp_tempstr );
+}
+$spmybp_page_filename_tmp_html1 = dirname(__FILE__) .'/seopagemsg'.$spmybp_i.'.html';
+$spmybp_page_filename_tmp_html2 = $spmybp_datadiralt .'/seopagemsg'.$spmybp_i.'.html';
+if( file_exists($spmybp_page_filename_tmp_html1) ){
+$spmybp_tempstr = spmy_bowpp_read_file( $spmybp_page_filename_tmp_html1 );
+spmy_bowpp_write_file( $spmybp_page_filename_tmp_html2, $spmybp_tempstr );
+}
+}
+
+} 
+//else {
+//echo '<br>alt dir exists';
+//}
+
+
+$spmybp_tmpstr = '';
+$spmybp_counter = 0;
+$spmybp_page_counter = 0;
+$spmybp_msg = '';
+unset( $spmybp_msg );
+$spmybp_filename = '';
+unset( $spmybp_filename );
+$spmybp_filename_html = '';
+unset( $spmybp_filename_html );
+$spmybp_page_msg = '';
+unset( $spmybp_page_msg );
+$spmybp_page_filename = '';
+unset( $spmybp_page_filename );
+$spmybp_page_filename = '';
+unset( $spmybp_page_filename_html );
+$spmybp_bottom_post_nos['publish'] = 0;
+$spmybp_pplist = '';
+$spmybp_ppplist = '';
+$spmybp_pageslist = '';
+$spmybp_post_offset = 0;
+
+$spmybp_postslist_sz = 0;
+$spmybp_pageslist_sz = 0;
 //if the setup file exists go read the contents
 //clearstatcache();
-if( file_exists( $spmy_setup_file ) ) {
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_setup_file );
-	if( strlen( $spmy_tmpstr ) > 2 ){
-	$spmy_data_str = unserialize( $spmy_tmpstr);
-	$spmy_counter = $spmy_data_str[0];
-	$spmy_page_counter = $spmy_data_str[1];
-	$spmy_posts = $spmy_data_str[2];
-	$spmy_pages = $spmy_data_str[3];
+if( file_exists( $spmybp_setup_file ) ) {
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
+	if( strlen( $spmybp_tmpstr ) > 2 ){
+	$spmybp_data_str = unserialize( $spmybp_tmpstr);
+	$spmybp_counter = $spmybp_data_str[0];
+	$spmybp_page_counter = $spmybp_data_str[1];
+	$spmybp_posts = $spmybp_data_str[2];
+	$spmybp_pages = $spmybp_data_str[3];
 	}
 } else {
-	$spmy_counter = 0; 
-	$spmy_data_str[0] = $spmy_counter ; 
-	$spmy_page_counter = 0;
-	$spmy_data_str[1] = $spmy_page_counter;
-	$spmy_posts = 'DONT';
-	$spmy_data_str[2] = $spmy_posts;
-	$spmy_pages = 'DONT';
-	$spmy_data_str[3] = $spmy_pages;
-	$spmy_tmpstr = serialize( $spmy_data_str );	
-	spmy_bowpp_write_file( $spmy_setup_file, $spmy_tmpstr );
+	$spmybp_counter = 0; 
+	$spmybp_data_str[0] = $spmybp_counter ; 
+	$spmybp_page_counter = 0;
+	$spmybp_data_str[1] = $spmybp_page_counter;
+	$spmybp_posts = 'DONT';
+	$spmybp_data_str[2] = $spmybp_posts;
+	$spmybp_pages = 'DONT';
+	$spmybp_data_str[3] = $spmybp_pages;
+	$spmybp_tmpstr = serialize( $spmybp_data_str );	
+	spmy_bowpp_write_file( $spmybp_setup_file, $spmybp_tmpstr );
 }
 
 //read in which post message affects SEO and should be in iframe
-if( file_exists( $spmy_setup_seopost_file )) {
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_setup_seopost_file );
-if( strlen( $spmy_tmpstr ) > 2 ){
-	$spmy_post_SEO = unserialize( $spmy_tmpstr);
+if( file_exists( $spmybp_setup_seopost_file )) {
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_seopost_file );
+if( strlen( $spmybp_tmpstr ) > 2 ){
+	$spmybp_post_SEO = unserialize( $spmybp_tmpstr);
 	}
 } else {
-for( $spmy_i=0; $spmy_i<4; $spmy_i++){
-$spmy_msg[ $spmy_i ] = '';
-$spmy_filename[ $spmy_i ] = dirname(__FILE__) .'/mybotmsg'.$spmy_i.'.txt';
-$spmy_filename_html[ $spmy_i ] = dirname(__FILE__) .'/seopostmsg'.$spmy_i.'.html';
-$spmy_post_SEO[$spmy_i][0] = 'NOT SEO';
-$spmy_post_SEO[$spmy_i][1] = 790; //width of message
-$spmy_post_SEO[$spmy_i][2] = 140; //height message
-$spmy_post_SEO[$spmy_i][3] = ''; //used base encode 64 of iframe code 
-$spmy_post_SEO[$spmy_i][4] = ''; //Home summany page
-$spmy_post_SEO[$spmy_i][5] = ''; //Category summary page
-$spmy_post_SEO[$spmy_i][6] = ''; //Archive summary page
-$spmy_post_SEO[$spmy_i][7] = ''; //Title of Message - so that you will remember what it is about months later
+for( $spmybp_i=0; $spmybp_i<4; $spmybp_i++){
+$spmybp_msg[ $spmybp_i ] = '';
+$spmybp_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotmsg'.$spmybp_i.'.txt';
+$spmybp_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopostmsg'.$spmybp_i.'.html';
+$spmybp_post_SEO[$spmybp_i][0] = 'NOT SEO';
+$spmybp_post_SEO[$spmybp_i][1] = 790; //width of message
+$spmybp_post_SEO[$spmybp_i][2] = 140; //height message
+$spmybp_post_SEO[$spmybp_i][3] = ''; //used base encode 64 of iframe code 
+$spmybp_post_SEO[$spmybp_i][4] = ''; //Home summany page
+$spmybp_post_SEO[$spmybp_i][5] = ''; //Category summary page
+$spmybp_post_SEO[$spmybp_i][6] = ''; //Archive summary page
+$spmybp_post_SEO[$spmybp_i][7] = ''; //Title of Message - so that you will remember what it is about months later
 }
 }
 //read in which page message affects SEO and should be in iframe
-if( file_exists( $spmy_setup_seopage_file )){
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_setup_seopage_file );
-if( strlen( $spmy_tmpstr ) > 2 ){
-	$spmy_page_SEO = unserialize( $spmy_tmpstr);
+if( file_exists( $spmybp_setup_seopage_file )){
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_seopage_file );
+if( strlen( $spmybp_tmpstr ) > 2 ){
+	$spmybp_page_SEO = unserialize( $spmybp_tmpstr);
 	}
 }  else {
-for( $spmy_i=0; $spmy_i<4; $spmy_i++){
-$spmy_msg[ $spmy_i ] = '';
-$spmy_filename[ $spmy_i ] = dirname(__FILE__) .'/mybotpagemsg'.$spmy_i.'.txt';
-$spmy_filename_html[ $spmy_i ] = dirname(__FILE__) .'/seopagemsg'.$spmy_i.'.html';
-$spmy_page_SEO[$spmy_i][0] = 'NOT SEO';
-$spmy_page_SEO[$spmy_i][1] = 790; //width of message
-$spmy_page_SEO[$spmy_i][2] = 140; //height of message
-$spmy_page_SEO[$spmy_i][3] = ''; //used base encode 64 of <iframe code >
-$spmy_page_SEO[$spmy_i][4] = ''; //Home summany page
-$spmy_page_SEO[$spmy_i][5] = ''; //Category summary page
-$spmy_page_SEO[$spmy_i][6] = ''; //Archive summary page
-$spmy_page_SEO[$spmy_i][7] = ''; //Title of Message - so that you will remember what it is months later
+for( $spmybp_i=0; $spmybp_i<4; $spmybp_i++){
+$spmybp_msg[ $spmybp_i ] = '';
+$spmybp_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotpagemsg'.$spmybp_i.'.txt';
+$spmybp_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopagemsg'.$spmybp_i.'.html';
+$spmybp_page_SEO[$spmybp_i][0] = 'NOT SEO';
+$spmybp_page_SEO[$spmybp_i][1] = 790; //width of message
+$spmybp_page_SEO[$spmybp_i][2] = 140; //height of message
+$spmybp_page_SEO[$spmybp_i][3] = ''; //used base encode 64 of <iframe code >
+$spmybp_page_SEO[$spmybp_i][4] = ''; //Home summany page
+$spmybp_page_SEO[$spmybp_i][5] = ''; //Category summary page
+$spmybp_page_SEO[$spmybp_i][6] = ''; //Archive summary page
+$spmybp_page_SEO[$spmybp_i][7] = ''; //Title of Message - so that you will remember what it is months later
 }
 }
 
 //check number of posts
-$spmy_bottom_post_count = wp_count_posts();
+$spmybp_bottom_post_count = wp_count_posts();
 $iz = 0 ;
-foreach ($spmy_bottom_post_count as $key => $value) {
-	$spmy_bottom_post_nos[$key] = $value ;
+foreach ($spmybp_bottom_post_count as $key => $value) {
+	$spmybp_bottom_post_nos[$key] = $value ;
 	$iz++;
 }	
-$spmy_bottom_post_count = NULL;
-unset( $spmy_bottom_post_count ); //clear memory
+$spmybp_bottom_post_count = NULL;
+unset( $spmybp_bottom_post_count ); //clear memory
 
 
 //posts settings
-$spmy_pplistflag = 'NoFile';
-if( file_exists( $spmy_published_posts_file ) && filesize( $spmy_published_posts_file ) > 6 ){
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_published_posts_file );
-$spmy_pplist = unserialize( $spmy_tmpstr );
-$spmy_pplistflag = 'FileExist';
+$spmybp_pplistflag = 'NoFile';
+if( file_exists( $spmybp_published_posts_file ) && filesize( $spmybp_published_posts_file ) > 6 ){
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_published_posts_file );
+$spmybp_pplist = unserialize( $spmybp_tmpstr );
+$spmybp_pplistflag = 'FileExist';
 }
 
-$args = array(  'post_status' => 'publish', 'posts_per_page' => $spmy_bottom_post_nos['publish'] );
-$spmy_postslist = get_posts( $args );
-$spmy_postslist_sz = count( $spmy_postslist );
+$args = array(  'post_status' => 'publish', 'posts_per_page' => $spmybp_bottom_post_nos['publish'] );
+$spmybp_postslist = get_posts( $args );
+$spmybp_postslist_sz = count( $spmybp_postslist );
 
-$spmy_i =0;
-$spmy_imax = 0 ;
+$spmybp_i =0;
+$spmybp_imax = 0 ;
 
 
-foreach( $spmy_postslist as $key => $post ) { //get the permalink and strip '/'
+foreach( $spmybp_postslist as $key => $post ) { //get the permalink and strip '/'
        setup_postdata($post); 
-	   $spmy_file_list[ $spmy_i ] = get_permalink();
-	   $spmy_pos = strrpos( $spmy_file_list[ $spmy_i ], '/' );
-	   $spmy_myfilename = substr($spmy_file_list[ $spmy_i ], 0, $spmy_pos );
-	   $spmy_pos = strrpos( $spmy_myfilename, '/' );
-	   $spmy_myfilename = substr($spmy_myfilename, ($spmy_pos+1) );
-	   $spmy_file_list[ $spmy_i ] = $spmy_myfilename ;
-	   $spmy_i++;
+	   $spmybp_file_list[ $spmybp_i ] = get_permalink();
+	   $spmybp_pos = strrpos( $spmybp_file_list[ $spmybp_i ], '/' );
+	   $spmybp_myfilename = substr($spmybp_file_list[ $spmybp_i ], 0, $spmybp_pos );
+	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
+	   $spmybp_myfilename = substr($spmybp_myfilename, ($spmybp_pos+1) );
+	   $spmybp_file_list[ $spmybp_i ] = $spmybp_myfilename ;
+	   $spmybp_i++;
 	  }
-	$spmy_imax = $spmy_i;
-	$spmy_file_listX = NULL;
-	unset( $spmy_file_listX );	
-	$spmy_file_listX = $spmy_pplist; 
-	$spmy_pplist = NULL;
-	unset( $spmy_pplist );
+	$spmybp_imax = $spmybp_i;
+	$spmybp_file_listX = NULL;
+	unset( $spmybp_file_listX );	
+	$spmybp_file_listX = $spmybp_pplist; 
+	$spmybp_pplist = NULL;
+	unset( $spmybp_pplist );
 	
-	for( $spmy_i=0; $spmy_i<$spmy_imax; $spmy_i++){
-	if( !isset( $spmy_file_listX[ $spmy_file_list[ $spmy_i ] ] ) ) { 
-		$spmy_pplist[ $spmy_file_list[ $spmy_i ] ] = 'Checked';
+	for( $spmybp_i=0; $spmybp_i<$spmybp_imax; $spmybp_i++){
+	if( !isset( $spmybp_file_listX[ $spmybp_file_list[ $spmybp_i ] ] ) ) { 
+		$spmybp_pplist[ $spmybp_file_list[ $spmybp_i ] ] = 'Checked';
 		} else {
-		$spmy_pplist[ $spmy_file_list[ $spmy_i ] ]= $spmy_file_listX[ $spmy_file_list[ $spmy_i ] ];
+		$spmybp_pplist[ $spmybp_file_list[ $spmybp_i ] ]= $spmybp_file_listX[ $spmybp_file_list[ $spmybp_i ] ];
 			}
 	}
 wp_reset_postdata();
 //save table
-$spmy_tmpstr = serialize( $spmy_pplist ) ;
-spmy_bowpp_write_file( $spmy_published_posts_file, $spmy_tmpstr );
+$spmybp_tmpstr = serialize( $spmybp_pplist ) ;
+spmy_bowpp_write_file( $spmybp_published_posts_file, $spmybp_tmpstr );
 
 
 
 //pages settings
-$spmy_ppplistflag = 'NoFile';
-if( file_exists( $spmy_published_pages_file ) && filesize( $spmy_published_pages_file ) > 6 ){
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_published_pages_file );
-$spmy_ppplist = '';
-$spmy_ppplist = unserialize( $spmy_tmpstr );
-$spmy_ppplistflag = 'FileExist';
+$spmybp_ppplistflag = 'NoFile';
+if( file_exists( $spmybp_published_pages_file ) && filesize( $spmybp_published_pages_file ) > 6 ){
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_published_pages_file );
+$spmybp_ppplist = '';
+$spmybp_ppplist = unserialize( $spmybp_tmpstr );
+$spmybp_ppplistflag = 'FileExist';
 }
 $args = array(  'post_type' => 'page' );
-$spmy_pageslist = get_pages( $args );
-$spmy_pageslist_sz = count( $spmy_pageslist );
+$spmybp_pageslist = get_pages( $args );
+$spmybp_pageslist_sz = count( $spmybp_pageslist );
 
-$spmy_i =0;
-$spmy_imax = 0 ;
+$spmybp_i =0;
+$spmybp_imax = 0 ;
 
-$spmy_file_listPP ='';
-unset( $spmy_file_listPP );
-foreach( $spmy_pageslist as $key => $post ) { //get the permalink and strip '/'
+$spmybp_file_listPP ='';
+unset( $spmybp_file_listPP );
+foreach( $spmybp_pageslist as $key => $post ) { //get the permalink and strip '/'
        setup_postdata($post); 
-	   $spmy_file_listPP[ $spmy_i ] = get_permalink();
-	   $spmy_pos = strrpos( $spmy_file_listPP[ $spmy_i ], '/' );
-	   $spmy_myfilename = substr($spmy_file_listPP[ $spmy_i ], 0, $spmy_pos );
-	   $spmy_pos = strrpos( $spmy_myfilename, '/' );
-	   $spmy_myfilename = substr($spmy_myfilename, ($spmy_pos+1) );
-	   $spmy_file_listPP[ $spmy_i ] = $spmy_myfilename ;
-	   $spmy_i++;
+	   $spmybp_file_listPP[ $spmybp_i ] = get_permalink();
+	   $spmybp_pos = strrpos( $spmybp_file_listPP[ $spmybp_i ], '/' );
+	   $spmybp_myfilename = substr($spmybp_file_listPP[ $spmybp_i ], 0, $spmybp_pos );
+	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
+	   $spmybp_myfilename = substr($spmybp_myfilename, ($spmybp_pos+1) );
+	   $spmybp_file_listPP[ $spmybp_i ] = $spmybp_myfilename ;
+	   $spmybp_i++;
 	  }
-	$spmy_imax = $spmy_i;
-	$spmy_file_listX = NULL;
-	unset( $spmy_file_listX );	
-	$spmy_file_listX = $spmy_ppplist; 
-	$spmy_ppplist = NULL;
-	unset( $spmy_ppplist );
+	$spmybp_imax = $spmybp_i;
+	$spmybp_file_listX = NULL;
+	unset( $spmybp_file_listX );	
+	$spmybp_file_listX = $spmybp_ppplist; 
+	$spmybp_ppplist = NULL;
+	unset( $spmybp_ppplist );
 	
-	for( $spmy_i=0; $spmy_i<$spmy_imax; $spmy_i++){
-	if( !isset( $spmy_file_listX[ $spmy_file_listPP[ $spmy_i ] ] ) ) { 
-		$spmy_ppplist[ $spmy_file_listPP[ $spmy_i ] ] = 'Checked';
+	for( $spmybp_i=0; $spmybp_i<$spmybp_imax; $spmybp_i++){
+	if( !isset( $spmybp_file_listX[ $spmybp_file_listPP[ $spmybp_i ] ] ) ) { 
+		$spmybp_ppplist[ $spmybp_file_listPP[ $spmybp_i ] ] = 'Checked';
 		} else {
-		$spmy_ppplist[ $spmy_file_listPP[ $spmy_i ] ]= $spmy_file_listX[ $spmy_file_listPP[ $spmy_i ] ];
+		$spmybp_ppplist[ $spmybp_file_listPP[ $spmybp_i ] ]= $spmybp_file_listX[ $spmybp_file_listPP[ $spmybp_i ] ];
 			}
 	}
 wp_reset_postdata();
 //save table
-$spmy_tmpstr = serialize( $spmy_ppplist ) ;
-spmy_bowpp_write_file( $spmy_published_pages_file, $spmy_tmpstr );
+$spmybp_tmpstr = serialize( $spmybp_ppplist ) ;
+spmy_bowpp_write_file( $spmybp_published_pages_file, $spmybp_tmpstr );
 
 
 
 
 if( isset( $_POST['spmy_diapla_all'] )  &&  $_POST['spmy_diapla_all'] == 'Display On All Posts' ){
-	$spmy_maxi = count( $spmy_pplist );
-	foreach( $spmy_pplist as $key => &$value ){
-		$spmy_pplist[$key] = 'Checked';
+	$spmybp_maxi = count( $spmybp_pplist );
+	foreach( $spmybp_pplist as $key => &$value ){
+		$spmybp_pplist[$key] = 'Checked';
 	}
-	$spmy_tmpstr = serialize( $spmy_pplist );	
-	spmy_bowpp_write_file( $spmy_published_posts_file, $spmy_tmpstr );
+	$spmybp_tmpstr = serialize( $spmybp_pplist );	
+	spmy_bowpp_write_file( $spmybp_published_posts_file, $spmybp_tmpstr );
 }
 
 
 if( isset( $_POST['spmy_check_posts'] )  &&  $_POST['spmy_check_posts'] == 'Change Post Display' ){
-	$spmy_maxi = count( $spmy_pplist );
-	foreach( $spmy_pplist as $key => &$value ){
+	$spmybp_maxi = count( $spmybp_pplist );
+	foreach( $spmybp_pplist as $key => &$value ){
 		if( isset($_POST['spmy_input_pplist'][$key]) && $_POST['spmy_input_pplist'][$key] != '' ){
-		$spmy_pplist[$key] = $_POST['spmy_input_pplist'][$key] ;
+		$spmybp_pplist[$key] = $_POST['spmy_input_pplist'][$key] ;
 		} else {
-		$spmy_pplist[$key] = 'NotChecked';
+		$spmybp_pplist[$key] = 'NotChecked';
 		}
 	}
-	$spmy_tmpstr = serialize( $spmy_pplist );	
-	spmy_bowpp_write_file( $spmy_published_posts_file, $spmy_tmpstr );
+	$spmybp_tmpstr = serialize( $spmybp_pplist );	
+	spmy_bowpp_write_file( $spmybp_published_posts_file, $spmybp_tmpstr );
 } 
 
 
 if( isset( $_POST['spmy_diaplay_all'] )  &&  $_POST['spmy_diaplay_all'] == 'Display On All Pages' ){
-	$spmy_maxi = count( $spmy_ppplist );
-	foreach( $spmy_ppplist as $key => &$value ){
-		$spmy_ppplist[$key] = 'Checked';
+	$spmybp_maxi = count( $spmybp_ppplist );
+	foreach( $spmybp_ppplist as $key => &$value ){
+		$spmybp_ppplist[$key] = 'Checked';
 	}
-	$spmy_tmpstr = serialize( $spmy_ppplist );	
-	spmy_bowpp_write_file( $spmy_published_pages_file, $spmy_tmpstr );
+	$spmybp_tmpstr = serialize( $spmybp_ppplist );	
+	spmy_bowpp_write_file( $spmybp_published_pages_file, $spmybp_tmpstr );
 }
 
 if( isset( $_POST['spmy_check_pages'] )  &&  $_POST['spmy_check_pages'] == 'Change Page Display' ){
-	$spmy_maxi = count( $spmy_ppplist );
-	foreach( $spmy_ppplist as $key => &$value ){
+	$spmybp_maxi = count( $spmybp_ppplist );
+	foreach( $spmybp_ppplist as $key => &$value ){
 		if( isset($_POST['spmy_input_ppplist'][$key]) && $_POST['spmy_input_ppplist'][$key] != '' ){
-		$spmy_ppplist[$key] = $_POST['spmy_input_ppplist'][$key] ;
+		$spmybp_ppplist[$key] = $_POST['spmy_input_ppplist'][$key] ;
 		} else {
-		$spmy_ppplist[$key] = 'NotChecked';
+		$spmybp_ppplist[$key] = 'NotChecked';
 		}
 	}
-	$spmy_tmpstr = serialize( $spmy_ppplist );	
-	spmy_bowpp_write_file( $spmy_published_pages_file, $spmy_tmpstr );
+	$spmybp_tmpstr = serialize( $spmybp_ppplist );	
+	spmy_bowpp_write_file( $spmybp_published_pages_file, $spmybp_tmpstr );
 } 
 
 
@@ -356,79 +457,79 @@ if( isset( $_POST['spmy_check_pages'] )  &&  $_POST['spmy_check_pages'] == 'Chan
 if( isset( $_POST['spmy_type_of_display'] ) ){
 if( $_POST['spmy_type_of_display'] == 'Set Display' ){
 	if( isset( $_POST['spmy_display_posts'] ) ) {
-	$spmy_data_str[2] = $_POST['spmy_display_posts'];
-	$spmy_posts = $spmy_data_str[2] ;
+	$spmybp_data_str[2] = $_POST['spmy_display_posts'];
+	$spmybp_posts = $spmybp_data_str[2] ;
 	}
 	if( isset( $_POST['spmy_display_pages'] ) ) {
-	$spmy_data_str[3] = $_POST['spmy_display_pages'] ;
-	$spmy_pages = $spmy_data_str[3] ;
+	$spmybp_data_str[3] = $_POST['spmy_display_pages'] ;
+	$spmybp_pages = $spmybp_data_str[3] ;
 	}
-	$spmy_tmpstr = serialize( $spmy_data_str );	
-	spmy_bowpp_write_file( $spmy_setup_file, $spmy_tmpstr );
+	$spmybp_tmpstr = serialize( $spmybp_data_str );	
+	spmy_bowpp_write_file( $spmybp_setup_file, $spmybp_tmpstr );
 } 
 } 
 
 
-if( $spmy_posts == 'DISPLAY' ){
-$spmy_post_button = 'checked="checked"' ;
-$spmy_post_button1 = '' ;
+if( $spmybp_posts == 'DISPLAY' ){
+$spmybp_post_button = 'checked="checked"' ;
+$spmybp_post_button1 = '' ;
 } else {
-$spmy_post_button = '' ;
-$spmy_post_button1 = 'checked="checked"' ;
+$spmybp_post_button = '' ;
+$spmybp_post_button1 = 'checked="checked"' ;
 }
 
-if( $spmy_pages == 'DISPLAY' ){
-$spmy_page_button = 'checked="checked"' ;
-$spmy_page_button1 = '' ;
+if( $spmybp_pages == 'DISPLAY' ){
+$spmybp_page_button = 'checked="checked"' ;
+$spmybp_page_button1 = '' ;
 } else {
-$spmy_page_button = '' ;
-$spmy_page_button1 = 'checked="checked"' ;
+$spmybp_page_button = '' ;
+$spmybp_page_button1 = 'checked="checked"' ;
 }		
 
 if( isset( $_POST['spmy_total_messages'] )) {
 if( $_POST['spmy_total_messages'] == 'Submit' ){
 	//echo '<br>Yes Submit detected';
 	if( isset( $_POST['spmy_message_counter'] ) ) {
-	$spmy_counter = trim( $_POST['spmy_message_counter'] )*1;
-	$spmy_data_str[0] = $spmy_counter;
+	$spmybp_counter = trim( $_POST['spmy_message_counter'] )*1;
+	$spmybp_data_str[0] = $spmybp_counter;
 	}
 	if( isset( $_POST['spmy_message_page_counter'] ) ) {
-	$spmy_page_counter = trim( $_POST['spmy_message_page_counter'] )*1;
-	$spmy_data_str[1] = $spmy_page_counter;
+	$spmybp_page_counter = trim( $_POST['spmy_message_page_counter'] )*1;
+	$spmybp_data_str[1] = $spmybp_page_counter;
 	}
-	$spmy_tmpstr = serialize( $spmy_data_str );	
-	spmy_bowpp_write_file( $spmy_setup_file, $spmy_tmpstr );
+	$spmybp_tmpstr = serialize( $spmybp_data_str );	
+	spmy_bowpp_write_file( $spmybp_setup_file, $spmybp_tmpstr );
 } 
 }		
 
 //initialise variables
-for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++){
-$spmy_msg[ $spmy_i ] = '';
-$spmy_filename[ $spmy_i ] = dirname(__FILE__) .'/mybotmsg'.$spmy_i.'.txt';
-$spmy_filename_html[ $spmy_i ] = dirname(__FILE__) .'/seopostmsg'.$spmy_i.'.html';
+for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){
+$spmybp_msg[ $spmybp_i ] = '';
+$spmybp_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotmsg'.$spmybp_i.'.txt';
+$spmybp_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopostmsg'.$spmybp_i.'.html';
 }
 
-for( $spmy_i=0; $spmy_i<$spmy_page_counter; $spmy_i++){
-$spmy_page_msg[ $spmy_i ] = '';
-$spmy_page_filename[ $spmy_i ] = dirname(__FILE__) .'/mybotpagemsg'.$spmy_i.'.txt';
-$spmy_page_filename_html[ $spmy_i ] = dirname(__FILE__) .'/seopagemsg'.$spmy_i.'.html';
+for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++){
+$spmybp_page_msg[ $spmybp_i ] = '';
+$spmybp_page_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotpagemsg'.$spmybp_i.'.txt';
+$spmybp_page_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopagemsg'.$spmybp_i.'.html';
 }
 
-$spmy_tmpstr = '';
-for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++){	
-if( file_exists( $spmy_filename[ $spmy_i] )){ 
+$spmybp_tmpstr = '';
+for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){	
+if( file_exists( $spmybp_filename[ $spmybp_i] )){ 
 	//if file exist
-	if( filesize( $spmy_filename[ $spmy_i ] ) > 0 ){
-		$spmy_msg[ $spmy_i ] = spmy_bowpp_read_file( $spmy_filename[ $spmy_i] );
+	if( filesize( $spmybp_filename[ $spmybp_i ] ) > 0 ){
+		$spmybp_msg[ $spmybp_i ] = spmy_bowpp_read_file( $spmybp_filename[ $spmybp_i] );
 		}
 	} 
 } 	
-$spmy_tmpstr = '';
-for( $spmy_i=0; $spmy_i<$spmy_page_counter; $spmy_i++){	
-if( file_exists( $spmy_page_filename[ $spmy_i] )){ 
+$spmybp_tmpstr = '';
+for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++){	
+if( file_exists( $spmybp_page_filename[ $spmybp_i] )){ 
 	//if file exist
-	if( filesize( $spmy_page_filename[ $spmy_i ] ) > 0 ){
-		$spmy_page_msg[ $spmy_i ] = spmy_bowpp_read_file( $spmy_page_filename[ $spmy_i] );
+	if( filesize( $spmybp_page_filename[ $spmybp_i ] ) > 0 ){
+		$spmybp_page_msg[ $spmybp_i ] = spmy_bowpp_read_file( $spmybp_page_filename[ $spmybp_i] );
 		}
 	} 
 } 	
@@ -436,83 +537,83 @@ if( file_exists( $spmy_page_filename[ $spmy_i] )){
 
 if( isset( $_POST['spmy_bottom_messages'] )){
 if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
-	for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++) {
-		if( isset( $_POST['spmy_txtarea'][$spmy_i] ) ) {
-			$spmy_tmpstr =  stripslashes( trim( $_POST['spmy_txtarea'][$spmy_i] ) );
-			$spmy_msg[ $spmy_i ] = $spmy_tmpstr;
-			spmy_bowpp_write_file( $spmy_filename[ $spmy_i ], $spmy_msg[ $spmy_i ] );
-			$spmy_tmpstr_html = '<html><head></head><body>'."\r\n".$spmy_tmpstr."\r\n".'</body></html>';
-			spmy_bowpp_write_file( $spmy_filename_html[ $spmy_i ], $spmy_tmpstr_html );
+	for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++) {
+		if( isset( $_POST['spmy_txtarea'][$spmybp_i] ) ) {
+			$spmybp_tmpstr =  stripslashes( trim( $_POST['spmy_txtarea'][$spmybp_i] ) );
+			$spmybp_msg[ $spmybp_i ] = $spmybp_tmpstr;
+			spmy_bowpp_write_file( $spmybp_filename[ $spmybp_i ], $spmybp_msg[ $spmybp_i ] );
+			$spmybp_tmpstr_html = '<html><head></head><body>'."\r\n".$spmybp_tmpstr."\r\n".'</body></html>';
+			spmy_bowpp_write_file( $spmybp_filename_html[ $spmybp_i ], $spmybp_tmpstr_html );
 			}
 	}
 }
 
 
-	for( $spmy_i=0; $spmy_i<$spmy_counter; $spmy_i++) { 
-		if( isset( $_POST['spmy_ppost_SEO'][$spmy_i] ) ) {
-			$spmy_post_SEO[$spmy_i][0] =  $_POST['spmy_ppost_SEO'][$spmy_i] ;
+	for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++) { 
+		if( isset( $_POST['spmy_ppost_SEO'][$spmybp_i] ) ) {
+			$spmybp_post_SEO[$spmybp_i][0] =  $_POST['spmy_ppost_SEO'][$spmybp_i] ;
 			}
-		if( isset( $_POST['spmy_ppost_width'][$spmy_i] ) ) {
-			$spmy_post_SEO[$spmy_i][1] =  $_POST['spmy_ppost_width'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppost_width'][$spmybp_i] ) ) {
+			$spmybp_post_SEO[$spmybp_i][1] =  $_POST['spmy_ppost_width'][$spmybp_i] ;
 			}	
-		if( isset( $_POST['spmy_ppost_height'][$spmy_i] ) ) {
-			$spmy_post_SEO[$spmy_i][2] =  $_POST['spmy_ppost_height'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppost_height'][$spmybp_i] ) ) {
+			$spmybp_post_SEO[$spmybp_i][2] =  $_POST['spmy_ppost_height'][$spmybp_i] ;
 			}	
-		if( isset( $_POST['spmy_ppost_HOME'][$spmy_i] ) ) {
-			$spmy_post_SEO[$spmy_i][4] =  $_POST['spmy_ppost_HOME'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppost_HOME'][$spmybp_i] ) ) {
+			$spmybp_post_SEO[$spmybp_i][4] =  $_POST['spmy_ppost_HOME'][$spmybp_i] ;
 			}
-		if( isset( $_POST['spmy_ppost_CAT'][$spmy_i] ) ) {	
-			$spmy_post_SEO[$spmy_i][5] =  $_POST['spmy_ppost_CAT'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppost_CAT'][$spmybp_i] ) ) {	
+			$spmybp_post_SEO[$spmybp_i][5] =  $_POST['spmy_ppost_CAT'][$spmybp_i] ;
 			}
-		if( isset( $_POST['spmy_ppost_ARC'][$spmy_i] ) ) {	
-			$spmy_post_SEO[$spmy_i][6] =  $_POST['spmy_ppost_ARC'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppost_ARC'][$spmybp_i] ) ) {	
+			$spmybp_post_SEO[$spmybp_i][6] =  $_POST['spmy_ppost_ARC'][$spmybp_i] ;
 			}
-		if( isset( $_POST['spmy_ppost_TITLE'][$spmy_i] ) ) {
-		$spmy_post_SEO[$spmy_i][7] =  trim($_POST['spmy_ppost_TITLE'][$spmy_i]) ;	//version 1.02 add title
+		if( isset( $_POST['spmy_ppost_TITLE'][$spmybp_i] ) ) {
+		$spmybp_post_SEO[$spmybp_i][7] =  trim($_POST['spmy_ppost_TITLE'][$spmybp_i]) ;	//version 1.02 add title
 		}
-	if( $spmy_post_SEO[$spmy_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
+	if( $spmybp_post_SEO[$spmybp_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
-		$spmy_tempstr = base64_encode ( '<iframe src="'.plugins_url( 'seopostmsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_post_SEO[$spmy_i][1].'" height="'.$spmy_post_SEO[$spmy_i][2].'"></iframe>' ) ; 
-		$spmy_post_SEO[$spmy_i][3] = $spmy_tempstr;
+		$spmybp_tempstr = base64_encode ( '<iframe src="'.plugins_url( 'seopostmsg'.$spmybp_i.'.html' , __FILE__ ) .'" width="'.$spmybp_post_SEO[$spmybp_i][1].'" height="'.$spmybp_post_SEO[$spmybp_i][2].'"></iframe>' ) ; 
+		$spmybp_post_SEO[$spmybp_i][3] = $spmybp_tempstr;
 		}
 	}	
-	spmy_bowpp_write_file( $spmy_setup_seopost_file, serialize( $spmy_post_SEO ) );
+	spmy_bowpp_write_file( $spmybp_setup_seopost_file, serialize( $spmybp_post_SEO ) );
 } 
 
 
 if( isset( $_POST['spmy_bottom_page_messages'] ) ){
 if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
-	for( $spmy_i=0; $spmy_i<$spmy_page_counter; $spmy_i++) {
-	if( isset( $_POST['spmy_page_txtarea'][$spmy_i] ) ) {
-		$spmy_tmpstr =  stripslashes( trim( $_POST['spmy_page_txtarea'][$spmy_i] ) );
-		$spmy_page_msg[ $spmy_i ] = $spmy_tmpstr;
-		spmy_bowpp_write_file( $spmy_page_filename[ $spmy_i ], $spmy_page_msg[ $spmy_i ] );
-		$spmy_tmpstr_html = '<html><head></head><body>'."\r\n".$spmy_tmpstr."\r\n".'</body></html>';
-		spmy_bowpp_write_file( $spmy_page_filename_html[ $spmy_i ], $spmy_tmpstr_html );
+	for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++) {
+	if( isset( $_POST['spmy_page_txtarea'][$spmybp_i] ) ) {
+		$spmybp_tmpstr =  stripslashes( trim( $_POST['spmy_page_txtarea'][$spmybp_i] ) );
+		$spmybp_page_msg[ $spmybp_i ] = $spmybp_tmpstr;
+		spmy_bowpp_write_file( $spmybp_page_filename[ $spmybp_i ], $spmybp_page_msg[ $spmybp_i ] );
+		$spmybp_tmpstr_html = '<html><head></head><body>'."\r\n".$spmybp_tmpstr."\r\n".'</body></html>';
+		spmy_bowpp_write_file( $spmybp_page_filename_html[ $spmybp_i ], $spmybp_tmpstr_html );
 		}
 	}
-	for( $spmy_i=0; $spmy_i<$spmy_page_counter; $spmy_i++) {
-		if( isset( $_POST['spmy_ppage_SEO'][$spmy_i] ) ) {
-			$spmy_page_SEO[$spmy_i][0] =  $_POST['spmy_ppage_SEO'][$spmy_i] ;
+	for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++) {
+		if( isset( $_POST['spmy_ppage_SEO'][$spmybp_i] ) ) {
+			$spmybp_page_SEO[$spmybp_i][0] =  $_POST['spmy_ppage_SEO'][$spmybp_i] ;
 			}
-		if( isset( $_POST['spmy_ppage_width'][$spmy_i] ) ) {
-			$spmy_page_SEO[$spmy_i][1] =  $_POST['spmy_ppage_width'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppage_width'][$spmybp_i] ) ) {
+			$spmybp_page_SEO[$spmybp_i][1] =  $_POST['spmy_ppage_width'][$spmybp_i] ;
 			}
-		if( isset( $_POST['spmy_ppage_height'][$spmy_i] ) ) {
-			$spmy_page_SEO[$spmy_i][2] =  $_POST['spmy_ppage_height'][$spmy_i] ;
+		if( isset( $_POST['spmy_ppage_height'][$spmybp_i] ) ) {
+			$spmybp_page_SEO[$spmybp_i][2] =  $_POST['spmy_ppage_height'][$spmybp_i] ;
 			}	
-		if( isset( $_POST['spmy_ppage_TITLE'][$spmy_i] ) ) {	
-		$spmy_page_SEO[$spmy_i][7] =  trim($_POST['spmy_ppage_TITLE'][$spmy_i]) ;
+		if( isset( $_POST['spmy_ppage_TITLE'][$spmybp_i] ) ) {	
+		$spmybp_page_SEO[$spmybp_i][7] =  trim($_POST['spmy_ppage_TITLE'][$spmybp_i]) ;
 		}
-	if( $spmy_page_SEO[$spmy_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
+	if( $spmybp_page_SEO[$spmybp_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
-		$spmy_tempstr = base64_encode ( '<div width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'"><iframe src="'.plugins_url( 'seopagemsg'.$spmy_i.'.html' , __FILE__ ) .'" width="'.$spmy_page_SEO[$spmy_i][1].'" height="'.$spmy_page_SEO[$spmy_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
-		$spmy_page_SEO[$spmy_i][3] = $spmy_tempstr;
+		$spmybp_tempstr = base64_encode ( '<div width="'.$spmybp_page_SEO[$spmybp_i][1].'" height="'.$spmybp_page_SEO[$spmybp_i][2].'"><iframe src="'.plugins_url( 'seopagemsg'.$spmybp_i.'.html' , __FILE__ ) .'" width="'.$spmybp_page_SEO[$spmybp_i][1].'" height="'.$spmybp_page_SEO[$spmybp_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
+		$spmybp_page_SEO[$spmybp_i][3] = $spmybp_tempstr;
 		}
 
 			
 	}	
-	spmy_bowpp_write_file( $spmy_setup_seopage_file, serialize( $spmy_page_SEO ) );	
+	spmy_bowpp_write_file( $spmybp_setup_seopage_file, serialize( $spmybp_page_SEO ) );	
 } 
 }
 
@@ -523,7 +624,7 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 <div class="wrap">
 <?php
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.07 [20150401]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.08 [20150404]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
@@ -540,8 +641,8 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Set up number of messages to be placed at the bottom of every post and page.</span></h2>
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <table>
-<tr><td>Number of messages at bottom of a post : </td><td><input type="text" size="10" name="spmy_message_counter" value="<?php echo $spmy_counter; ?>" ></td></tr>
-<tr><td>Number of messages at bottom of a page : </td><td><input type="text" size="10" name="spmy_message_page_counter" value="<?php echo $spmy_page_counter; ?>" ></td></tr>
+<tr><td>Number of messages at bottom of a post : </td><td><input type="text" size="10" name="spmy_message_counter" value="<?php echo $spmybp_counter; ?>" ></td></tr>
+<tr><td>Number of messages at bottom of a page : </td><td><input type="text" size="10" name="spmy_message_page_counter" value="<?php echo $spmybp_page_counter; ?>" ></td></tr>
 </table>
 <input type="submit" name='spmy_total_messages' value="Submit" >
 </form>
@@ -550,8 +651,8 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <table>
-<tr><td>Display at Bottom of Posts: </td><td><input type="radio" <?php echo $spmy_post_button; ?> name="spmy_display_posts" value="DISPLAY">Display</td><td><input type="radio" <?php echo $spmy_post_button1; ?> name="spmy_display_posts" value="DONT">Don't Display</td></tr>
-<tr><td>Display at Bottom of Pages: </td><td><input type="radio" <?php echo $spmy_page_button; ?> name="spmy_display_pages" value="DISPLAY">Display</td><td><input type="radio" <?php echo $spmy_page_button1; ?> name="spmy_display_pages" value="DONT">Don't Display</td></tr>
+<tr><td>Display at Bottom of Posts: </td><td><input type="radio" <?php echo $spmybp_post_button; ?> name="spmy_display_posts" value="DISPLAY">Display</td><td><input type="radio" <?php echo $spmybp_post_button1; ?> name="spmy_display_posts" value="DONT">Don't Display</td></tr>
+<tr><td>Display at Bottom of Pages: </td><td><input type="radio" <?php echo $spmybp_page_button; ?> name="spmy_display_pages" value="DISPLAY">Display</td><td><input type="radio" <?php echo $spmybp_page_button1; ?> name="spmy_display_pages" value="DONT">Don't Display</td></tr>
 </table>
 <input type="submit" name='spmy_type_of_display' value="Set Display" >
 </form>
@@ -564,59 +665,59 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <table>
 <?php 
-$spmy_defcnt = count( $samplemsg );
-if( $spmy_counter < $spmy_defcnt ){
-$spmy_loop_counter = $spmy_defcnt;
+$spmybp_defcnt = count( $samplemsg );
+if( $spmybp_counter < $spmybp_defcnt ){
+$spmybp_loop_counter = $spmybp_defcnt;
 } else {
-$spmy_loop_counter = $spmy_counter;
+$spmybp_loop_counter = $spmybp_counter;
 }
-for( $spmy_i=0; $spmy_i<$spmy_loop_counter; $spmy_i++) {
-$spmy_j= $spmy_i + 1;
-if( $spmy_i < $spmy_defcnt ){
-if( $spmy_i == 1 ){
-$spmy_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmy_i].'</textarea>';
-$spmy_samplestr1 = 'Example of Message '.$spmy_j.': Facebook, Google+ & Twitter Like & Share Buttons. You can copy and paste without modification into Your Message Area';
-} else if( $spmy_i == 0 ){
-$spmy_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmy_i].'</textarea>';
-$spmy_samplestr1 = 'Example of Message '.$spmy_j.': An example Copyright Message with Google Authorship. You can replace any XXX...XXX with your own values or get your own authorship code from Goolge at <a target="_blank"  href="https://plus.google.com/authorship">https://plus.google.com/authorship</a>.'; 
-} if( $spmy_i == 2 ){
-$spmy_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmy_i].'</textarea>';
-$spmy_samplestr1 = 'Example of Message '.$spmy_j.': An example of Google Ads. You can replace any XXX...XXX with your own values or get your own Google code from Google AdSense.';
-}if( $spmy_i == 3 ){
-$spmy_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmy_i].'</textarea>';
-$spmy_samplestr1 = 'Example of Message '.$spmy_j.': A blank advert that shows your visitors that they can place their advertisements in this message area. Just copy and past it into your message area.';
+for( $spmybp_i=0; $spmybp_i<$spmybp_loop_counter; $spmybp_i++) {
+$spmybp_j= $spmybp_i + 1;
+if( $spmybp_i < $spmybp_defcnt ){
+if( $spmybp_i == 1 ){
+$spmybp_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmybp_i].'</textarea>';
+$spmybp_samplestr1 = 'Example of Message '.$spmybp_j.': Facebook, Google+ & Twitter Like & Share Buttons. You can copy and paste without modification into Your Message Area';
+} else if( $spmybp_i == 0 ){
+$spmybp_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmybp_i].'</textarea>';
+$spmybp_samplestr1 = 'Example of Message '.$spmybp_j.': An example Copyright Message with Google Authorship. You can replace any XXX...XXX with your own values or get your own authorship code from Goolge at <a target="_blank"  href="https://plus.google.com/authorship">https://plus.google.com/authorship</a>.'; 
+} if( $spmybp_i == 2 ){
+$spmybp_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmybp_i].'</textarea>';
+$spmybp_samplestr1 = 'Example of Message '.$spmybp_j.': An example of Google Ads. You can replace any XXX...XXX with your own values or get your own Google code from Google AdSense.';
+}if( $spmybp_i == 3 ){
+$spmybp_samplestr = '<textarea rows="10" cols="45">'.$samplemsg[ $spmybp_i].'</textarea>';
+$spmybp_samplestr1 = 'Example of Message '.$spmybp_j.': A blank advert that shows your visitors that they can place their advertisements in this message area. Just copy and past it into your message area.';
 }
 } else {
-$spmy_samplestr = '';
-$spmy_samplestr1 = ''; 
+$spmybp_samplestr = '';
+$spmybp_samplestr1 = ''; 
 }
 ?>
 <tr><td valign="bottom">
 <?php 
-if( $spmy_i < $spmy_counter ){
+if( $spmybp_i < $spmybp_counter ){
 $checkflag1 = '';
 $checkflag2 = '';
-if( $spmy_post_SEO[$spmy_i][0] == 'SEO' ){
+if( $spmybp_post_SEO[$spmybp_i][0] == 'SEO' ){
 $checkflag1 = 'checked';
 $checkflag2 = '';
-} else if( $spmy_post_SEO[$spmy_i][0] == 'NOT SEO') {
+} else if( $spmybp_post_SEO[$spmybp_i][0] == 'NOT SEO') {
 $checkflag1 = '';
 $checkflag2 = 'checked';
 } 
 
-if( $spmy_post_SEO[$spmy_i][4] == 'HOME' ){
+if( $spmybp_post_SEO[$spmybp_i][4] == 'HOME' ){
 $checkHOME = 'checked';
 } else {
 $checkHOME = '';
 }
 
-if( $spmy_post_SEO[$spmy_i][5] == 'CAT' ){
+if( $spmybp_post_SEO[$spmybp_i][5] == 'CAT' ){
 $checkCAT = 'checked';
 } else {
 $checkCAT = '';
 }
 
-if( $spmy_post_SEO[$spmy_i][6] == 'ARC' ){
+if( $spmybp_post_SEO[$spmybp_i][6] == 'ARC' ){
 $checkARC = 'checked';
 } else {
 $checkARC = '';
@@ -624,24 +725,24 @@ $checkARC = '';
 
 
 ?>
-<span style="color:blue">Your Message Area <?php echo $spmy_j; ?> [ AFFECTS SEO<input type="radio" name="spmy_ppost_SEO[<?php echo $spmy_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio"  name="spmy_ppost_SEO[<?php echo $spmy_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppost_width[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppost_height[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][2];?>"  >]
+<span style="color:blue">Your Message Area <?php echo $spmybp_j; ?> [ AFFECTS SEO<input type="radio" name="spmy_ppost_SEO[<?php echo $spmybp_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio"  name="spmy_ppost_SEO[<?php echo $spmybp_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppost_width[<?php echo $spmybp_i;?>]" value="<?php echo $spmybp_post_SEO[$spmybp_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppost_height[<?php echo $spmybp_i;?>]" value="<?php echo $spmybp_post_SEO[$spmybp_i][2];?>"  >]
 
 <br>Show in Summary of: Home Page
-<input type="checkbox" name="spmy_ppost_HOME[<?php echo $spmy_i;?>]" value="HOME"  <?php echo $checkHOME; ?> > Category Page
-<input type="checkbox" name="spmy_ppost_CAT[<?php echo $spmy_i;?>]" value="CAT"  <?php echo $checkCAT; ?> >Archive Page
-<input type="checkbox" name="spmy_ppost_ARC[<?php echo $spmy_i;?>]" value="ARC"  <?php echo $checkARC; ?> ></span>
-<br>Title of Message: <br><input type="text" name="spmy_ppost_TITLE[<?php echo $spmy_i;?>]" value="<?php echo $spmy_post_SEO[$spmy_i][7];?>"  size="80" >
+<input type="checkbox" name="spmy_ppost_HOME[<?php echo $spmybp_i;?>]" value="HOME"  <?php echo $checkHOME; ?> > Category Page
+<input type="checkbox" name="spmy_ppost_CAT[<?php echo $spmybp_i;?>]" value="CAT"  <?php echo $checkCAT; ?> >Archive Page
+<input type="checkbox" name="spmy_ppost_ARC[<?php echo $spmybp_i;?>]" value="ARC"  <?php echo $checkARC; ?> ></span>
+<br>Title of Message: <br><input type="text" name="spmy_ppost_TITLE[<?php echo $spmybp_i;?>]" value="<?php echo $spmybp_post_SEO[$spmybp_i][7];?>"  size="80" >
 <br>The Message:<br>
 <?php
 }
 ?>
-</td><td><span style="color:red"><?php echo $spmy_samplestr1; ?></span>
+</td><td><span style="color:red"><?php echo $spmybp_samplestr1; ?></span>
 </td></tr>
 <tr><td>
 <?php 
-if( $spmy_i < $spmy_counter ){
+if( $spmybp_i < $spmybp_counter ){
 ?>
-<textarea name="<?php echo 'spmy_txtarea['.$spmy_i.']'; ?>" rows="10" cols="80"><?php echo $spmy_msg[ $spmy_i ] ; ?></textarea></td>
+<textarea name="<?php echo 'spmy_txtarea['.$spmybp_i.']'; ?>" rows="10" cols="80"><?php echo $spmybp_msg[ $spmybp_i ] ; ?></textarea></td>
 <?php
 } else {
 ?>
@@ -649,14 +750,14 @@ if( $spmy_i < $spmy_counter ){
 <?php
 }
 ?>
-<td><?php echo $spmy_samplestr ; ?></td></tr>
+<td><?php echo $spmybp_samplestr ; ?></td></tr>
 <tr><td></td><td></td></tr>
 <?php 
 }
 ?>
 </table>
 <?php
-if( $spmy_counter > 0){
+if( $spmybp_counter > 0){
 ?>
 <input type="submit" name="spmy_bottom_messages" value="Save Post Messages" >
 <?php
@@ -673,25 +774,25 @@ if( $spmy_counter > 0){
 <table>
 <?php 
 
-for( $spmy_i=0; $spmy_i<$spmy_page_counter; $spmy_i++) {
-$spmy_j= $spmy_i + 1;
+for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++) {
+$spmybp_j= $spmybp_i + 1;
 
 ?>
 <tr><td valign="bottom">
 <?php 
-if( $spmy_i < $spmy_page_counter ){
+if( $spmybp_i < $spmybp_page_counter ){
 $checkflag1 = '';
 $checkflag2 = '';
-if( $spmy_page_SEO[$spmy_i][0] == 'SEO' ){
+if( $spmybp_page_SEO[$spmybp_i][0] == 'SEO' ){
 $checkflag1 = 'checked';
 $checkflag2 = '';
-} else if( $spmy_page_SEO[$spmy_i][0] == 'NOT SEO') {
+} else if( $spmybp_page_SEO[$spmybp_i][0] == 'NOT SEO') {
 $checkflag1 = '';
 $checkflag2 = 'checked';
 }
 ?>
-<span style="color:blue">Your Message Area <?php echo $spmy_j; ?> [ AFFECTS SEO<input type="radio"  name="spmy_ppage_SEO[<?php echo $spmy_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio" name="spmy_ppage_SEO[<?php echo $spmy_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppage_width[<?php echo $spmy_i;?>]" value="<?php echo $spmy_page_SEO[$spmy_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppage_height[<?php echo $spmy_i;?>]" value="<?php echo $spmy_page_SEO[$spmy_i][2];?>"  >]</span>
-<br>Title of Message: <br><input type="text" name="spmy_ppage_TITLE[<?php echo $spmy_i;?>]" value="<?php echo $spmy_page_SEO[$spmy_i][7];?>"  size="80" >
+<span style="color:blue">Your Message Area <?php echo $spmybp_j; ?> [ AFFECTS SEO<input type="radio"  name="spmy_ppage_SEO[<?php echo $spmybp_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio" name="spmy_ppage_SEO[<?php echo $spmybp_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppage_width[<?php echo $spmybp_i;?>]" value="<?php echo $spmybp_page_SEO[$spmybp_i][1];?>" > Height: <input type="text"  size="6" name="spmy_ppage_height[<?php echo $spmybp_i;?>]" value="<?php echo $spmybp_page_SEO[$spmybp_i][2];?>"  >]</span>
+<br>Title of Message: <br><input type="text" name="spmy_ppage_TITLE[<?php echo $spmybp_i;?>]" value="<?php echo $spmybp_page_SEO[$spmybp_i][7];?>"  size="80" >
 <br>The Message:<br>
 <?php
 }
@@ -699,9 +800,9 @@ $checkflag2 = 'checked';
 </td><td></td></tr>
 <tr><td>
 <?php 
-if( $spmy_i < $spmy_page_counter ){
+if( $spmybp_i < $spmybp_page_counter ){
 ?>
-<textarea name="<?php echo 'spmy_page_txtarea['.$spmy_i.']'; ?>" rows="10" cols="80"><?php echo $spmy_page_msg[ $spmy_i ] ; ?></textarea>
+<textarea name="<?php echo 'spmy_page_txtarea['.$spmybp_i.']'; ?>" rows="10" cols="80"><?php echo $spmybp_page_msg[ $spmybp_i ] ; ?></textarea>
 <?php
 }
 ?>
@@ -713,7 +814,7 @@ if( $spmy_i < $spmy_page_counter ){
 ?>
 </table>
 <?php
-if( $spmy_page_counter > 0){
+if( $spmybp_page_counter > 0){
 ?>
 <input type="submit" name="spmy_bottom_page_messages" value="Save Page Messages" >
 <?php
@@ -727,10 +828,10 @@ if( $spmy_page_counter > 0){
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Here you can adjust how the list of posts, as shown in the table below can adjusted.</span></h2>
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <table>
-<tr><td>Number of rows in posts display</td><td><input type="text" name='spmy_post_recordsi' value="<?php echo $spmy_post_rows; ?>" ></td></tr>
-<tr><td>Offset position of post in list of posts</td><td><input type="text" name='spmy_post_offseti' value="<?php echo $spmy_post_offset; ?>" ></td></tr>
-<tr><td>Number of rows in pages display</td><td><input type="text" name='spmy_page_recordsi' value="<?php echo $spmy_page_rows; ?>" ></td></tr>
-<tr><td>Offset position of page in list of pages</td><td><input type="text" name='spmy_page_offseti' value="<?php echo $spmy_page_offset; ?>" ></td></tr>
+<tr><td>Number of rows in posts display</td><td><input type="text" name='spmy_post_recordsi' value="<?php echo $spmybp_post_rows; ?>" ></td></tr>
+<tr><td>Offset position of post in list of posts</td><td><input type="text" name='spmy_post_offseti' value="<?php echo $spmybp_post_offset; ?>" ></td></tr>
+<tr><td>Number of rows in pages display</td><td><input type="text" name='spmy_page_recordsi' value="<?php echo $spmybp_page_rows; ?>" ></td></tr>
+<tr><td>Offset position of page in list of pages</td><td><input type="text" name='spmy_page_offseti' value="<?php echo $spmybp_page_offset; ?>" ></td></tr>
 <tr><td><input type="submit" name='spmy_display_data' value="Submit" ></td><td></td></tr>
 </table>
 </form>
@@ -746,22 +847,22 @@ if( $spmy_page_counter > 0){
 </form>
 <h1>OR</h1>
 
-<h2><span style="color:blue;font-size:16px;font-style:normal;">The table below shows the list of <?php echo $spmy_postslist_sz; ?> posts. Check posts that will display messages and uncheck posts that are not to show messages</span></h2>
+<h2><span style="color:blue;font-size:16px;font-style:normal;">The table below shows the list of <?php echo $spmybp_postslist_sz; ?> posts. Check posts that will display messages and uncheck posts that are not to show messages</span></h2>
 
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <input type="submit" name='spmy_check_posts' value="Change Post Display" >
 <div class="mydisplay">
 <table class="spmy_X">
 <?php
-$spmy_i=0;
-$spmy_pplist = NULL;
-unset( $spmy_pplist );
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_published_posts_file );
-$spmy_pplist = unserialize( $spmy_tmpstr );
+$spmybp_i=0;
+$spmybp_pplist = NULL;
+unset( $spmybp_pplist );
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_published_posts_file );
+$spmybp_pplist = unserialize( $spmybp_tmpstr );
 echo '<tr><th>Item </th><th>Post </th><th>Display</th></tr>';
-foreach( $spmy_pplist as $key => $value ){
-echo '<tr><td>'.($spmy_i+1).'</td><td>'.$key.'</td><td><input type="checkbox"  name="spmy_input_pplist['.$key.']" value="Checked" '.$value.'></td></tr>';
-$spmy_i++;
+foreach( $spmybp_pplist as $key => $value ){
+echo '<tr><td>'.($spmybp_i+1).'</td><td>'.$key.'</td><td><input type="checkbox"  name="spmy_input_pplist['.$key.']" value="Checked" '.$value.'></td></tr>';
+$spmybp_i++;
 }
 ?>
 </table>
@@ -788,23 +889,23 @@ $spmy_i++;
 </table>
 </form>
 <h1>OR</h1>
-<h2><span style="color:blue;font-size:16px;font-style:normal;">The table below shows the list of <?php echo $spmy_pageslist_sz; ?> pages. Check pages that will display messages and uncheck pages that are not to show messages</span></h2>
+<h2><span style="color:blue;font-size:16px;font-style:normal;">The table below shows the list of <?php echo $spmybp_pageslist_sz; ?> pages. Check pages that will display messages and uncheck pages that are not to show messages</span></h2>
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <input type="submit" name='spmy_check_pages' value="Change Page Display" >
 <div class="mydisplay">
 <table class="spmy_X">
 <?php
-$spmy_i=0;
-$spmy_ppplist = NULL;
-unset( $spmy_ppplist );
-$spmy_tmpstr = '';
-$spmy_ppplist ='';
-$spmy_tmpstr = spmy_bowpp_read_file( $spmy_published_pages_file );
-$spmy_ppplist = unserialize( $spmy_tmpstr );
+$spmybp_i=0;
+$spmybp_ppplist = NULL;
+unset( $spmybp_ppplist );
+$spmybp_tmpstr = '';
+$spmybp_ppplist ='';
+$spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_published_pages_file );
+$spmybp_ppplist = unserialize( $spmybp_tmpstr );
 echo '<tr><th>Item </th><th>Post </th><th>Display</th></tr>';
-foreach( $spmy_ppplist as $key => $value ){
-echo '<tr><td>'.($spmy_i+1).'</td><td>'.$key.'</td><td><input type="checkbox"  name="spmy_input_ppplist['.$key.']" value="Checked" '.$value.'></td></tr>';
-$spmy_i++;
+foreach( $spmybp_ppplist as $key => $value ){
+echo '<tr><td>'.($spmybp_i+1).'</td><td>'.$key.'</td><td><input type="checkbox"  name="spmy_input_ppplist['.$key.']" value="Checked" '.$value.'></td></tr>';
+$spmybp_i++;
 }
 ?>
 </table>
@@ -822,48 +923,48 @@ $spmy_i++;
 
 <br><br><br>
 <?php
-$spmy_plugins_url = plugins_url().'/dpabottomofpostpage';
+$spmybp_plugins_url = plugins_url().'/dpabottomofpostpage';
 //echo '<br>plugins url : '.plugins_url().'  ';
 //echo '<br>full plugins url : '.plugins_url().'/dpabottomofpostpage'.'  ';
 ?>
 <h3>Other Products by Software Propulsion</h3>
 <table width="800">
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaPHPCache</span> - SuperFast Cache for WordPress. SuperFast Cache is in 2 modules. The 1st is the Cache Controller, in dpaPHPCache - a WordPress Plugin & the 2nd is built into dpaBadBot, The Bad Bot Exterminator & Firewall Shield.</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com/amazingly-super-fast-wordpress-plugin-cache-controller-and-php-accelerator.php"><img src="<?php echo $spmy_plugins_url.'/sfc30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaBadBot</span> - The Bad Bot Exterminator & Firewall Shield, includes the Cache Accelerator. It is very effective anti hacking software that blocks hackers, stop brute force login attemtps and defends against ddos attacks to protect your WordPress website</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmy_plugins_url.'/bbbh30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaContactUs</span> - Contact Form that makes life difficult for spammers. Multiple websites can share one email address.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpacu.com"><img src="<?php echo $spmy_plugins_url.'/cufh30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaPHPCache</span> - SuperFast Cache for WordPress. SuperFast Cache is in 2 modules. The 1st is the Cache Controller, in dpaPHPCache - a WordPress Plugin & the 2nd is built into dpaBadBot, The Bad Bot Exterminator & Firewall Shield.</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com/amazingly-super-fast-wordpress-plugin-cache-controller-and-php-accelerator.php"><img src="<?php echo $spmybp_plugins_url.'/sfc30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaBadBot</span> - The Bad Bot Exterminator & Firewall Shield, includes the Cache Accelerator. It is very effective anti hacking software that blocks hackers, stop brute force login attemtps and defends against ddos attacks to protect your WordPress website</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmybp_plugins_url.'/bbbh30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaContactUs</span> - Contact Form that makes life difficult for spammers. Multiple websites can share one email address.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpacu.com"><img src="<?php echo $spmybp_plugins_url.'/cufh30.png'; ?>" width="402" height="30"></a></td></tr>
 
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">xfcPHPCache</span> - Not for WordPress, Joomla or other blogs but for other php websites. PHP Caching Software</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmy_plugins_url.'/xfch30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaImageCompression</span> - Image Compression. Compresses images you have saved on your websites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmy_plugins_url.'/ich30.png'; ?>"  width="402" height="30"></a></td></tr>
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">Web Hosting Services</span> - from budget hosting to high performance sites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmy_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">xfcPHPCache</span> - Not for WordPress, Joomla or other blogs but for other php websites. PHP Caching Software</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmybp_plugins_url.'/xfch30.png'; ?>" width="402" height="30"></a></td></tr>
+<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaImageCompression</span> - Image Compression. Compresses images you have saved on your websites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmybp_plugins_url.'/ich30.png'; ?>"  width="402" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">Web Hosting Services</span> - from budget hosting to high performance sites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmybp_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
 </table>
 
 <?php
 
-$spmy_msg = NULL;
-unset( $spmy_msg );
-$spmy_filename = NULL;
-unset( $spmy_filename );
-$spmy_filename_html = NULL;
-unset( $spmy_filename_html );
-$spmy_page_msg = NULL;
-unset( $spmy_page_msg );
-$spmy_page_filename = NULL;
-unset( $spmy_page_filename );
-$spmy_page_filename_html = NULL;
-unset( $spmy_page_filename_html );
-$spmy_file_listX = NULL;
-unset( $spmy_file_listX );	
-$spmy_ppplist = NULL;
-unset( $spmy_ppplist );
-$spmy_pplist =NULL;
-unset( $spmy_pplist );
-$spmy_file_listPP = NULL;
-unset( $spmy_file_listPP );
-$spmy_file_list = NULL;
-unset( $spmy_file_list );
-$spmy_postslist = NULL;
-unset( $spmy_postslist );
-$spmy_pageslist = NULL;
-unset( $spmy_pageslist );
+$spmybp_msg = NULL;
+unset( $spmybp_msg );
+$spmybp_filename = NULL;
+unset( $spmybp_filename );
+$spmybp_filename_html = NULL;
+unset( $spmybp_filename_html );
+$spmybp_page_msg = NULL;
+unset( $spmybp_page_msg );
+$spmybp_page_filename = NULL;
+unset( $spmybp_page_filename );
+$spmybp_page_filename_html = NULL;
+unset( $spmybp_page_filename_html );
+$spmybp_file_listX = NULL;
+unset( $spmybp_file_listX );	
+$spmybp_ppplist = NULL;
+unset( $spmybp_ppplist );
+$spmybp_pplist =NULL;
+unset( $spmybp_pplist );
+$spmybp_file_listPP = NULL;
+unset( $spmybp_file_listPP );
+$spmybp_file_list = NULL;
+unset( $spmybp_file_list );
+$spmybp_postslist = NULL;
+unset( $spmybp_postslist );
+$spmybp_pageslist = NULL;
+unset( $spmybp_pageslist );
 
 ?>
