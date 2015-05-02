@@ -3,8 +3,8 @@ Contributors: Dr. Peter Achutha
 Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
-Tested up to: 4.1
-Stable tag: 1.08
+Tested up to: 4.2.1
+Stable tag: 1.09
 License: GPLv2 or later
 
 This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. You can select which post or page displays the messages.
@@ -99,6 +99,9 @@ Found out that when you upgrade any plugin, WordPress will delete the existing p
 
 Changed all variable names to begin with $spmybp_.
 
+== 1.09 ==
+Fixed display of messages in multi-post index page and other bugs.
+
 
 == Upgrade Notice ==
 
@@ -137,6 +140,10 @@ Some form data was not checked if isset(). Now it checks the data in the form fi
 Found out that when you upgrade any plugin, WordPress will delete the existing plugin before downloading the upgrade version. Since this plugin saves all settings in the plugin directory all settings were lost upon upgrading. With version 1.08 a separate directory is created .../wp-contents/plugins/dpabottomofpostpagedata/ and all settings are saved in the altrnative sub-directory. Thus even after upgrading the original seetings are still available.
 
 Changed all variable names to begin with $spmybp_.
+
+
+== 1.09 ==
+Fixed display of messages in multi-post index page and other bugs.
 
 
 

@@ -257,6 +257,7 @@ $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
 //read in which post message affects SEO and should be in iframe
 if( file_exists( $spmybp_setup_seopost_file )) {
 $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_seopost_file );
+
 if( strlen( $spmybp_tmpstr ) > 2 ){
 	$spmybp_post_SEO = unserialize( $spmybp_tmpstr);
 	}
@@ -552,22 +553,30 @@ if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 	for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++) { 
 		if( isset( $_POST['spmy_ppost_SEO'][$spmybp_i] ) ) {
 			$spmybp_post_SEO[$spmybp_i][0] =  $_POST['spmy_ppost_SEO'][$spmybp_i] ;
+			} else {
+			$spmybp_post_SEO[$spmybp_i][0] =  '';
 			}
 		if( isset( $_POST['spmy_ppost_width'][$spmybp_i] ) ) {
 			$spmybp_post_SEO[$spmybp_i][1] =  $_POST['spmy_ppost_width'][$spmybp_i] ;
-			}	
+			} 
 		if( isset( $_POST['spmy_ppost_height'][$spmybp_i] ) ) {
 			$spmybp_post_SEO[$spmybp_i][2] =  $_POST['spmy_ppost_height'][$spmybp_i] ;
-			}	
+			} 
 		if( isset( $_POST['spmy_ppost_HOME'][$spmybp_i] ) ) {
 			$spmybp_post_SEO[$spmybp_i][4] =  $_POST['spmy_ppost_HOME'][$spmybp_i] ;
+			} else {
+			$spmybp_post_SEO[$spmybp_i][4] = '';
 			}
 		if( isset( $_POST['spmy_ppost_CAT'][$spmybp_i] ) ) {	
 			$spmybp_post_SEO[$spmybp_i][5] =  $_POST['spmy_ppost_CAT'][$spmybp_i] ;
+			} else {
+			$spmybp_post_SEO[$spmybp_i][5] =  '';
 			}
 		if( isset( $_POST['spmy_ppost_ARC'][$spmybp_i] ) ) {	
 			$spmybp_post_SEO[$spmybp_i][6] =  $_POST['spmy_ppost_ARC'][$spmybp_i] ;
-			}
+			} else {
+			$spmybp_post_SEO[$spmybp_i][6] =  '';
+			}			
 		if( isset( $_POST['spmy_ppost_TITLE'][$spmybp_i] ) ) {
 		$spmybp_post_SEO[$spmybp_i][7] =  trim($_POST['spmy_ppost_TITLE'][$spmybp_i]) ;	//version 1.02 add title
 		}
@@ -624,7 +633,7 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 <div class="wrap">
 <?php
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.08 [20150404]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.09 [20150502]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>

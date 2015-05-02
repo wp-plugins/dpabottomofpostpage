@@ -3,7 +3,7 @@
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
 Description: Add some messages to the bottom of each post or page. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
-Version: 1.08 [20150404]  
+Version: 1.09 [20150501]  
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
@@ -81,6 +81,7 @@ $spmybp_imax = 0 ;
 foreach( $spmybp_postslist as $key => $post ) { //get the permalink and strip '/'
        setup_postdata($post); 
 	   $spmybp_file_list[ $spmybp_i ] = get_permalink();
+//	   echo '<br>X. count : '.$spmybp_i.'  : '.$spmybp_file_list[ $spmybp_i ].'  ';
 	   $spmybp_pos = strrpos( $spmybp_file_list[ $spmybp_i ], '/' );
 	   $spmybp_myfilename = substr($spmybp_file_list[ $spmybp_i ], 0, $spmybp_pos );
 	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
@@ -127,6 +128,7 @@ unset( $spmybp_file_listPP );
 foreach( $spmybp_pageslist as $key => $post ) { //get the permalink and strip '/'
        setup_postdata($post); 
 	   $spmybp_file_listPP[ $spmybp_i ] = get_permalink();
+//	   echo '<br>Y. count : '.$spmybp_i.'  : '.$spmybp_file_list[ $spmybp_i ].'  ';
 	   $spmybp_pos = strrpos( $spmybp_file_listPP[ $spmybp_i ], '/' );
 	   $spmybp_myfilename = substr($spmybp_file_listPP[ $spmybp_i ], 0, $spmybp_pos );
 	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
@@ -228,6 +230,7 @@ $spmybp_page_msg[ $spmybp_i ] = '';
 //$spmybp_page_filename_html[ $spmybp_i ] = dirname(__FILE__) .'/seopagemsg'.$spmybp_i.'.html';
 $spmybp_page_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotpagemsg'.$spmybp_i.'.txt';
 $spmybp_page_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopagemsg'.$spmybp_i.'.html';
+//echo '<br>A. cnt: '.$spmybp_i.'  filename: '.$spmybp_page_filename_html[ $spmybp_i ].'  ';
 }
 
 
@@ -249,6 +252,8 @@ $spmybp_pages = $spmybp_data_str[3] ;
 //$spmybp_tmpstrx = '';
 //echo '<br>is_single(): '.is_single().' is_archive(): '.is_archive().' is_category(): '.is_category().' is_home(): '.is_home().' $spmybp_posts: '.$spmybp_posts.' $spmybp_counter: '.$spmybp_counter.' ';
 $spmybp_tmpstrx = '';
+wp_reset_query();
+
 	if( (is_single() || is_archive()  || is_category() || is_home()) && $spmybp_posts == 'DISPLAY' && $spmybp_counter > 0)  {
 		$spmybp_permalink = get_permalink();
 		//echo '<br>1. permalink: '.$spmybp_permalink.' ';
@@ -256,15 +261,11 @@ $spmybp_tmpstrx = '';
 	   $spmybp_myfilename = substr($spmybp_permalink, 0, $spmybp_pos );
 	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
 	   $spmybp_permalinkfilename = substr($spmybp_myfilename, ($spmybp_pos+1) );
-	   //echo '<br>$spmybp_permalinkfilename : '.$spmybp_permalinkfilename .'  ';
-		//echo '<br>2. permalinkfilename: '.$spmybp_permalinkfilename.' ';
-		//echo '<br>pplist<br>';
-		//var_dump( $spmybp_pplist );
-		//echo '<br><br>';
+
 	   if( isset($spmybp_pplist[$spmybp_permalinkfilename]) && $spmybp_pplist[$spmybp_permalinkfilename] == 'Checked' ) {	   
 		//if something to be displayed the get files and display
 		//initialise variables
-		
+
 		//check if message Affects SEO
 		if( file_exists( $spmybp_setup_seopost_file ) ) {
 		//initialise variables
@@ -273,21 +274,19 @@ $spmybp_tmpstrx = '';
 			}
 		for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){
 			$spmybp_msg[ $spmybp_i ] = '';
-			//$spmybp_filename[ $spmybp_i ] = dirname(__FILE__) .'/mybotmsg'.$spmybp_i.'.txt';
-			//$spmybp_filename_html[ $spmybp_i ] = dirname(__FILE__) .'/seopostmsg'.$spmybp_i.'.html';
+
 			$spmybp_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotmsg'.$spmybp_i.'.txt';
 			$spmybp_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopostmsg'.$spmybp_i.'.html';			
 			}
 		
 		for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){ //don't overload CPU, run this code here
-		
-		if( $spmybp_post_SEO[$spmybp_i][0] == 'NOT SEO' ){
-		if( file_exists( $spmybp_filename[ $spmybp_i ] ) && filesize( $spmybp_filename[ $spmybp_i ] ) > 0 ){
-				$spmybp_msg[ $spmybp_i ] = spmy_bowpp_read_file( $spmybp_filename[ $spmybp_i] );
-			}
-		} else if( $spmybp_post_SEO[$spmybp_i][0] == 'SEO' ){
+		if( $spmybp_post_SEO[$spmybp_i][0] == 'SEO' ){
 		if( file_exists( $spmybp_filename_html[ $spmybp_i ] ) && filesize( $spmybp_filename_html[ $spmybp_i ] ) > 0 ){
 				$spmybp_msg[ $spmybp_i ] = base64_decode( $spmybp_post_SEO[$spmybp_i][3] ) ;
+			}
+		} else {
+		if( file_exists( $spmybp_filename[ $spmybp_i ] ) && filesize( $spmybp_filename[ $spmybp_i ] ) > 0 ){
+				$spmybp_msg[ $spmybp_i ] = spmy_bowpp_read_file( $spmybp_filename[ $spmybp_i] );
 			}
 		}
 			
@@ -296,18 +295,21 @@ $spmybp_tmpstrx = '';
 		for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){	
 			//is_single() || is_archive()  || is_category() || is_home()
 			if( is_single() ) {
-				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];			
+				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];	
 			} else if( is_home() && $spmybp_post_SEO[$spmybp_i][4] == 'HOME'  ) {
-				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];			
-			} else if( is_category() && $spmybp_post_SEO[$spmybp_i][5] == 'CAT'  ) {
-				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];			
-			} else if( is_archive() && $spmybp_post_SEO[$spmybp_i][6] == 'ARC'  ) {
-				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];			
+				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];	
+			} 
+			else if( (is_category() ) && $spmybp_post_SEO[$spmybp_i][5] == 'CAT'  ) {
+				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];	
+			} else if( (is_archive() && !is_category() ) && $spmybp_post_SEO[$spmybp_i][6] == 'ARC'  ) {
+				$spmybp_tmpstrx = $spmybp_tmpstrx.$spmybp_msg[ $spmybp_i ];		
 			}
 		}
 			
 		} 	
 	} 
+
+
 
 	if( (is_page()  && $spmybp_pages == 'DISPLAY' && $spmybp_page_counter > 0) ) { 
 		//if something to be displayed the get files and display
@@ -325,8 +327,6 @@ $spmybp_tmpstrx = '';
 			}		
 		for( $spmybp_i=0; $spmybp_i<$spmybp_page_counter; $spmybp_i++){
 			$spmybp_page_msg[ $spmybp_i ] = '';
-			//$spmybp_page_filename[ $spmybp_i ] = dirname(__FILE__) .'/mybotpagemsg'.$spmybp_i.'.txt';
-			//$spmybp_page_filename_html[ $spmybp_i ] = dirname(__FILE__) .'/seopagemsg'.$spmybp_i.'.html';
 			$spmybp_page_filename[ $spmybp_i ] = $spmybp_datadiralt .'/mybotpagemsg'.$spmybp_i.'.txt';
 			$spmybp_page_filename_html[ $spmybp_i ] = $spmybp_datadiralt .'/seopagemsg'.$spmybp_i.'.html';			
 			}
@@ -353,18 +353,15 @@ $spmybp_tmpstrx = '';
 return $content.stripslashes($spmybp_tmpstrx);
 }
 
-	/*	add our filter function to the hook */
-	add_filter('the_content', 'dpabottomofpostpage');
 
-	if ( is_admin() ){
-	add_action( 'save_post', 'spmy_bottom_saved_posts' );	//update & preview = /../../autosave
-	add_action( 'post_updated', 'spmy_bottom_saved_posts' ); //preview changes	& update posts	
-	add_action( 'edit_post', 'spmy_bottom_saved_posts' );	//preview changes
-	add_action( 'publish_post', 'spmy_bottom_saved_posts' );	//update post
+if ( is_admin() ){	
 	if( function_exists( 'spmy_bowpp_actions')) {
 		add_action('admin_menu', 'spmy_bowpp_actions');
 		}
 	}
+	/*	add our filter function to the hook */
+	add_filter('the_content', 'dpabottomofpostpage');
+	
 }
 
 ?>
