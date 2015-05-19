@@ -3,7 +3,7 @@ Contributors: Dr. Peter Achutha
 Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
-Tested up to: 4.2.1
+Tested up to: 4.2.2
 Stable tag: 1.09
 License: GPLv2 or later
 
