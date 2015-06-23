@@ -3,7 +3,7 @@
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
 Description: Add some messages to the bottom of each post or page. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
-Version: 1.09 [20150502]  
+Version: 1.10 [20150623]  
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
@@ -42,7 +42,51 @@ fflush( $fh );
 fclose( $fh );
 }
 
+function spmy_bottom_trash_posts( $post_id ){
+global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post;
+echo '<br>Deleting post in bottom of post data';
+$spmybp_datadir = dirname(__FILE__) ;
+$spmybp_string_position = strpos( $spmybp_datadir , 'dpabottomofpostpage');
+$spmybp_datadiralt = substr_replace( $spmybp_datadir , 'dpabottomofpostpagedata' , $spmybp_string_position  );
+$spmybp_setup_file = $spmybp_datadiralt ."/setup.txt";
+$spmybp_published_posts_file = $spmybp_datadiralt ."/publishedposts.txt";
+$spmybp_published_pages_file = $spmybp_datadiralt ."/publishedpages.txt";
+//posts settings
+
+//check number of posts
+$spmybp_bottom_post_count = wp_count_posts();
+$iz = 0 ;
+foreach ($spmybp_bottom_post_count as $key => $value) {
+	$spmybp_bottom_post_nos[$key] = $value ;
+	$iz++;
+}	
+
+$spmybp_bottom_post_count = NULL;
+unset( $spmybp_bottom_post_count ); //clear memory
+
+$args = array(  'post_status' => 'publish', 'posts_per_page' => $spmybp_bottom_post_nos['publish'] );
+$spmybp_postslist = get_posts( $args );
+$spmybp_postslist_sz = count( $spmybp_postslist );
+foreach( $spmybp_postslist as $post ) {
+       setup_postdata($post); 
+	   $spmybp_file_listPM = get_permalink();
+	   $spmybp_pos = strrpos( $spmybp_file_listPM, '/' );
+	   $spmybp_myfilename = substr($spmybp_file_listPM, 0, $spmybp_pos );
+	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
+	   $spmybp_myfilename = substr($spmybp_myfilename, ($spmybp_pos+1) );
+	   $spmybp_file_listPM = $spmybp_myfilename ;
+		$spmybp_pplist[$spmybp_file_listPM] = 'Checked';
+	}
+wp_reset_postdata();	
+//save table
+$spmybp_tmpstr = serialize( $spmybp_pplist ) ;
+spmy_bowpp_write_file( $spmybp_published_posts_file, $spmybp_tmpstr );
+//}
+
+}
+
 function spmy_bottom_saved_posts( $post_id ){
+global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post;
 //define the filename of setup file; 
 //$spmybp_setup_file = dirname(__FILE__) ."/setup.txt";
 //$spmybp_published_posts_file = dirname(__FILE__) ."/publishedposts.txt";
@@ -67,43 +111,24 @@ foreach ($spmybp_bottom_post_count as $key => $value) {
 	$spmybp_bottom_post_nos[$key] = $value ;
 	$iz++;
 }	
+
 $spmybp_bottom_post_count = NULL;
 unset( $spmybp_bottom_post_count ); //clear memory
 
 $args = array(  'post_status' => 'publish', 'posts_per_page' => $spmybp_bottom_post_nos['publish'] );
 $spmybp_postslist = get_posts( $args );
 $spmybp_postslist_sz = count( $spmybp_postslist );
-
-$spmybp_i =0;
-$spmybp_imax = 0 ;
-
-//if( count($spmybp_pplist) != $spmybp_bottom_post_nos['publish'] ){
-foreach( $spmybp_postslist as $key => $post ) { //get the permalink and strip '/'
+foreach( $spmybp_postslist as $post ) {
        setup_postdata($post); 
-	   $spmybp_file_list[ $spmybp_i ] = get_permalink();
-//	   echo '<br>X. count : '.$spmybp_i.'  : '.$spmybp_file_list[ $spmybp_i ].'  ';
-	   $spmybp_pos = strrpos( $spmybp_file_list[ $spmybp_i ], '/' );
-	   $spmybp_myfilename = substr($spmybp_file_list[ $spmybp_i ], 0, $spmybp_pos );
+	   $spmybp_file_listPM = get_permalink();
+	   $spmybp_pos = strrpos( $spmybp_file_listPM, '/' );
+	   $spmybp_myfilename = substr($spmybp_file_listPM, 0, $spmybp_pos );
 	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
 	   $spmybp_myfilename = substr($spmybp_myfilename, ($spmybp_pos+1) );
-	   $spmybp_file_list[ $spmybp_i ] = $spmybp_myfilename ;
-	   $spmybp_i++;
-	  }
-	$spmybp_imax = $spmybp_i;
-	$spmybp_file_listX = NULL;
-	unset( $spmybp_file_listX );	
-	$spmybp_file_listX = $spmybp_pplist; 
-	$spmybp_pplist = NULL;
-	unset( $spmybp_pplist );
-	
-	for( $spmybp_i=0; $spmybp_i<$spmybp_imax; $spmybp_i++){
-	if( !isset( $spmybp_file_listX[ $spmybp_file_list[ $spmybp_i ] ] ) ) { 
-		$spmybp_pplist[ $spmybp_file_list[ $spmybp_i ] ] = 'Checked';
-		} else {
-		$spmybp_pplist[ $spmybp_file_list[ $spmybp_i ] ]= $spmybp_file_listX[ $spmybp_file_list[ $spmybp_i ] ];
-			}
+	   $spmybp_file_listPM = $spmybp_myfilename ;
+		$spmybp_pplist[$spmybp_file_listPM] = 'Checked';
 	}
-wp_reset_postdata();
+wp_reset_postdata();	
 //save table
 $spmybp_tmpstr = serialize( $spmybp_pplist ) ;
 spmy_bowpp_write_file( $spmybp_published_posts_file, $spmybp_tmpstr );
@@ -179,7 +204,8 @@ unset( $spmybp_pageslist );
 //declare the function
 if( !function_exists( 'dpabottomofpostpage' )){
 	function dpabottomofpostpage($content){
-	
+global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post;	
+
 //define the filename of setup file; 
 //$spmybp_setup_file = dirname(__FILE__) ."/setup.txt";
 //$spmybp_setup_seopost_file = dirname(__FILE__) ."/seopost.txt";
@@ -256,7 +282,7 @@ wp_reset_query();
 
 	if( (is_single() || is_archive()  || is_category() || is_home()) && $spmybp_posts == 'DISPLAY' && $spmybp_counter > 0)  {
 		$spmybp_permalink = get_permalink();
-		//echo '<br>1. permalink: '.$spmybp_permalink.' ';
+//		echo '<br>1. permalink: '.$spmybp_permalink.' ';
 		$spmybp_pos = strrpos( $spmybp_permalink, '/' );
 	   $spmybp_myfilename = substr($spmybp_permalink, 0, $spmybp_pos );
 	   $spmybp_pos = strrpos( $spmybp_myfilename, '/' );
@@ -355,6 +381,12 @@ return $content.stripslashes($spmybp_tmpstrx);
 
 
 if ( is_admin() ){	
+	add_action( 'save_post', 'spmy_bottom_saved_posts' );	//update & preview = /../../autosave
+	add_action( 'post_updated', 'spmy_bottom_saved_posts' ); //preview changes	& update posts	
+	add_action( 'edit_post', 'spmy_bottom_saved_posts' );	//preview changes
+	add_action( 'publish_post', 'spmy_bottom_saved_posts' );	//update post
+	add_action( 'pre_post_update', 'spmy_bottom_saved_posts' );	//check through pre update
+	add_action( 'trash_post', 'spmy_bottom_trash_posts' );
 	if( function_exists( 'spmy_bowpp_actions')) {
 		add_action('admin_menu', 'spmy_bowpp_actions');
 		}

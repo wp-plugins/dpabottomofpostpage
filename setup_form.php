@@ -633,7 +633,7 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 <div class="wrap">
 <?php
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.09 [20150502]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.10 [20150623]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
@@ -938,13 +938,12 @@ $spmybp_plugins_url = plugins_url().'/dpabottomofpostpage';
 ?>
 <h3>Other Products by Software Propulsion</h3>
 <table width="800">
+<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">The Bad Bot Exterminator</span> - Very effective anti hacking software that blocks hackers, stop brute force login attemtps and defends against ddos attacks to protect your WordPress website</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmypc_dpaphpcache_plugins_dir.'/bbbh30.png'; ?>" width="402" height="30"></a></td></tr>
 <tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaPHPCache</span> - SuperFast Cache for WordPress. SuperFast Cache is in 2 modules. The 1st is the Cache Controller, in dpaPHPCache - a WordPress Plugin & the 2nd is built into dpaBadBot, The Bad Bot Exterminator & Firewall Shield.</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com/amazingly-super-fast-wordpress-plugin-cache-controller-and-php-accelerator.php"><img src="<?php echo $spmybp_plugins_url.'/sfc30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaBadBot</span> - The Bad Bot Exterminator & Firewall Shield, includes the Cache Accelerator. It is very effective anti hacking software that blocks hackers, stop brute force login attemtps and defends against ddos attacks to protect your WordPress website</td><td style="vertical-align:top;"><a target="_blank" href="https://www.dpabadbot.com"><img src="<?php echo $spmybp_plugins_url.'/bbbh30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaContactUs</span> - Contact Form that makes life difficult for spammers. Multiple websites can share one email address.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpacu.com"><img src="<?php echo $spmybp_plugins_url.'/cufh30.png'; ?>" width="402" height="30"></a></td></tr>
 
-<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">xfcPHPCache</span> - Not for WordPress, Joomla or other blogs but for other php websites. PHP Caching Software</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmybp_plugins_url.'/xfch30.png'; ?>" width="402" height="30"></a></td></tr>
-<tr><td style="color:darkblue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaImageCompression</span> - Image Compression. Compresses images you have saved on your websites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaic.com"><img src="<?php echo $spmybp_plugins_url.'/ich30.png'; ?>"  width="402" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">XFC a fast cache combined with an anti hacking firewall for php developers</span> - Not for WordPress, Joomla or other blogs but for other php websites. PHP Caching & Firewall Shield</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpaxfc.com"><img src="<?php echo $spmypc_dpaphpcache_plugins_dir.'/xfch30.png'; ?>" width="402" height="30"></a></td></tr>
 <tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">Web Hosting Services</span> - from budget hosting to high performance sites.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.peterpublishing.com"><img src="<?php echo $spmybp_plugins_url.'/webhostingservicesh30.png'; ?>" width="405" height="30"></a></td></tr>
+<tr><td style="color:blue;font-size:14px;font-style:normal;vertical-align:top;"><span style="color:red;">dpaContactUs</span> - Contact Form that makes life difficult for spammers. Multiple websites can share one email address.</td><td style="vertical-align:top;"><a target="_blank" href="http://www.dpacu.com"><img src="<?php echo $spmybp_plugins_url.'/cufh30.png'; ?>" width="402" height="30"></a></td></tr>
 </table>
 
 <?php
