@@ -3,7 +3,7 @@
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
 Description: Add some messages to the bottom of each post or page. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
-Version: 1.10 [20150623]  
+Version: 1.12 [20150703]  
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
@@ -53,6 +53,13 @@ $spmybp_published_posts_file = $spmybp_datadiralt ."/publishedposts.txt";
 $spmybp_published_pages_file = $spmybp_datadiralt ."/publishedpages.txt";
 //posts settings
 
+
+if( !file_exists( $spmybp_datadiralt ) ) {
+echo '<br>dpaBottomOfPostPage data directory not set up. Go to WordPress control panel / Dashboard then to Settings > dpaBottomOfPostPageMenu menu and adjust settings and save.';
+return;
+}
+
+
 //check number of posts
 $spmybp_bottom_post_count = wp_count_posts();
 $iz = 0 ;
@@ -98,6 +105,12 @@ $spmybp_setup_file = $spmybp_datadiralt ."/setup.txt";
 $spmybp_published_posts_file = $spmybp_datadiralt ."/publishedposts.txt";
 $spmybp_published_pages_file = $spmybp_datadiralt ."/publishedpages.txt";
 //posts settings
+
+
+if( !file_exists( $spmybp_datadiralt ) ) {
+echo '<br>dpaBottomOfPostPage data directory not set up. Go to WordPress control panel / Dashboard then to Settings > dpaBottomOfPostPageMenu menu and adjust settings and save.';
+return;
+}
 
 if( file_exists( $spmybp_published_posts_file ) && filesize( $spmybp_published_posts_file ) > 6 ){
 $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_published_posts_file );
@@ -220,6 +233,11 @@ $spmybp_setup_seopost_file = $spmybp_datadiralt ."/seopost.txt";
 $spmybp_setup_seopage_file = $spmybp_datadiralt ."/seopage.txt";
 $spmybp_published_posts_file = $spmybp_datadiralt ."/publishedposts.txt";
 $spmybp_published_pages_file = $spmybp_datadiralt ."/publishedpages.txt";
+
+if( !file_exists( $spmybp_datadiralt ) ) {
+echo '<br>dpaBottomOfPostPage data directory not set up. Go to WordPress control panel / Dashboard then to Settings > dpaBottomOfPostPageMenu menu and adjust settings and save.';
+return;
+}
 
 $spmybp_tmpstr = '';
 $spmybp_counter = 0;
