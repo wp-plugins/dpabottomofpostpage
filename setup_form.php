@@ -37,7 +37,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post, $_SERVER;
 //define the filename of setup file; 
 $spmybp_plugins_url = plugins_url().'/dpabottomofpostpage';
-
+$spmybp_plugins_urldata = plugins_url().'/dpabottomofpostpagedata';
 
 $samplemsg[0] = '<br><br><table><tr><td style="vertical-align: center;"><a style="text-decoration: none;" rel="author" href="https://plus.google.com/XXXXXXXXXXXXXXXXXXXX?rel=author"><img style="border: 0; width: 16px; height: 16px;" src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" /></a></td><td><span style="color: #000080;font-size:10px;">Copyright (c) 2013 - 2014 MY COMPANY - All Rights Reserved<br>
 No. 1, Main Street, MyArea, MyTown, MyState, MYCountry<br></span></td></tr></table>';
@@ -582,7 +582,9 @@ if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 		}
 	if( $spmybp_post_SEO[$spmybp_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
-		$spmybp_tempstr = base64_encode ( '<iframe src="'.plugins_url( 'seopostmsg'.$spmybp_i.'.html' , __FILE__ ) .'" width="'.$spmybp_post_SEO[$spmybp_i][1].'" height="'.$spmybp_post_SEO[$spmybp_i][2].'"></iframe>' ) ; 
+		$spmybp_tempstr = base64_encode ( '<iframe src="'.$spmybp_plugins_urldata.'/seopostmsg'.$spmybp_i.'.html"  width="'.$spmybp_post_SEO[$spmybp_i][1].'" height="'.$spmybp_post_SEO[$spmybp_i][2].'"></iframe>' ) ; 
+		$spmybp_tempstrY = $spmybp_plugins_urldata.'/seopostmsg'.$spmybp_i.'.html' ;
+		
 		$spmybp_post_SEO[$spmybp_i][3] = $spmybp_tempstr;
 		}
 	}	
@@ -616,7 +618,9 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 		}
 	if( $spmybp_page_SEO[$spmybp_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
-		$spmybp_tempstr = base64_encode ( '<div width="'.$spmybp_page_SEO[$spmybp_i][1].'" height="'.$spmybp_page_SEO[$spmybp_i][2].'"><iframe src="'.plugins_url( 'seopagemsg'.$spmybp_i.'.html' , __FILE__ ) .'" width="'.$spmybp_page_SEO[$spmybp_i][1].'" height="'.$spmybp_page_SEO[$spmybp_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
+		$spmybp_tempstr = base64_encode ( '<div width="'.$spmybp_page_SEO[$spmybp_i][1].'" height="'.$spmybp_page_SEO[$spmybp_i][2].'"><iframe src="'.$spmybp_plugins_urldata.'/seopagemsg'.$spmybp_i.'.html' .'" width="'.$spmybp_page_SEO[$spmybp_i][1].'" height="'.$spmybp_page_SEO[$spmybp_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
+		$spmybp_tempstrX =  $spmybp_plugins_urldata.'/seopagemsg'.$spmybp_i.'.html';
+		
 		$spmybp_page_SEO[$spmybp_i][3] = $spmybp_tempstr;
 		}
 
