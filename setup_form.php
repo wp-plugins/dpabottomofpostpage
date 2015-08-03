@@ -162,6 +162,8 @@ if( file_exists( $spmybp_page_scroll_data_file_org) ) {
 $spmybp_tempstr = spmy_bowpp_read_file( $spmybp_page_scroll_data_file_org );
 spmy_bowpp_write_file( $spmybp_page_scroll_data_file, $spmybp_tempstr );
 }
+
+
 if( file_exists( $spmybp_setup_file ) ) {
 $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
 	if( strlen( $spmybp_tmpstr ) > 2 ){
@@ -170,8 +172,11 @@ $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
 	$spmybp_page_counter = $spmybp_data_str[1];
 	$spmybp_posts = $spmybp_data_str[2];
 	$spmybp_pages = $spmybp_data_str[3];
+	$spmybp_bottom = $spmybp_data_str[4];
 	}
 }
+
+
 for( $spmybp_i=0; $spmybp_i<$spmybp_counter; $spmybp_i++){
 $spmybp_filename_tmp1 = dirname(__FILE__) .'/mybotmsg'.$spmybp_i.'.txt'; 
 $spmybp_filename_tmp2 = $spmybp_datadiralt .'/mybotmsg'.$spmybp_i.'.txt';
@@ -240,6 +245,9 @@ $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
 	$spmybp_page_counter = $spmybp_data_str[1];
 	$spmybp_posts = $spmybp_data_str[2];
 	$spmybp_pages = $spmybp_data_str[3];
+	if( isset( $spmybp_data_str[4] ) ){
+	$spmybp_bottom = $spmybp_data_str[4];
+	}
 	}
 } else {
 	$spmybp_counter = 0; 
@@ -250,6 +258,8 @@ $spmybp_tmpstr = spmy_bowpp_read_file( $spmybp_setup_file );
 	$spmybp_data_str[2] = $spmybp_posts;
 	$spmybp_pages = 'DONT';
 	$spmybp_data_str[3] = $spmybp_pages;
+	$spmybp_bottom = 'Bottom' ;
+	$spmybp_data_str[4] = 'Bottom' ;
 	$spmybp_tmpstr = serialize( $spmybp_data_str );	
 	spmy_bowpp_write_file( $spmybp_setup_file, $spmybp_tmpstr );
 }
@@ -470,6 +480,18 @@ if( $_POST['spmy_type_of_display'] == 'Set Display' ){
 } 
 } 
 
+//*****************************************************************
+if( isset( $_POST['spmy_type_of_bottom'] ) ){
+if( $_POST['spmy_type_of_bottom'] == 'Submit' ){
+	if( isset( $_POST['spmy_display_bottom'] ) ) {
+	$spmybp_data_str[4] = $_POST['spmy_display_bottom'];
+	$spmybp_bottom = $spmybp_data_str[4] ;
+	}
+	$spmybp_tmpstr = serialize( $spmybp_data_str );	
+	spmy_bowpp_write_file( $spmybp_setup_file, $spmybp_tmpstr );
+} 
+} 
+
 
 if( $spmybp_posts == 'DISPLAY' ){
 $spmybp_post_button = 'checked="checked"' ;
@@ -486,6 +508,15 @@ $spmybp_page_button1 = '' ;
 $spmybp_page_button = '' ;
 $spmybp_page_button1 = 'checked="checked"' ;
 }		
+
+if( $spmybp_bottom != 'End' ){
+$spmybp_post_bottom = 'checked="checked"' ;
+$spmybp_post_bottom1 = '' ;
+} else {
+$spmybp_post_bottom = '' ;
+$spmybp_post_bottom1 = 'checked="checked"' ;
+}
+
 
 if( isset( $_POST['spmy_total_messages'] )) {
 if( $_POST['spmy_total_messages'] == 'Submit' ){
@@ -637,13 +668,14 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 <div class="wrap">
 <?php
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.13 [20150706]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpaBottomofPostPage Setup, Version 1.14 [20150801]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
 <p><span style="color:blue;font-size:14px;font-style:normal;">Use the message areas to place text, advertisements, Sign Up forms, Affliate program ads HTML code, ... etc. If you need it displayed, just try it out. It is amazing what you can display in these message areas.</span></p>
 <h3>How to use</h3>
-<p><span style="color:blue;font-size:14px;font-style:normal;">Firstly enter how many messages you want to display at the bottom of every post and at the bottom of every page then hit the "Submit" button. If you do not want anything displayed enter 0.</span></p>
+<p><span style="color:blue;font-size:14px;font-style:normal;">Firstly, decide whether you need the messages displayed at the bottom of your content or at the end of the document. At the "bottom of your content" is at the bottom of what you have just wriiten in your post or page. At the "end of the document" means that it will be almost at the end of the webpage barring other plugins putting messages there too. Try both options and choose which one you prefer. If there is a cache plugin active, turn off the cache and clear the cache before testing.</span></p>
+<p><span style="color:blue;font-size:14px;font-style:normal;">Secondly, enter how many messages you want to display at the bottom of every post and at the bottom of every page then hit the "Submit" button. If you do not want anything displayed enter 0.</span></p>
 <p><span style="color:blue;font-size:14px;font-style:normal;">After that, click on radio buttons to indicate whether you would like to display the Post messages and the Page messages and click on "Set Display" button to save.</span></p>
 <p><span style="color:blue;font-size:14px;font-style:normal;">Then fill up the Message Areas with the required html code and hit Save Post Messages button or Save Page Messages button. If you need to delete a message, just delete / cut the contents of that message area and hit the Save Messages button. If you have selected the "Affects SEO" option, you will need to specify the dimensions of the messages - width and height. The "DOES NOT AFFECT SEO" option does not use and does not require any dimensions to be specified. Do note that some Themes may limit the dimension of your messages and when this happens, scroll bars will appear in the display. If you see scroll bars on your messages, adjust your message dimensions or reduce the size of images in your messages.</span></p>
 <p><span style="color:blue;font-size:14px;font-style:normal;">Further down you will see the options to choose which posts or pages you would like to disable from displaying messages.</span></p>
@@ -651,6 +683,15 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 ?>
 <br>
 <h3>Set up dpaBottomofPostPage</h3>
+<h2><span style="color:blue;font-size:16px;font-style:normal;">Choose whether messages will be displayed at bottom of your content or at the end of the document.</span></h2>
+<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<table>
+<tr><td>Display message at : </td><td><input type="radio" <?php echo $spmybp_post_bottom; ?> name="spmy_display_bottom" value="Bottom">Bottom of your content</td><td> OR </td><td><input type="radio" <?php echo $spmybp_post_bottom1; ?> name="spmy_display_bottom" value="End">End of document</td></tr>
+</table>
+<input type="submit" name='spmy_type_of_bottom' value="Submit" >
+</form>
+<br>
+
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Set up number of messages to be placed at the bottom of every post and page.</span></h2>
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
 <table>
@@ -673,6 +714,13 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 
 
 <br>
+Note: if you want your messages centered on the webpage do enclose your HTML code with div statements:- <textarea cols="80" rows="5"><div align="center">
+.
+. your HTML code here
+.
+</div>
+</textarea>
+<br><br>
 <h1>POST MESSAGE SECTION</h1>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Set up the messages at the bottom of your WordPress Posts</span></h2>
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
