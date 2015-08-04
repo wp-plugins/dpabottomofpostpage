@@ -508,8 +508,8 @@ if( $_POST['spmy_type_of_bottom'] == 'Submit' ){
 	}
 	if( isset( $_POST['spmy_display_ranking'] ) ) {
 //	echo '<br> $_POST ranking is set';
-	if( $_POST['spmy_display_ranking'] >= 0 && $_POST['spmy_display_ranking'] < 10000 ){
-		$spmybp_data_str[5] = $_POST['spmy_display_ranking'];
+	if( $_POST['spmy_display_ranking'] >= 0 && $_POST['spmy_display_ranking'] < 1000 ){
+		$spmybp_data_str[5] = 1*$_POST['spmy_display_ranking'];
 		$spmybp_ranking = $spmybp_data_str[5] ;
 		} else {
 		$spmybp_data_str[5] = 100;
