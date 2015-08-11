@@ -1014,8 +1014,7 @@ $spmybpz_i++;
 <br><br><br>
 <?php
 $spmybpz_plugins_url = plugins_url().'/'.$spmybpz_plugins_name;
-//echo '<br>plugins url : '.plugins_url().'  ';
-//echo '<br>full plugins url : '.plugins_url().'/zbottomofpostpage'.'  ';
+
 ?>
 <h3>Other Products by Software Propulsion</h3>
 <table width="800">

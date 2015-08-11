@@ -1,4 +1,4 @@
-=== dpaBottomofPostPage ===
+=== dpaBottomofPostPage === 
 Contributors: Dr. Peter Achutha
 Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
