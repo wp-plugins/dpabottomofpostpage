@@ -3,7 +3,7 @@
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
 Description: This plugin can add several messages or adverts to the bottom of every post and page content or at the end of the document or webpage. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
-Version: 1.16 [20150811]   
+Version: 1.17 [20150818]   
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
@@ -36,7 +36,10 @@ $spmybpz_setup_seopost_file = $spmybpz_datadiralt ."/seopost.txt";
 $spmybpz_setup_seopage_file = $spmybpz_datadiralt ."/seopage.txt";
 $spmybpz_post_scroll_data_file = $spmybpz_datadiralt ."/scrollposts.txt";
 $spmybpz_page_scroll_data_file = $spmybpz_datadiralt ."/scrollpages.txt";
-
+$spmybpz_msg_array_file = $spmybpz_datadiralt ."/postmgsarray.txt";
+$spmybpz_tmpstr_html_array_file = $spmybpz_datadiralt ."/postmgshtmlarray.txt";
+$spmybpz_page_msg_array_file = $spmybpz_datadiralt ."/pagemgsarray.txt";
+$spmybpz_tmpstr_page_html_array_file = $spmybpz_datadiralt ."/pagemgshtmlarray.txt";
 
 function spmybpz_zbopp_addform(){
 include('setup_form.php');
@@ -92,7 +95,10 @@ $spmybpz_setup_seopost_file = $spmybpz_datadiralt ."/seopost.txt";
 $spmybpz_setup_seopage_file = $spmybpz_datadiralt ."/seopage.txt";
 $spmybpz_post_scroll_data_file = $spmybpz_datadiralt ."/scrollposts.txt";
 $spmybpz_page_scroll_data_file = $spmybpz_datadiralt ."/scrollpages.txt";
-
+$spmybpz_msg_array_file = $spmybpz_datadiralt ."/postmgsarray.txt";
+$spmybpz_tmpstr_html_array_file = $spmybpz_datadiralt ."/postmgshtmlarray.txt";
+$spmybpz_page_msg_array_file = $spmybpz_datadiralt ."/pagemgsarray.txt";
+$spmybpz_tmpstr_page_html_array_file = $spmybpz_datadiralt ."/pagemgshtmlarray.txt";
 
 //posts settings
 
@@ -136,18 +142,6 @@ spmybpz_zbopp_write_file( $spmybpz_published_posts_file, $spmybpz_tmpstr );
 
 function spmybpz_bottom_saved_posts( $post_id ){
 global $id, $authordata, $currentday, $currentmonth, $page, $pages, $multipage, $more, $numpages, $post;
-//define the filename of setup file; 
-//$spmybpz_setup_file = dirname(__FILE__) ."/setup.txt";
-//$spmybpz_published_posts_file = dirname(__FILE__) ."/publishedposts.txt";
-//$spmybpz_published_pages_file = dirname(__FILE__) ."/publishedpages.txt";
-
-//$spmybpz_datadir = dirname(__FILE__) ;
-//$spmybpz_string_position = strpos( $spmybpz_datadir , 'zbottomofpostpage');
-//$spmybpz_datadiralt = substr_replace( $spmybpz_datadir , 'zbottomofpostpagedata' , $spmybpz_string_position  );
-//$spmybpz_setup_file = $spmybpz_datadiralt ."/setup.txt";
-//$spmybpz_published_posts_file = $spmybpz_datadiralt ."/publishedposts.txt";
-//$spmybpz_published_pages_file = $spmybpz_datadiralt ."/publishedpages.txt";
-
 
 $spmybpz_plugins_url = dirname(__FILE__);
 $spmybpz_plugins_namearray = explode( '/', $spmybpz_plugins_url );
@@ -166,7 +160,10 @@ $spmybpz_setup_seopost_file = $spmybpz_datadiralt ."/seopost.txt";
 $spmybpz_setup_seopage_file = $spmybpz_datadiralt ."/seopage.txt";
 $spmybpz_post_scroll_data_file = $spmybpz_datadiralt ."/scrollposts.txt";
 $spmybpz_page_scroll_data_file = $spmybpz_datadiralt ."/scrollpages.txt";
-
+$spmybpz_msg_array_file = $spmybpz_datadiralt ."/postmgsarray.txt";
+$spmybpz_tmpstr_html_array_file = $spmybpz_datadiralt ."/postmgshtmlarray.txt";
+$spmybpz_page_msg_array_file = $spmybpz_datadiralt ."/pagemgsarray.txt";
+$spmybpz_tmpstr_page_html_array_file = $spmybpz_datadiralt ."/pagemgshtmlarray.txt";
 
 //posts settings
 
@@ -299,7 +296,10 @@ $spmybpz_setup_seopost_file = $spmybpz_datadiralt ."/seopost.txt";
 $spmybpz_setup_seopage_file = $spmybpz_datadiralt ."/seopage.txt";
 $spmybpz_post_scroll_data_file = $spmybpz_datadiralt ."/scrollposts.txt";
 $spmybpz_page_scroll_data_file = $spmybpz_datadiralt ."/scrollpages.txt";
-
+$spmybpz_msg_array_file = $spmybpz_datadiralt ."/postmgsarray.txt";
+$spmybpz_tmpstr_html_array_file = $spmybpz_datadiralt ."/postmgshtmlarray.txt";
+$spmybpz_page_msg_array_file = $spmybpz_datadiralt ."/pagemgsarray.txt";
+$spmybpz_tmpstr_page_html_array_file = $spmybpz_datadiralt ."/pagemgshtmlarray.txt";
 
 if( !file_exists( $spmybpz_datadiralt ) ) {
 echo '<br>dpabottomofpostpage data directory not set up. Go to WordPress control panel / Dashboard then to Settings > dpabottomofpostpageMenu menu and adjust settings and save.';
@@ -386,22 +386,36 @@ wp_reset_query();
 			$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopost_file );
 			$spmybpz_post_SEO = unserialize( $spmybpz_tmpstr);
 			}
-		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){
-			$spmybpz_msg[ $spmybpz_i ] = '';
+		//for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){
+		//	$spmybpz_msg[ $spmybpz_i ] = '';
 
-			$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
-			$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';			
+		//	$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
+		//	$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';			
+		//	}
+		
+		//new version 2015/08/17 uses array and not files as in above
+		//read new post message array
+		if( file_exists( $spmybpz_msg_array_file ) ){
+			$spmybpz_msg_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_msg_array_file ));
 			}
+		//read new post message array
+		if( file_exists( $spmybpz_tmpstr_html_array_file ) ){
+			$spmybpz_tmpstr_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_tmpstr_html_array_file ));
+			}
+	
 		
 		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){ //don't overload CPU, run this code here
 		if( $spmybpz_post_SEO[$spmybpz_i][0] == 'SEO' ){
-		if( file_exists( $spmybpz_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_filename_html[ $spmybpz_i ] ) > 0 ){
-				$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_post_SEO[$spmybpz_i][3] ) ;
-			}
+		//if( file_exists( $spmybpz_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_filename_html[ $spmybpz_i ] ) > 0 ){
+		//		$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_post_SEO[$spmybpz_i][3] ) ;
+		//	}
+		$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_tmpstr_html_array[$spmybpz_i] ) ;
+		
 		} else {
-		if( file_exists( $spmybpz_filename[ $spmybpz_i ] ) && filesize( $spmybpz_filename[ $spmybpz_i ] ) > 0 ){
-				$spmybpz_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_filename[ $spmybpz_i] );
-			}
+		//if( file_exists( $spmybpz_filename[ $spmybpz_i ] ) && filesize( $spmybpz_filename[ $spmybpz_i ] ) > 0 ){
+		//		$spmybpz_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_filename[ $spmybpz_i] );
+		//	}
+		$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_msg_array[$spmybpz_i] ) ;
 		}
 		//ensure not infected code
 		if( isset( $spmybpz_msg[ $spmybpz_i ] ) ){
@@ -451,22 +465,33 @@ wp_reset_query();
 			$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopage_file );
 			$spmybpz_page_SEO = unserialize( $spmybpz_tmpstr);
 			}		
-		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){
-			$spmybpz_page_msg[ $spmybpz_i ] = '';
-			$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
-			$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';			
-			}
+		//for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){
+		//	$spmybpz_page_msg[ $spmybpz_i ] = '';
+		//	$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+		//	$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';			
+		//	}
 		
+		//new version 2015/08/17 uses array and not files as in above		
+		//read new page message array
+		if( file_exists( $spmybpz_page_msg_array_file ) ){
+			$spmybpz_page_msg_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_page_msg_array_file ));
+			}	
+		//read new page message array
+		if( file_exists( $spmybpz_tmpstr_page_html_array_file ) ){
+		$spmybpz_tmpstr_page_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_tmpstr_page_html_array_file ));
+			}		
 		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){ //don't overload CPU, run this code here
 
 		if( $spmybpz_page_SEO[$spmybpz_i][0] == 'NOT SEO' ){
-		if( file_exists( $spmybpz_page_filename[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename[ $spmybpz_i ] ) > 0 ){
-			$spmybpz_page_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_page_filename[ $spmybpz_i] );
-			}
+		//if( file_exists( $spmybpz_page_filename[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename[ $spmybpz_i ] ) > 0 ){
+		//	$spmybpz_page_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_page_filename[ $spmybpz_i] );
+		//	}
+		$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_page_msg_array[$spmybpz_i] ) ;
 		}	else if( $spmybpz_page_SEO[$spmybpz_i][0] == 'SEO' ){
-				if( file_exists( $spmybpz_page_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename_html[ $spmybpz_i ] ) > 0 ){
-					$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_page_SEO[$spmybpz_i][3] ) ;
-					}
+				//if( file_exists( $spmybpz_page_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename_html[ $spmybpz_i ] ) > 0 ){
+				//	$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_page_SEO[$spmybpz_i][3] ) ;
+				//	}
+			$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_tmpstr_page_html_array[$spmybpz_i] ) ;	
 			}
 		//ensure not infected code
 		if( isset( $spmybpz_page_msg[ $spmybpz_i ] ) ) {
@@ -520,7 +545,10 @@ $spmybpz_setup_seopost_file = $spmybpz_datadiralt ."/seopost.txt";
 $spmybpz_setup_seopage_file = $spmybpz_datadiralt ."/seopage.txt";
 $spmybpz_post_scroll_data_file = $spmybpz_datadiralt ."/scrollposts.txt";
 $spmybpz_page_scroll_data_file = $spmybpz_datadiralt ."/scrollpages.txt";
-
+$spmybpz_msg_array_file = $spmybpz_datadiralt ."/postmgsarray.txt";
+$spmybpz_tmpstr_html_array_file = $spmybpz_datadiralt ."/postmgshtmlarray.txt";
+$spmybpz_page_msg_array_file = $spmybpz_datadiralt ."/pagemgsarray.txt";
+$spmybpz_tmpstr_page_html_array_file = $spmybpz_datadiralt ."/pagemgshtmlarray.txt";
 
 
 if( !file_exists( $spmybpz_datadiralt ) ) {
@@ -610,22 +638,33 @@ wp_reset_query();
 			$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopost_file );
 			$spmybpz_post_SEO = unserialize( $spmybpz_tmpstr);
 			}
-		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){
-			$spmybpz_msg[ $spmybpz_i ] = '';
-
-			$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
-			$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';			
-			}
+		//for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){
+		//	$spmybpz_msg[ $spmybpz_i ] = '';
+		//	$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
+		//	$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';			
+		//	}
 		
+		//new version 2015/08/17 uses array and not files as in above
+		//read new post message array
+		if( file_exists( $spmybpz_msg_array_file ) ){
+			$spmybpz_msg_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_msg_array_file ));
+			}
+		//read new post message array
+		if( file_exists( $spmybpz_tmpstr_html_array_file ) ){
+			$spmybpz_tmpstr_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_tmpstr_html_array_file ));
+			}
+	
 		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){ //don't overload CPU, run this code here
 		if( $spmybpz_post_SEO[$spmybpz_i][0] == 'SEO' ){
-		if( file_exists( $spmybpz_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_filename_html[ $spmybpz_i ] ) > 0 ){
-				$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_post_SEO[$spmybpz_i][3] ) ;
-			}
+		//if( file_exists( $spmybpz_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_filename_html[ $spmybpz_i ] ) > 0 ){
+		//		$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_post_SEO[$spmybpz_i][3] ) ;
+		//	}
+		$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_tmpstr_html_array[$spmybpz_i] ) ;
 		} else {
-		if( file_exists( $spmybpz_filename[ $spmybpz_i ] ) && filesize( $spmybpz_filename[ $spmybpz_i ] ) > 0 ){
-				$spmybpz_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_filename[ $spmybpz_i] );
-			}
+		//if( file_exists( $spmybpz_filename[ $spmybpz_i ] ) && filesize( $spmybpz_filename[ $spmybpz_i ] ) > 0 ){
+		//		$spmybpz_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_filename[ $spmybpz_i] );
+		//	}
+		$spmybpz_msg[ $spmybpz_i ] = base64_decode( $spmybpz_msg_array[$spmybpz_i] ) ;
 		}
 		//ensure not infected code
 		if( isset( $spmybpz_msg[ $spmybpz_i ] ) ) {
@@ -675,22 +714,34 @@ wp_reset_query();
 			$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopage_file );
 			$spmybpz_page_SEO = unserialize( $spmybpz_tmpstr);
 			}		
-		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){
-			$spmybpz_page_msg[ $spmybpz_i ] = '';
-			$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
-			$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';			
-			}
+		//for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){
+		//	$spmybpz_page_msg[ $spmybpz_i ] = '';
+		//	$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+		//	$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';			
+		//	}
+		
+		//new version 2015/08/17 uses array and not files as in above		
+		//read new page message array
+		if( file_exists( $spmybpz_page_msg_array_file ) ){
+			$spmybpz_page_msg_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_page_msg_array_file ));
+			}	
+		//read new page message array
+		if( file_exists( $spmybpz_tmpstr_page_html_array_file ) ){
+		$spmybpz_tmpstr_page_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_tmpstr_page_html_array_file ));
+			}		
 		
 		for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){ //don't overload CPU, run this code here
 
 		if( $spmybpz_page_SEO[$spmybpz_i][0] == 'NOT SEO' ){
-		if( file_exists( $spmybpz_page_filename[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename[ $spmybpz_i ] ) > 0 ){
-			$spmybpz_page_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_page_filename[ $spmybpz_i] );
-			}
+		//if( file_exists( $spmybpz_page_filename[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename[ $spmybpz_i ] ) > 0 ){
+		//	$spmybpz_page_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_page_filename[ $spmybpz_i] );
+		//	}
+		$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_page_msg_array[$spmybpz_i] ) ;
 		}	else if( $spmybpz_page_SEO[$spmybpz_i][0] == 'SEO' ){
-				if( file_exists( $spmybpz_page_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename_html[ $spmybpz_i ] ) > 0 ){
-					$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_page_SEO[$spmybpz_i][3] ) ;
-					}
+		//		if( file_exists( $spmybpz_page_filename_html[ $spmybpz_i ] ) && filesize( $spmybpz_page_filename_html[ $spmybpz_i ] ) > 0 ){
+		//			$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_page_SEO[$spmybpz_i][3] ) ;
+		//			}
+		$spmybpz_page_msg[ $spmybpz_i ] = base64_decode( $spmybpz_tmpstr_page_html_array[$spmybpz_i] ) ;
 			}
 		//ensure not infected code
 		if( isset( $spmybpz_page_msg[ $spmybpz_i ] ) ) {

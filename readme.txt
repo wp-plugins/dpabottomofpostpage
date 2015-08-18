@@ -4,7 +4,7 @@ Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
 Tested up to: 4.2.3
-Stable tag: 1.16 [20150811]
+Stable tag: 1.17 [20150818]
 License: GPLv2 or later
 
 This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. You can select which post or page displays the messages.
@@ -123,6 +123,8 @@ Allowed position of messages in footer to be moved a little by adjusting its ran
 == 1.16 ==
 As per WordPress request added additional security checks of form data. Inserted .htaccess files.  As per WordPress request moved data files from /wp-content/plugins/dpabottomofpostpage/ to /wp-content/uploads/dpabottomofpostpage/ and ensured that plugin directory names are not hard coded. Now Bottom of Content messages can be prioritsed and the default priority is 200.
 
+== 1.17 ==
+Found some undefined variables and set them. Added the ability to delete messages. Changed the way the messages are stored.
 
 
 == Upgrade Notice ==
@@ -187,4 +189,7 @@ Allowed position of messages in footer to be moved a little by adjusting its ran
 
 == 1.16 ==
 As per WordPress request added additional security checks of form data. Inserted .htaccess files.  As per WordPress request moved data files from /wp-content/plugins/dpabottomofpostpage/ to /wp-content/uploads/dpabottomofpostpage/ and ensured that plugin directory names are not hard coded. Now Bottom of Content messages can be prioritsed and the default priority is 200.
+
+== 1.17 ==
+Found some undefined variables and set them. Added the ability to delete messages. Changed the way the messages are stored.
 

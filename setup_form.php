@@ -167,6 +167,11 @@ $spmybpz_setup_seopost_file = $spmybpz_datadiralt ."/seopost.txt";
 $spmybpz_setup_seopage_file = $spmybpz_datadiralt ."/seopage.txt";
 $spmybpz_post_scroll_data_file = $spmybpz_datadiralt ."/scrollposts.txt";
 $spmybpz_page_scroll_data_file = $spmybpz_datadiralt ."/scrollpages.txt";
+$spmybpz_msg_array_file = $spmybpz_datadiralt ."/postmgsarray.txt";
+$spmybpz_tmpstr_html_array_file = $spmybpz_datadiralt ."/postmgshtmlarray.txt";
+$spmybpz_page_msg_array_file = $spmybpz_datadiralt ."/pagemgsarray.txt";
+$spmybpz_tmpstr_page_html_array_file = $spmybpz_datadiralt ."/pagemgshtmlarray.txt";
+
 $spmybpz_htaccess_file = $spmybpz_datadiralt .'/.htaccess';
 $spmybpz_plugin_htaccess_file = dirname(__FILE__) .'/.htaccess';
 
@@ -207,6 +212,12 @@ $spmybpz_pplist = '';
 $spmybpz_ppplist = '';
 $spmybpz_pageslist = '';
 $spmybpz_post_offset = 0;
+$spmybpz_post_SEO = '';
+
+$spmybpz_msg_array = '';
+$spmybpz_tmpstr_html_array = '';
+$spmybpz_page_msg_array = '';
+$spmybpz_tmpstr_page_html_array = '';
 
 $spmybpz_postslist_sz = 0;
 $spmybpz_pageslist_sz = 0;
@@ -214,7 +225,7 @@ $spmybpz_pageslist_sz = 0;
 //clearstatcache();
 if( file_exists( $spmybpz_setup_file ) ) {
 $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_file );
-	if( strlen( $spmybpz_tmpstr ) > 2 ){
+	if( strlen( $spmybpz_tmpstr ) > 3 ){
 	$spmybpz_data_str = unserialize( $spmybpz_tmpstr);
 	$spmybpz_counter = $spmybpz_data_str[0];
 	$spmybpz_page_counter = $spmybpz_data_str[1];
@@ -244,13 +255,36 @@ $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_file );
 	spmybpz_zbopp_write_file( $spmybpz_setup_file, $spmybpz_tmpstr );
 }
 
+//echo '<br>counter: '.$spmybpz_counter.'  ';
+
 //read in which post message affects SEO and should be in iframe
 if( file_exists( $spmybpz_setup_seopost_file )) {
 $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopost_file );
 
 if( strlen( $spmybpz_tmpstr ) > 2 ){
 	$spmybpz_post_SEO = unserialize( $spmybpz_tmpstr);
-	}
+		$spmybpz_post_SEO_count = count( $spmybpz_post_SEO );
+	for(  $spmybpz_i=0; $spmybpz_i<$spmybpz_post_SEO_count; $spmybpz_i++ ){
+		$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
+		$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';
+		}
+	} else {
+	
+for( $spmybpz_i=0; $spmybpz_i<4; $spmybpz_i++){
+$spmybpz_msg[ $spmybpz_i ] = '';
+$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
+$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';
+$spmybpz_post_SEO[$spmybpz_i][0] = 'NOT SEO';
+$spmybpz_post_SEO[$spmybpz_i][1] = 790; //width of message
+$spmybpz_post_SEO[$spmybpz_i][2] = 140; //height message
+$spmybpz_post_SEO[$spmybpz_i][3] = ''; //used base encode 64 of iframe code 
+$spmybpz_post_SEO[$spmybpz_i][4] = ''; //Home summany page
+$spmybpz_post_SEO[$spmybpz_i][5] = ''; //Category summary page
+$spmybpz_post_SEO[$spmybpz_i][6] = ''; //Archive summary page
+$spmybpz_post_SEO[$spmybpz_i][7] = ''; //Title of Message - so that you will remember what it is about months later
+}
+}
+	
 } else {
 for( $spmybpz_i=0; $spmybpz_i<4; $spmybpz_i++){
 $spmybpz_msg[ $spmybpz_i ] = '';
@@ -272,12 +306,31 @@ if( file_exists( $spmybpz_setup_seopage_file )){
 $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopage_file );
 if( strlen( $spmybpz_tmpstr ) > 2 ){
 	$spmybpz_page_SEO = unserialize( $spmybpz_tmpstr);
+	$spmybpz_page_SEO_count = count( $spmybpz_page_SEO );
+	for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_SEO_count; $spmybpz_i++){
+		$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+		$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
+		}
+	} else {
+	for( $spmybpz_i=0; $spmybpz_i<4; $spmybpz_i++){
+$spmybpz_page_msg[ $spmybpz_i ] = '';
+$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
+$spmybpz_page_SEO[$spmybpz_i][0] = 'NOT SEO';
+$spmybpz_page_SEO[$spmybpz_i][1] = 790; //width of message
+$spmybpz_page_SEO[$spmybpz_i][2] = 140; //height of message
+$spmybpz_page_SEO[$spmybpz_i][3] = ''; //used base encode 64 of <iframe code >
+$spmybpz_page_SEO[$spmybpz_i][4] = ''; //Home summany page
+$spmybpz_page_SEO[$spmybpz_i][5] = ''; //Category summary page
+$spmybpz_page_SEO[$spmybpz_i][6] = ''; //Archive summary page
+$spmybpz_page_SEO[$spmybpz_i][7] = ''; //Title of Message - so that you will remember what it is months later
+}
 	}
 }  else {
 for( $spmybpz_i=0; $spmybpz_i<4; $spmybpz_i++){
-$spmybpz_msg[ $spmybpz_i ] = '';
-$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
-$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
+$spmybpz_page_msg[ $spmybpz_i ] = '';
+$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
 $spmybpz_page_SEO[$spmybpz_i][0] = 'NOT SEO';
 $spmybpz_page_SEO[$spmybpz_i][1] = 790; //width of message
 $spmybpz_page_SEO[$spmybpz_i][2] = 140; //height of message
@@ -393,20 +446,22 @@ wp_reset_postdata();
 $spmybpz_tmpstr = serialize( $spmybpz_ppplist ) ;
 spmybpz_zbopp_write_file( $spmybpz_published_pages_file, $spmybpz_tmpstr );
 
+/*********************************All $_POST******************************************************/
 
+if( isset( $_POST['spmy_Save_Settings'] )  ){
+if( $_POST['spmy_Save_Settings'] == 'Save All Settings' ) {
 
-
-if( isset( $_POST['spmy_diapla_all'] )  &&  $_POST['spmy_diapla_all'] == 'Display On All Posts' ){
+//if( isset( $_POST['spmy_diapla_all'] )  &&  $_POST['spmy_diapla_all'] == 'Display On All Posts' ){
 	$spmybpz_maxi = count( $spmybpz_pplist );
 	foreach( $spmybpz_pplist as $key => &$value ){
 		$spmybpz_pplist[$key] = 'Checked';
 	}
 	$spmybpz_tmpstr = serialize( $spmybpz_pplist );	
 	spmybpz_zbopp_write_file( $spmybpz_published_posts_file, $spmybpz_tmpstr );
-}
+//}
 
 
-if( isset( $_POST['spmy_check_posts'] )  &&  $_POST['spmy_check_posts'] == 'Change Post Display' ){
+//if( isset( $_POST['spmy_check_posts'] )  &&  $_POST['spmy_check_posts'] == 'Change Post Display' ){
 	$spmybpz_maxi = count( $spmybpz_pplist );
 	foreach( $spmybpz_pplist as $key => &$value ){
 		if( isset($_POST['spmy_input_pplist'][$key]) && $_POST['spmy_input_pplist'][$key] != '' ){
@@ -417,19 +472,19 @@ if( isset( $_POST['spmy_check_posts'] )  &&  $_POST['spmy_check_posts'] == 'Chan
 	}
 	$spmybpz_tmpstr = serialize( $spmybpz_pplist );	
 	spmybpz_zbopp_write_file( $spmybpz_published_posts_file, $spmybpz_tmpstr );
-} 
+//} 
 
 
-if( isset( $_POST['spmy_diaplay_all'] )  &&  $_POST['spmy_diaplay_all'] == 'Display On All Pages' ){
+//if( isset( $_POST['spmy_diaplay_all'] )  &&  $_POST['spmy_diaplay_all'] == 'Display On All Pages' ){
 	$spmybpz_maxi = count( $spmybpz_ppplist );
 	foreach( $spmybpz_ppplist as $key => &$value ){
 		$spmybpz_ppplist[$key] = 'Checked';
 	}
 	$spmybpz_tmpstr = serialize( $spmybpz_ppplist );	
 	spmybpz_zbopp_write_file( $spmybpz_published_pages_file, $spmybpz_tmpstr );
-}
+//}
 
-if( isset( $_POST['spmy_check_pages'] )  &&  $_POST['spmy_check_pages'] == 'Change Page Display' ){
+//if( isset( $_POST['spmy_check_pages'] )  &&  $_POST['spmy_check_pages'] == 'Change Page Display' ){
 	$spmybpz_maxi = count( $spmybpz_ppplist );
 	foreach( $spmybpz_ppplist as $key => &$value ){
 		if( isset($_POST['spmy_input_ppplist'][$key]) && $_POST['spmy_input_ppplist'][$key] != '' ){
@@ -440,14 +495,14 @@ if( isset( $_POST['spmy_check_pages'] )  &&  $_POST['spmy_check_pages'] == 'Chan
 	}
 	$spmybpz_tmpstr = serialize( $spmybpz_ppplist );	
 	spmybpz_zbopp_write_file( $spmybpz_published_pages_file, $spmybpz_tmpstr );
-} 
+//} 
 
 
 
 
 
-if( isset( $_POST['spmy_type_of_display'] ) ){
-if( $_POST['spmy_type_of_display'] == 'Set Display' ){
+//if( isset( $_POST['spmy_type_of_display'] ) ){
+//if( $_POST['spmy_type_of_display'] == 'Set Display' ){
 	if( isset( $_POST['spmy_display_posts'] ) ) {
 	$spmybpz_data_str[2] = $_POST['spmy_display_posts'];
 	$spmybpz_posts = $spmybpz_data_str[2] ;
@@ -458,12 +513,12 @@ if( $_POST['spmy_type_of_display'] == 'Set Display' ){
 	}
 	$spmybpz_tmpstr = serialize( $spmybpz_data_str );	
 	spmybpz_zbopp_write_file( $spmybpz_setup_file, $spmybpz_tmpstr );
-} 
-} 
+//} 
+//} 
 
-//***************************************************************** 
-if( isset( $_POST['spmy_type_of_bottom'] ) ){
-if( $_POST['spmy_type_of_bottom'] == 'Submit' ){
+ 
+//if( isset( $_POST['spmy_type_of_bottom'] ) ){
+//if( $_POST['spmy_type_of_bottom'] == 'Submit' ){
 	if( isset( $_POST['spmy_display_bottom'] ) ) {
 	$spmybpz_data_str[4] = $_POST['spmy_display_bottom'];
 	$spmybpz_bottom = $spmybpz_data_str[4] ;
@@ -480,41 +535,30 @@ if( $_POST['spmy_type_of_bottom'] == 'Submit' ){
 	}	
 	$spmybpz_tmpstr = serialize( $spmybpz_data_str );	
 	spmybpz_zbopp_write_file( $spmybpz_setup_file, $spmybpz_tmpstr );
-} 
-} 
+//} 
+//} 
 
 
-if( $spmybpz_posts == 'DISPLAY' ){
-$spmybpz_post_button = 'checked="checked"' ;
-$spmybpz_post_button1 = '' ;
-} else {
-$spmybpz_post_button = '' ;
-$spmybpz_post_button1 = 'checked="checked"' ;
-}
-
-if( $spmybpz_pages == 'DISPLAY' ){
-$spmybpz_page_button = 'checked="checked"' ;
-$spmybpz_page_button1 = '' ;
-} else {
-$spmybpz_page_button = '' ;
-$spmybpz_page_button1 = 'checked="checked"' ;
-}		
-
-if( $spmybpz_bottom != 'End' ){
-$spmybpz_post_bottom = 'checked="checked"' ;
-$spmybpz_post_bottom1 = '' ;
-} else {
-$spmybpz_post_bottom = '' ;
-$spmybpz_post_bottom1 = 'checked="checked"' ;
-}
-
-
-if( isset( $_POST['spmy_total_messages'] )) {
-if( $_POST['spmy_total_messages'] == 'Submit' ){
+//if( isset( $_POST['spmy_total_messages'] )) {
+//if( $_POST['spmy_total_messages'] == 'Submit' ){
 	//echo '<br>Yes Submit detected';
+	$spmybpz_counter_old = $spmybpz_counter;
 	if( isset( $_POST['spmy_message_counter'] ) ) {
 	$spmybpz_counter = trim( $_POST['spmy_message_counter'] )*1;
 	$spmybpz_data_str[0] = $spmybpz_counter;
+	//check if more
+	if( $spmybpz_counter > $spmybpz_counter_old ){
+		for( $spmybpz_k=$spmybpz_counter_old; $spmybpz_k<$spmybpz_counter; $spmybpz_k++) {
+			$spmybpz_post_SEO[$spmybpz_k][0] = 'NOT SEO';
+			$spmybpz_post_SEO[$spmybpz_k][1] = 790; //width of message
+			$spmybpz_post_SEO[$spmybpz_k][2] = 140; //height message
+			$spmybpz_post_SEO[$spmybpz_k][3] = ''; //used base encode 64 of iframe code 
+			$spmybpz_post_SEO[$spmybpz_k][4] = ''; //Home summany page
+			$spmybpz_post_SEO[$spmybpz_k][5] = ''; //Category summary page
+			$spmybpz_post_SEO[$spmybpz_k][6] = ''; //Archive summary page
+			$spmybpz_post_SEO[$spmybpz_k][7] = ''; //Title of Message - so that you will remember what it is about months later
+			}
+		}
 	}
 	if( isset( $_POST['spmy_message_page_counter'] ) ) {
 	$spmybpz_page_counter = trim( $_POST['spmy_message_page_counter'] )*1;
@@ -522,46 +566,16 @@ if( $_POST['spmy_total_messages'] == 'Submit' ){
 	}
 	$spmybpz_tmpstr = serialize( $spmybpz_data_str );	
 	spmybpz_zbopp_write_file( $spmybpz_setup_file, $spmybpz_tmpstr );
-} 
-}		
-
-//initialise variables
-for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){
-$spmybpz_msg[ $spmybpz_i ] = '';
-$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
-$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';
-}
-
-for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){
-$spmybpz_page_msg[ $spmybpz_i ] = '';
-$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
-$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
-}
-
-$spmybpz_tmpstr = '';
-for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){	
-if( file_exists( $spmybpz_filename[ $spmybpz_i] )){ 
-	//if file exist
-	if( filesize( $spmybpz_filename[ $spmybpz_i ] ) > 0 ){
-		$spmybpz_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_filename[ $spmybpz_i] );
-		}
-	} 
-} 	
-$spmybpz_tmpstr = '';
-for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){	
-if( file_exists( $spmybpz_page_filename[ $spmybpz_i] )){ 
-	//if file exist
-	if( filesize( $spmybpz_page_filename[ $spmybpz_i ] ) > 0 ){
-		$spmybpz_page_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_page_filename[ $spmybpz_i] );
-		}
-	} 
-} 	
+//} 
+//}		
 
 
-if( isset( $_POST['spmy_bottom_messages'] )){
-if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
+//if( isset( $_POST['spmy_bottom_messages'] )){
+//if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 	for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++) {
-		if( isset( $_POST['spmy_txtarea'][$spmybpz_i] ) ) {
+		$spmybpz_tmpstr = '';
+		$spmybpz_tmpstr_html = '';
+		if( isset( $_POST['spmy_txtarea'][$spmybpz_i] ) && trim( $_POST['spmy_txtarea'][$spmybpz_i] ) != '' ) {
 			$spmybpz_tmpstr =  stripslashes( trim( $_POST['spmy_txtarea'][$spmybpz_i] ) );
 			$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 			if( $spmybpz_pos !== false ){
@@ -572,26 +586,42 @@ if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 				$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
 			}
 			$spmybpz_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
+			if( isset($spmybpz_filename[ $spmybpz_i ]) && isset($spmybpz_msg[ $spmybpz_i ]) ){
 			spmybpz_zbopp_write_file( $spmybpz_filename[ $spmybpz_i ], $spmybpz_msg[ $spmybpz_i ] );
-			$spmybpz_tmpstr_html = '<html><head></head><body>'."\r\n".$spmybpz_tmpstr."\r\n".'</body></html>';
+			}
+			$spmybpz_tmpstr_html = '<html><head></head><body>'."\n".$spmybpz_tmpstr."\n".'</body></html>';
+			if( isset($spmybpz_filename_html[ $spmybpz_i ]) && isset($spmybpz_tmpstr_html) ){
 			spmybpz_zbopp_write_file( $spmybpz_filename_html[ $spmybpz_i ], $spmybpz_tmpstr_html );
 			}
+			} else {
+			$spmybpz_tmpstr = '';
+			$spmybpz_tmpstr_html = '';
+			}
+			$spmybpz_msg_array[ $spmybpz_i ] = base64_encode( $spmybpz_tmpstr );
+			$spmybpz_tmpstr_html_array[$spmybpz_i] = base64_encode( $spmybpz_tmpstr_html );	
 	}
-}
-
-
+	
+//}
+//echo '<br>Var Dump SEO <br>';
+//var_dump( $_POST['spmy_ppost_SEO'] );
+//echo '<br><br>';
+//echo '<br>Var Dump HOME<br>';
+//var_dump( $_POST['spmy_ppost_HOME'] );
+//echo '<br><br>';
+//echo '<br>Var Dump ARC<br>';
+//var_dump( $_POST['spmy_ppost_ARC'] );
+//echo '<br><br>';
 	for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++) { 
 		if( isset( $_POST['spmy_ppost_SEO'][$spmybpz_i] ) ) {
 			$spmybpz_post_SEO[$spmybpz_i][0] =  $_POST['spmy_ppost_SEO'][$spmybpz_i] ;
-			} else {
-			$spmybpz_post_SEO[$spmybpz_i][0] =  '';
-			}
+			} 
 		if( isset( $_POST['spmy_ppost_width'][$spmybpz_i] ) ) {
 			$spmybpz_post_SEO[$spmybpz_i][1] =  1*$_POST['spmy_ppost_width'][$spmybpz_i] ; //sanitized
 			} 
 		if( isset( $_POST['spmy_ppost_height'][$spmybpz_i] ) ) {
 			$spmybpz_post_SEO[$spmybpz_i][2] =  1*$_POST['spmy_ppost_height'][$spmybpz_i] ; //sanitized
 			} 
+			
 		if( isset( $_POST['spmy_ppost_HOME'][$spmybpz_i] ) ) {
 			$spmybpz_post_SEO[$spmybpz_i][4] =  $_POST['spmy_ppost_HOME'][$spmybpz_i] ;
 			} else {
@@ -618,14 +648,20 @@ if( $_POST['spmy_bottom_messages'] == 'Save Post Messages' ){
 		$spmybpz_post_SEO[$spmybpz_i][3] = $spmybpz_tempstr;
 		}
 	}	
-	spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_SEO ) );
-} 
+//save post messages as an array so that easier to delete or add	
+spmybpz_zbopp_write_file( $spmybpz_msg_array_file, serialize( $spmybpz_msg_array) );
+spmybpz_zbopp_write_file( $spmybpz_tmpstr_html_array_file, serialize( $spmybpz_tmpstr_html_array) );	
+spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_SEO ) );
+//} 
 
 
-if( isset( $_POST['spmy_bottom_page_messages'] ) ){
-if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
+//if( isset( $_POST['spmy_bottom_page_messages'] ) ){
+//if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 	for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++) {
-	if( isset( $_POST['spmy_page_txtarea'][$spmybpz_i] ) ) {
+		$spmybpz_tmpstr = '';
+		$spmybpz_tmpstr_html = '';	
+	
+	if( isset( $_POST['spmy_page_txtarea'][$spmybpz_i] )  && trim( $_POST['spmy_page_txtarea'][$spmybpz_i] ) != '' ) {
 		$spmybpz_tmpstr =  stripslashes( trim( $_POST['spmy_page_txtarea'][$spmybpz_i] ) );
 		$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 		if( $spmybpz_pos !== false ){
@@ -637,13 +673,23 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 		}
 		$spmybpz_page_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 		spmybpz_zbopp_write_file( $spmybpz_page_filename[ $spmybpz_i ], $spmybpz_page_msg[ $spmybpz_i ] );
-		$spmybpz_tmpstr_html = '<html><head></head><body>'."\r\n".$spmybpz_tmpstr."\r\n".'</body></html>';
+		$spmybpz_tmpstr_html = '<html><head></head><body>'."\n".$spmybpz_tmpstr."\n".'</body></html>';
 		spmybpz_zbopp_write_file( $spmybpz_page_filename_html[ $spmybpz_i ], $spmybpz_tmpstr_html );
-		}
+
+		}  else {
+			$spmybpz_tmpstr = '';
+			$spmybpz_tmpstr_html = '';
+			}
+		$spmybpz_page_msg_array[ $spmybpz_i ] = base64_encode( $spmybpz_tmpstr );
+		$spmybpz_tmpstr_page_html_array[$spmybpz_i] = base64_encode( $spmybpz_tmpstr_html );	
 	}
+
+	
 	for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++) {
-		if( isset( $_POST['spmy_ppage_SEO'][$spmybpz_i] ) ) {
+		if( $_POST['spmy_ppage_SEO'][$spmybpz_i] == 'SEO' ) {
 			$spmybpz_page_SEO[$spmybpz_i][0] =  $_POST['spmy_ppage_SEO'][$spmybpz_i] ;
+			} else {
+			$spmybpz_page_SEO[$spmybpz_i][0] =  'NOT SEO';
 			}
 		if( isset( $_POST['spmy_ppage_width'][$spmybpz_i] ) ) {
 			$spmybpz_page_SEO[$spmybpz_i][1] =  1*$_POST['spmy_ppage_width'][$spmybpz_i] ; //sanitized
@@ -661,21 +707,252 @@ if( $_POST['spmy_bottom_page_messages'] == 'Save Page Messages' ){
 		
 		$spmybpz_page_SEO[$spmybpz_i][3] = $spmybpz_tempstr;
 		}
+	}
+//save page messages as an array so that easier to delete or add	
+spmybpz_zbopp_write_file( $spmybpz_page_msg_array_file, serialize( $spmybpz_page_msg_array) );
+spmybpz_zbopp_write_file( $spmybpz_tmpstr_page_html_array_file, serialize( $spmybpz_tmpstr_page_html_array) );		
+spmybpz_zbopp_write_file( $spmybpz_setup_seopage_file, serialize( $spmybpz_page_SEO ) );
+	
+//} 
+//}
 
-			
-	}	
-	spmybpz_zbopp_write_file( $spmybpz_setup_seopage_file, serialize( $spmybpz_page_SEO ) );	
-} 
+
+//delete post messages that were checked 'Delete'
+$spmybpz_counter_old = $spmybpz_counter;
+unset( $spmybpz_msg_array_new ) ;
+unset( $spmybpz_tmpstr_html_array_new ) ;
+unset( $spmybpz_post_SEO_new ) ;
+$spmybpz_j = 0 ;
+for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++ ) {
+	if( isset( $_POST['spmy_ppost_DEL'][$spmybpz_i] ) ){
+		if( $_POST['spmy_ppost_DEL'][$spmybpz_i] != 'Delete' ){
+			$spmybpz_msg_array_new[ $spmybpz_j ] = $spmybpz_msg_array[ $spmybpz_i ] ;
+			$spmybpz_tmpstr_html_array_new[ $spmybpz_j ] = $spmybpz_tmpstr_html_array[ $spmybpz_i ] ;
+			$spmybpz_post_SEO_new[ $spmybpz_j ] = $spmybpz_post_SEO[ $spmybpz_i ] ;
+			$spmybpz_j++;
+			} else { 
+			$spmybpz_counter_old--;
+			}
+		}
+}
+
+if( $spmybpz_counter_old < $spmybpz_counter ){
+unset( $spmybpz_msg_array ) ;
+unset( $spmybpz_tmpstr_html_array ) ;
+unset( $spmybpz_post_SEO ) ;
+if( isset( $spmybpz_msg_array_new ) ){
+$spmybpz_msg_array = $spmybpz_msg_array_new ;
+}
+if( isset( $spmybpz_tmpstr_html_array_new ) ){
+$spmybpz_tmpstr_html_array = $spmybpz_tmpstr_html_array_new ;
+}
+if( isset( $spmybpz_post_SEO_new ) ){
+$spmybpz_post_SEO = $spmybpz_post_SEO_new ;
+}
+}
+
+$spmybpz_tmpstr = unserialize( spmybpz_zbopp_read_file( $spmybpz_setup_file ) );
+$spmybpz_tmpstr[0] = $spmybpz_counter_old ;
+$spmybpz_counter =  $spmybpz_counter_old ; //update this value too
+spmybpz_zbopp_write_file( $spmybpz_setup_file, serialize( $spmybpz_tmpstr ) );
+
+//save post messages as an array so that easier to delete or add	
+if( isset($spmybpz_msg_array) ){
+spmybpz_zbopp_write_file( $spmybpz_msg_array_file, serialize( $spmybpz_msg_array) );
+}
+if( isset($spmybpz_tmpstr_html_array) ){
+spmybpz_zbopp_write_file( $spmybpz_tmpstr_html_array_file, serialize( $spmybpz_tmpstr_html_array) );
+}
+if( isset($spmybpz_post_SEO) ){
+spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_SEO ) );
+}
+
+
+//delete page messages that were checked 'Delete'
+$spmybpz_page_counter_old = $spmybpz_page_counter;
+unset( $spmybpz_page_msg_array_new ) ;
+unset( $spmybpz_tmpstr_page_html_array_new ) ;
+unset( $spmybpz_page_SEO_new ) ;
+$spmybpz_j = 0 ;
+
+for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++) {
+	if( isset( $_POST['spmy_ppage_DEL'][$spmybpz_i] ) ){
+		if( $_POST['spmy_ppage_DEL'][$spmybpz_i] != 'Delete' ){
+			//unset( $spmybpz_page_msg_array[ $spmybpz_i ] ) ;
+			//unset(	$spmybpz_tmpstr_page_html_array[$spmybpz_i] );
+			//unset( $spmybpz_page_SEO[$spmybpz_i] );
+			$spmybpz_page_msg_array_new[ $spmybpz_j ] = $spmybpz_page_msg_array[ $spmybpz_i ] ;
+			$spmybpz_tmpstr_page_html_array_new[ $spmybpz_j ] = $spmybpz_tmpstr_page_html_array[ $spmybpz_i ] ;
+			$spmybpz_page_SEO_new[ $spmybpz_j ] = $spmybpz_page_SEO[ $spmybpz_i ] ;
+			$spmybpz_j++;
+			} else { 
+			$spmybpz_page_counter_old--;
+			}
+			}
+		}
+
+if( $spmybpz_page_counter_old < $spmybpz_page_counter ){
+unset( $spmybpz_page_msg_array ) ;
+unset( $spmybpz_tmpstr_page_html_array ) ;
+unset( $spmybpz_page_SEO ) ;
+if( isset( $spmybpz_page_msg_array_new ) ){
+$spmybpz_page_msg_array = $spmybpz_page_msg_array_new ;
+}
+if( isset( $spmybpz_tmpstr_page_html_array_new ) ){
+$spmybpz_tmpstr_page_html_array = $spmybpz_tmpstr_page_html_array_new ;
+}
+if( isset( $spmybpz_page_SEO_new ) ){
+$spmybpz_page_SEO = $spmybpz_page_SEO_new ;
+}
+}
+
+$spmybpz_tmpstr = unserialize( spmybpz_zbopp_read_file( $spmybpz_setup_file ) );
+$spmybpz_tmpstr[1] = $spmybpz_page_counter_old ;
+$spmybpz_page_counter =  $spmybpz_page_counter_old ; //update this value too
+spmybpz_zbopp_write_file( $spmybpz_setup_file, serialize( $spmybpz_tmpstr ) );
+
+//save page messages as an array so that easier to delete or add	
+spmybpz_zbopp_write_file( $spmybpz_page_msg_array_file, serialize( $spmybpz_page_msg_array) );
+spmybpz_zbopp_write_file( $spmybpz_tmpstr_page_html_array_file, serialize( $spmybpz_tmpstr_page_html_array) );	
+spmybpz_zbopp_write_file( $spmybpz_setup_seopage_file, serialize( $spmybpz_page_SEO ) );
+
+
+
+}
+}
+/*************************End of $_POST******************************/
+
+
+//initialise variables
+
+if( $spmybpz_posts == 'DISPLAY' ){
+$spmybpz_post_button = 'checked="checked"' ;
+$spmybpz_post_button1 = '' ;
+} else {
+$spmybpz_post_button = '' ;
+$spmybpz_post_button1 = 'checked="checked"' ;
+}
+
+if( $spmybpz_pages == 'DISPLAY' ){
+$spmybpz_page_button = 'checked="checked"' ;
+$spmybpz_page_button1 = '' ;
+} else {
+$spmybpz_page_button = '' ;
+$spmybpz_page_button1 = 'checked="checked"' ;
+}		
+
+if( $spmybpz_bottom != 'End' ){
+$spmybpz_post_bottom = 'checked="checked"' ;
+$spmybpz_post_bottom1 = '' ;
+} else {
+$spmybpz_post_bottom = '' ;
+$spmybpz_post_bottom1 = 'checked="checked"' ;
+}
+
+//read the latest data from seopost file
+if( file_exists( $spmybpz_setup_seopost_file )) {
+	$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopost_file );
+	$spmybpz_post_SEO = unserialize( $spmybpz_tmpstr);
+	$spmybpz_post_SEO_count = count( $spmybpz_post_SEO );
+	unset( $spmybpz_filename ) ;
+	unset( $spmybpz_filename_html ) ;
+	for(  $spmybpz_i=0; $spmybpz_i<$spmybpz_post_SEO_count; $spmybpz_i++ ){
+		$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
+		$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';
+		}
+}
+
+//read the latest data from seopage file
+if( file_exists( $spmybpz_setup_seopage_file )) {
+	$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopage_file );
+	$spmybpz_page_SEO = unserialize( $spmybpz_tmpstr);
+	$spmybpz_page_SEO_count = count( $spmybpz_page_SEO );
+	unset( $spmybpz_filename ) ;
+	unset( $spmybpz_filename_html ) ;
+	for(  $spmybpz_i=0; $spmybpz_i<$spmybpz_page_SEO_count; $spmybpz_i++ ){
+		$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+		$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
+		}
+}
+
+//get old data files for posts
+if( !file_exists( $spmybpz_msg_array_file ) ){
+
+for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){
+$spmybpz_msg[ $spmybpz_i ] = '';
+$spmybpz_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotmsg'.$spmybpz_i.'.txt';
+$spmybpz_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopostmsg'.$spmybpz_i.'.html';
+}
+
+$spmybpz_tmpstr = '';
+for( $spmybpz_i=0; $spmybpz_i<$spmybpz_counter; $spmybpz_i++){	
+if( file_exists( $spmybpz_filename[ $spmybpz_i] )){ 
+	//if file exist
+	if( filesize( $spmybpz_filename[ $spmybpz_i ] ) > 0 ){
+		$spmybpz_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_filename[ $spmybpz_i] );
+		$spmybpz_msg_array[ $spmybpz_i ] = base64_encode( $spmybpz_msg[ $spmybpz_i ] );
+		//echo '<br>'.$spmybpz_i.' msg: '.$spmybpz_msg_array[ $spmybpz_i ].'  ';
+		$spmybpz_tmpstr_html = '<html><head></head><body>'."\n".$spmybpz_msg[ $spmybpz_i ]."\n".'</body></html>';
+		$spmybpz_tmpstr_html_array[$spmybpz_i] = base64_encode( $spmybpz_tmpstr_html );
+		}
+	} 
+} 	
+
+//save post messages as an array so that easier to delete or add	
+spmybpz_zbopp_write_file( $spmybpz_msg_array_file, serialize( $spmybpz_msg_array) );
+spmybpz_zbopp_write_file( $spmybpz_tmpstr_html_array_file, serialize( $spmybpz_tmpstr_html_array) );
+//spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_SEO ) );
+} else {
+
+//read new post message array
+if( file_exists( $spmybpz_msg_array_file ) ){
+$spmybpz_msg_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_msg_array_file ));
+}
+//read new post message array
+if( file_exists( $spmybpz_tmpstr_html_array_file ) ){
+$spmybpz_tmpstr_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_tmpstr_html_array_file ));
+}
 }
 
 
 
 
-?>
-<div class="wrap">
-<?php
+//get old data files for pages
+if( !file_exists( $spmybpz_page_msg_array_file ) ){
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpabottomofpostpage Setup, Version 1.16 [20150811]</span>';
+for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){
+$spmybpz_page_msg[ $spmybpz_i ] = '';
+$spmybpz_page_filename[ $spmybpz_i ] = $spmybpz_datadiralt .'/mybotpagemsg'.$spmybpz_i.'.txt';
+$spmybpz_page_filename_html[ $spmybpz_i ] = $spmybpz_datadiralt .'/seopagemsg'.$spmybpz_i.'.html';
+}
+
+$spmybpz_tmpstr = '';
+for( $spmybpz_i=0; $spmybpz_i<$spmybpz_page_counter; $spmybpz_i++){	
+if( file_exists( $spmybpz_page_filename[ $spmybpz_i] )){ 
+	//if file exist
+	if( filesize( $spmybpz_page_filename[ $spmybpz_i ] ) > 0 ){
+		$spmybpz_page_msg[ $spmybpz_i ] = spmybpz_zbopp_read_file( $spmybpz_page_filename[ $spmybpz_i] );
+		}
+	} 
+} 	
+//save page messages as an array so that easier to delete or add	
+spmybpz_zbopp_write_file( $spmybpz_page_msg_array_file, serialize( $spmybpz_page_msg_array) );
+spmybpz_zbopp_write_file( $spmybpz_tmpstr_page_html_array_file, serialize( $spmybpz_tmpstr_page_html_array) );	
+} else {
+//read new page message array
+if( file_exists( $spmybpz_page_msg_array_file ) ){
+$spmybpz_page_msg_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_page_msg_array_file ));
+}
+//read new page message array
+if( file_exists( $spmybpz_tmpstr_page_html_array_file ) ){
+$spmybpz_tmpstr_page_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz_tmpstr_page_html_array_file ));
+}
+
+
+}
+
+
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpabottomofpostpage Setup, Version 1.17 [20150818]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
@@ -692,38 +969,40 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 ?>
 
 <br>
+
 <h3>Set up dpabottomofpostpage</h3>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Choose whether messages will be displayed at bottom of your content or at the end of the document.</span></h2>
 <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+
 <table>
 <tr><td>Display message at : </td><td><input type="radio" <?php echo $spmybpz_post_bottom; ?> name="spmy_display_bottom" value="Bottom">Bottom of your Content</td><td> OR </td><td><input type="radio" <?php echo $spmybpz_post_bottom1; ?> name="spmy_display_bottom" value="End">End of Document</td><td> and the Priority is: </td><td><input type="text" name="spmy_display_ranking" value="<?php echo $spmybpz_ranking; ?>" ></td></tr>
 </table>
-<input type="submit" name='spmy_type_of_bottom' value="Submit" >
-</form>
+<!--<input type="submit" name='spmy_type_of_bottom' value="Submit" >-->
+<!--</form>-->
 <br>
 
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Set up number of messages to be placed at the bottom of every post and page.</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
 <table>
 <tr><td>Number of messages at bottom of a post : </td><td><input type="text" size="10" name="spmy_message_counter" value="<?php echo $spmybpz_counter; ?>"  maxlength="5" ></td></tr>
 <tr><td>Number of messages at bottom of a page : </td><td><input type="text" size="10" name="spmy_message_page_counter" value="<?php echo $spmybpz_page_counter; ?>"  maxlength="5"></td></tr>
 </table>
-<input type="submit" name='spmy_total_messages' value="Submit" >
-</form>
+<!--<input type="submit" name='spmy_total_messages' value="Submit" >-->
+<!--</form>-->
 <br>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Choose if messages will be displayed on posts and or pages</span></h2>
 
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
 <table>
 <tr><td>Display at Bottom of Posts: </td><td><input type="radio" <?php echo $spmybpz_post_button; ?> name="spmy_display_posts" value="DISPLAY">Display</td><td><input type="radio" <?php echo $spmybpz_post_button1; ?> name="spmy_display_posts" value="DONT">Don't Display</td></tr>
 <tr><td>Display at Bottom of Pages: </td><td><input type="radio" <?php echo $spmybpz_page_button; ?> name="spmy_display_pages" value="DISPLAY">Display</td><td><input type="radio" <?php echo $spmybpz_page_button1; ?> name="spmy_display_pages" value="DONT">Don't Display</td></tr>
 </table>
-<input type="submit" name='spmy_type_of_display' value="Set Display" >
-</form>
+<!--<input type="submit" name='spmy_type_of_display' value="Set Display" >-->
+<!-- </form>-->
 
+<input type="submit" name='spmy_Save_Settings' value="Save All Settings" >
 
-
-<br>
+<br><br>
 Note: if you want your messages centered on the webpage do enclose your HTML code with div statements:- <textarea cols="80" rows="5"><div align="center">
 .
 . your HTML code here
@@ -733,7 +1012,7 @@ Note: if you want your messages centered on the webpage do enclose your HTML cod
 <br><br>
 <h1>POST MESSAGE SECTION</h1>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Set up the messages at the bottom of your WordPress Posts</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
 <table>
 <?php 
 $spmybpz_defcnt = count( $spmybpz_samplemsg );
@@ -812,6 +1091,7 @@ if( !isset( $spmybpz_post_SEO[$spmybpz_i][7] ) ){
 	$spmybpz_post_SEO[$spmybpz_i][7] = '' ;
 	}
 
+
 ?>
 <span style="color:blue">Your Message Area <?php echo $spmybpz_j; ?> [ AFFECTS SEO<input type="radio" name="spmy_ppost_SEO[<?php echo $spmybpz_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio"  name="spmy_ppost_SEO[<?php echo $spmybpz_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppost_width[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_post_SEO[$spmybpz_i][1];?>"  maxlength="5"> Height: <input type="text"  size="6" name="spmy_ppost_height[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_post_SEO[$spmybpz_i][2];?>"  maxlength="5" >]
 
@@ -829,8 +1109,9 @@ if( !isset( $spmybpz_post_SEO[$spmybpz_i][7] ) ){
 <tr><td>
 <?php 
 if( $spmybpz_i < $spmybpz_counter ){
+//display messages from the new array rather than from the files.
 ?>
-<textarea name="<?php echo 'spmy_txtarea['.$spmybpz_i.']'; ?>" rows="10" cols="80"><?php echo $spmybpz_msg[ $spmybpz_i ] ; ?></textarea></td>
+<textarea name="<?php echo 'spmy_txtarea['.$spmybpz_i.']'; ?>" rows="10" cols="80"><?php echo base64_decode( $spmybpz_msg_array[ $spmybpz_i ] ) ; ?></textarea></td>
 <?php
 } else {
 ?>
@@ -839,7 +1120,8 @@ if( $spmybpz_i < $spmybpz_counter ){
 }
 ?>
 <td><?php echo $spmybpz_samplestr ; ?></td></tr>
-<tr><td></td><td></td></tr>
+<tr><td>Delete This Message : <input type="checkbox" name="spmy_ppost_DEL[<?php echo $spmybpz_i;?>]" value="Delete"></td><td></td></tr>
+<tr><td><br></td><td></td></tr>
 <?php 
 }
 ?>
@@ -847,18 +1129,19 @@ if( $spmybpz_i < $spmybpz_counter ){
 <?php
 if( $spmybpz_counter > 0){
 ?>
-<input type="submit" name="spmy_bottom_messages" value="Save Post Messages" >
+<!--<input type="submit" name="spmy_bottom_messages" value="Save Post Messages" >-->
 <?php
 }
 ?>
-</form>
+<input type="submit" name='spmy_Save_Settings' value="Save All Settings" >
+<!--</form>-->
 
 
 
-<br>
+<br><br>
 <h1>PAGE MESSAGE SECTION</h1>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">Set up the messages at the bottom of your WordPress Pages</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
 <table>
 <?php 
 
@@ -899,13 +1182,14 @@ if( !isset( $spmybpz_page_SEO[$spmybpz_i][1] ) ){
 <?php 
 if( $spmybpz_i < $spmybpz_page_counter ){
 ?>
-<textarea name="<?php echo 'spmy_page_txtarea['.$spmybpz_i.']'; ?>" rows="10" cols="80"><?php echo $spmybpz_page_msg[ $spmybpz_i ] ; ?></textarea>
+<textarea name="<?php echo 'spmy_page_txtarea['.$spmybpz_i.']'; ?>" rows="10" cols="80"><?php echo base64_decode( $spmybpz_page_msg_array[ $spmybpz_i ] ) ; ?></textarea>
 <?php
 }
 ?>
 </td>
 <td></td></tr>
-<tr><td></td><td></td></tr>
+<tr><td>Delete This Message : <input type="checkbox" name="spmy_ppage_DEL[<?php echo $spmybpz_i;?>]" value="Delete"></td><td></td></tr>
+<tr><td><br></td><td></td></tr>
 <?php 
 }
 ?>
@@ -913,41 +1197,30 @@ if( $spmybpz_i < $spmybpz_page_counter ){
 <?php
 if( $spmybpz_page_counter > 0){
 ?>
-<input type="submit" name="spmy_bottom_page_messages" value="Save Page Messages" >
+<!--<input type="submit" name="spmy_bottom_page_messages" value="Save Page Messages" >-->
 <?php
 }
 ?>
-</form>
-</div>
-<!--
-<br><br>
-<h1>Set up of display of posts and pages tables as shown below</h1>
-<h2><span style="color:blue;font-size:16px;font-style:normal;">Here you can adjust how the list of posts, as shown in the table below can adjusted.</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
-<table>
-<tr><td>Number of rows in posts display</td><td><input type="text" name='spmy_post_recordsi' value="<?php echo $spmybpz_post_rows; ?>" ></td></tr>
-<tr><td>Offset position of post in list of posts</td><td><input type="text" name='spmy_post_offseti' value="<?php echo $spmybpz_post_offset; ?>" ></td></tr>
-<tr><td>Number of rows in pages display</td><td><input type="text" name='spmy_page_recordsi' value="<?php echo $spmybpz_page_rows; ?>" ></td></tr>
-<tr><td>Offset position of page in list of pages</td><td><input type="text" name='spmy_page_offseti' value="<?php echo $spmybpz_page_offset; ?>" ></td></tr>
-<tr><td><input type="submit" name='spmy_display_data' value="Submit" ></td><td></td></tr>
-</table>
-</form>
--->
+<input type="submit" name='spmy_Save_Settings' value="Save All Settings" >
+<!--</form>-->
+<!-- </div>-->
 
 <br><br>
+
 <h1>Select posts that are to show messages</h1>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">You can select which posts are to show messages.</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<!-- <form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+-->
 <table class="spmybpz_myoptions">
-<tr><td>All post to show messages </td><td><input type="submit" name='spmy_diapla_all' value="Display On All Posts" ></td></tr>
+<tr><td>All post to show messages </td><td><!--<input type="submit" name='spmy_diapla_all' value="Display On All Posts" >--></td></tr>
 </table>
-</form>
+<!--</form>-->
 <h1>OR</h1>
 
 <h2><span style="color:blue;font-size:16px;font-style:normal;">The table below shows the list of <?php echo $spmybpz_postslist_sz; ?> posts. Check posts that will display messages and uncheck posts that are not to show messages</span></h2>
 
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
-<input type="submit" name='spmy_check_posts' value="Change Post Display" >
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
+<!--<input type="submit" name='spmy_check_posts' value="Change Post Display" >-->
 <div class="spmybpz_mydisplay">
 <table class="spmybpz_X">
 <?php
@@ -972,23 +1245,23 @@ $spmybpz_i++;
 <input type="submit" name='spmy_post_next_page' value="Next Page" >
 </form>
 -->
-<input type="submit" name='spmy_check_posts' value="Change Post Display" >
-</form>
+<!--<input type="submit" name='spmy_check_posts' value="Change Post Display" >-->
+<!--</form>-->
 
 
 
 <br><br>
 <h1>Select pages that are to show messages</h1>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">You can select which pages are to show messages.</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
 <table class="spmybpz_myoptions">
-<tr><td>All pages to show messages </td><td><input type="submit" name='spmy_diaplay_all' value="Display On All Pages" ></td></tr>
+<tr><td>All pages to show messages </td><td><!--<input type="submit" name='spmy_diaplay_all' value="Display On All Pages" >--></td></tr>
 </table>
-</form>
+<!--</form>-->
 <h1>OR</h1>
 <h2><span style="color:blue;font-size:16px;font-style:normal;">The table below shows the list of <?php echo $spmybpz_pageslist_sz; ?> pages. Check pages that will display messages and uncheck pages that are not to show messages</span></h2>
-<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">
-<input type="submit" name='spmy_check_pages' value="Change Page Display" >
+<!--<form action="<? echo htmlspecialchars( $_SERVER['REQUEST_URI'] ) ; ?>"  method="post">-->
+<!--<input type="submit" name='spmy_check_pages' value="Change Page Display" >-->
 <div class="spmybpz_mydisplay">
 <table class="spmybpz_X">
 <?php
@@ -1008,7 +1281,10 @@ $spmybpz_i++;
 </table>
 </div>
 
-<input type="submit" name='spmy_check_pages' value="Change Page Display" >
+<!--<input type="submit" name='spmy_check_pages' value="Change Page Display" >-->
+<!--</form>-->
+<br><br>
+<input type="submit" name='spmy_Save_Settings' value="Save All Settings" >
 </form>
 
 <br><br><br>
