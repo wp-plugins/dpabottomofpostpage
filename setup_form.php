@@ -54,38 +54,13 @@ $spmybpz_plugins_url = plugins_url().'/'.$spmybpz_plugins_name;
 $spmybpz_htaccess_data = 'Options -Indexes
 DirectoryIndex index.php index.html
 
-#Prevent hacks http://www.queness.com/post/5421/17-useful-htaccess-tricks-and-tips  2013 March 01
-RewriteEngine On
- 
-# proc/self/environ? no way!
-RewriteCond %{QUERY_STRING} proc/self/environ [OR]
- 
-# Block out any script trying to set a mosConfig value through the URL
-RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR]
- 
-# Block out any script trying to base64_encode crap to send via URL
-RewriteCond %{QUERY_STRING} base64_encode.*(.*) [OR]
- 
-# Block out any script that includes a <script> tag in URL
-RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
- 
-# Block out any script trying to set a PHP GLOBALS variable via URL
-RewriteCond %{QUERY_STRING} GLOBALS(=|[|\%[0-9A-Z]{0,2}) [OR]
- 
-# Block out any script trying to modify a _REQUEST variable via URL
-RewriteCond %{QUERY_STRING} _REQUEST(=|[|\%[0-9A-Z]{0,2})
- 
-# Send all blocked request to homepage with 403 Forbidden error!
-RewriteRule ^(.*)$ index.php [F,L]
-
 #block hackers from these type of files #
 # multiple file types
 <FilesMatch ".(htaccess|htpasswd|txt|xyz|log|zip|sh)$">
  Order Allow,Deny
  Deny from all
 </FilesMatch>
-
-Header always append X-Frame-Options SAMEORIGIN';
+';
 
 
 //$spmybpz_ranking = 100;
@@ -186,11 +161,12 @@ if( file_exists( $spmybpz_plugins_oldname ) ){
 	}
 
 }
-if( !file_exists( $spmybpz_htaccess_file ) ){
-	spmybpz_zbopp_write_file( $spmybpz_htaccess_file, $spmybpz_htaccess_data );
-	}
+//if( !file_exists( $spmybpz_htaccess_file ) ){
+//	spmybpz_zbopp_write_file( $spmybpz_htaccess_file, $spmybpz_htaccess_data );
+//	}
 if( !file_exists( $spmybpz_plugin_htaccess_file ) ){
 	spmybpz_zbopp_write_file( $spmybpz_plugin_htaccess_file, $spmybpz_htaccess_data );
+	copy ($spmybpz_plugin_htaccess_file , $spmybpz_htaccess_file );
 	}
 $spmybpz_tmpstr = '';
 $spmybpz_counter = 0;
@@ -233,9 +209,18 @@ $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_file );
 	$spmybpz_pages = $spmybpz_data_str[3];
 	if( isset( $spmybpz_data_str[4] ) ){
 	$spmybpz_bottom = $spmybpz_data_str[4];
+	} else {
+	$spmybpz_bottom = 'Bottom';
 	}
 	if( isset( $spmybpz_data_str[5] ) ){
 	$spmybpz_ranking = $spmybpz_data_str[5];
+	} else {
+	$spmybpz_ranking = 100;
+	}
+	if( isset( $spmybpz_data_str[6] ) ){
+	$spmybpz_java = $spmybpz_data_str[6];
+	} else {
+	$spmybpz_java = 'Allow';
 	}
 	}
 } else {
@@ -251,6 +236,8 @@ $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_file );
 	$spmybpz_data_str[4] = 'Bottom' ;
 	$spmybpz_ranking = 100 ;
 	$spmybpz_data_str[5] = 100;
+	$spmybpz_java = 'Allow' ;
+	$spmybpz_data_str[6] = 'Allow';
 	$spmybpz_tmpstr = serialize( $spmybpz_data_str );	
 	spmybpz_zbopp_write_file( $spmybpz_setup_file, $spmybpz_tmpstr );
 }
@@ -523,6 +510,10 @@ if( $_POST['spmy_Save_Settings'] == 'Save All Settings' ) {
 	$spmybpz_data_str[4] = $_POST['spmy_display_bottom'];
 	$spmybpz_bottom = $spmybpz_data_str[4] ;
 	}
+	if( isset( $_POST['spmy_display_java'] ) ) {
+	$spmybpz_data_str[6] = $_POST['spmy_display_java'];
+	$spmybpz_java = $spmybpz_data_str[6] ;
+	}	
 	if( isset( $_POST['spmy_display_ranking'] ) ) {
 //	echo '<br> $_POST ranking is set';
 	if( $_POST['spmy_display_ranking'] >= 0 && $_POST['spmy_display_ranking'] < 1000 ){
@@ -577,6 +568,7 @@ if( $_POST['spmy_Save_Settings'] == 'Save All Settings' ) {
 		$spmybpz_tmpstr_html = '';
 		if( isset( $_POST['spmy_txtarea'][$spmybpz_i] ) && trim( $_POST['spmy_txtarea'][$spmybpz_i] ) != '' ) {
 			$spmybpz_tmpstr =  stripslashes( trim( $_POST['spmy_txtarea'][$spmybpz_i] ) );
+			if( $spmybpz_java != 'Allow' ){ //added 2015/08/25 to allow javascript for certain themes
 			$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( '<?', '',  $spmybpz_tmpstr );
@@ -584,6 +576,7 @@ if( $_POST['spmy_Save_Settings'] == 'Save All Settings' ) {
 			$spmybpz_pos = strpos( strtolower($spmybpz_tmpstr) , 'javascript:' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
+			}
 			}
 			$spmybpz_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 			if( isset($spmybpz_filename[ $spmybpz_i ]) && isset($spmybpz_msg[ $spmybpz_i ]) ){
@@ -663,6 +656,7 @@ spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_
 	
 	if( isset( $_POST['spmy_page_txtarea'][$spmybpz_i] )  && trim( $_POST['spmy_page_txtarea'][$spmybpz_i] ) != '' ) {
 		$spmybpz_tmpstr =  stripslashes( trim( $_POST['spmy_page_txtarea'][$spmybpz_i] ) );
+		if( $spmybpz_java != 'Allow' ){ //added 2015/08/25 to allow javascript for certain themes
 		$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 		if( $spmybpz_pos !== false ){
 			$spmybpz_tmpstr = str_replace( '<?', '',  $spmybpz_tmpstr );
@@ -670,6 +664,7 @@ spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_
 		$spmybpz_pos = strpos( strtolower($spmybpz_tmpstr) , 'javascript:' );
 		if( $spmybpz_pos !== false ){
 			$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
+		}
 		}
 		$spmybpz_page_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 		spmybpz_zbopp_write_file( $spmybpz_page_filename[ $spmybpz_i ], $spmybpz_page_msg[ $spmybpz_i ] );
@@ -848,7 +843,13 @@ $spmybpz_post_bottom1 = '' ;
 $spmybpz_post_bottom = '' ;
 $spmybpz_post_bottom1 = 'checked="checked"' ;
 }
-
+if( $spmybpz_java != 'Allow' ){
+$spmybpz_post_java = 'checked="checked"' ;
+$spmybpz_post_java1 = '' ;
+} else {
+$spmybpz_post_java = '' ;
+$spmybpz_post_java1 = 'checked="checked"' ;
+}
 //read the latest data from seopost file
 if( file_exists( $spmybpz_setup_seopost_file )) {
 	$spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_seopost_file );
@@ -952,7 +953,7 @@ $spmybpz_tmpstr_page_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz
 }
 
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpabottomofpostpage Setup, Version 1.17 [20150818]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpabottomofpostpage Setup, Version 1.18 [20150825]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
@@ -976,6 +977,7 @@ echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin 
 
 <table>
 <tr><td>Display message at : </td><td><input type="radio" <?php echo $spmybpz_post_bottom; ?> name="spmy_display_bottom" value="Bottom">Bottom of your Content</td><td> OR </td><td><input type="radio" <?php echo $spmybpz_post_bottom1; ?> name="spmy_display_bottom" value="End">End of Document</td><td> and the Priority is: </td><td><input type="text" name="spmy_display_ranking" value="<?php echo $spmybpz_ranking; ?>" ></td></tr>
+<tr><td>Block Javascript code : </td><td><input type="radio" <?php echo $spmybpz_post_java; ?> name="spmy_display_java" value="Block">Block Javascript Code</td><td> OR </td><td><input type="radio" <?php echo $spmybpz_post_java1; ?> name="spmy_display_java" value="Allow">Allow Javascript Code</td><td>  </td><td> </td></tr>
 </table>
 <!--<input type="submit" name='spmy_type_of_bottom' value="Submit" >-->
 <!--</form>-->

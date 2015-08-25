@@ -2,8 +2,8 @@
 /*
 Plugin Name: dpabottomofpostpage
 Plugin URI: https://www.dpabadbot.com/customise-wordpress-plugin-to-add-messages-ads-bottom-of-post.php
-Description: This plugin can add several messages or adverts to the bottom of every post and page content or at the end of the document or webpage. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
-Version: 1.17 [20150818]   
+Description: Please Deactivate and Delete previous version before installing this version. This plugin can add several messages or adverts to the bottom of every post and page content or at the end of the document or webpage. Very useful if you have several messages like copyright notice, Google Ads, other affliate advertisements, ads and Facebook, Google+ & Twitter Like and Share Buttons... There is no limit as to how many messages you have at the bottom of your posts or pages. You can have different messages for posts and for pages. Now understands that you can fine tune your webpage for SEO and the messages can affect your SEO. Your messages can be saved elsewhere so that they do not affect your page SEO. Just click on "Affects SEO" radio button and set the width and height of message.You can show post messages in Home, Category & Archives summary pages. Now can stop displaying messages in some posts and some pages. 
+Version: 1.18 [20150825]   
 Author: Dr. Peter Achutha
 Author URI: http://facebook/peter.achutha
 License: GPL2
@@ -333,6 +333,7 @@ $spmybpz_posts = $spmybpz_data_str[2] ;
 $spmybpz_pages = $spmybpz_data_str[3] ;
 $spmybpz_bottom = $spmybpz_data_str[4] ;
 $spmybpz_ranking = $spmybpz_data_str[5] ;
+$spmybpz_java = $spmybpz_data_str[6] ;
 }
 
 if( $spmybpz_bottom == 'End' ) { //message to be placed at end if not dont execute to save CPU usage
@@ -420,6 +421,7 @@ wp_reset_query();
 		//ensure not infected code
 		if( isset( $spmybpz_msg[ $spmybpz_i ] ) ){
 			$spmybpz_tmpstr =  stripslashes( trim( $spmybpz_msg[ $spmybpz_i ] ) );
+			if( $spmybpz_java != 'Allow' ){ //added 2015/08/25 to allow javascript for certain themes
 			$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( '<?', '',  $spmybpz_tmpstr );
@@ -427,6 +429,7 @@ wp_reset_query();
 			$spmybpz_pos = strpos( strtolower($spmybpz_tmpstr) , 'javascript:' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
+			}
 			}
 			$spmybpz_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 			}	
@@ -496,6 +499,7 @@ wp_reset_query();
 		//ensure not infected code
 		if( isset( $spmybpz_page_msg[ $spmybpz_i ] ) ) {
 			$spmybpz_tmpstr =  stripslashes( trim( $spmybpz_page_msg[ $spmybpz_i ] ) );
+			if( $spmybpz_java != 'Allow' ){ //added 2015/08/25 to allow javascript for certain themes
 			$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( '<?', '',  $spmybpz_tmpstr );
@@ -503,6 +507,7 @@ wp_reset_query();
 			$spmybpz_pos = strpos( strtolower($spmybpz_tmpstr) , 'javascript:' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
+			}
 			}
 			$spmybpz_page_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 			}			
@@ -583,6 +588,7 @@ $spmybpz_posts = $spmybpz_data_str[2] ;
 $spmybpz_pages = $spmybpz_data_str[3] ;
 $spmybpz_bottom = $spmybpz_data_str[4] ;
 $spmybpz_ranking = $spmybpz_data_str[5] ;
+$spmybpz_java = $spmybpz_data_str[6] ;
 }
 
 if( $spmybpz_bottom == 'Bottom' ) { //if message is to be displayed at bottom if not don't execute to save CPU usage
@@ -669,6 +675,7 @@ wp_reset_query();
 		//ensure not infected code
 		if( isset( $spmybpz_msg[ $spmybpz_i ] ) ) {
 			$spmybpz_tmpstr =  stripslashes( trim( $spmybpz_msg[ $spmybpz_i ] ) );
+			if( $spmybpz_java != 'Allow' ){ //added 2015/08/25 to allow javascript for certain themes
 			$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( '<?', '',  $spmybpz_tmpstr );
@@ -676,6 +683,7 @@ wp_reset_query();
 			$spmybpz_pos = strpos( strtolower($spmybpz_tmpstr) , 'javascript:' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
+			}
 			}
 			$spmybpz_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 			}			
@@ -746,6 +754,7 @@ wp_reset_query();
 		//ensure not infected code
 		if( isset( $spmybpz_page_msg[ $spmybpz_i ] ) ) {
 			$spmybpz_tmpstr =  stripslashes( trim( $spmybpz_page_msg[ $spmybpz_i ] ) );
+			if( $spmybpz_java != 'Allow' ){ //added 2015/08/25 to allow javascript for certain themes
 			$spmybpz_pos = strpos( $spmybpz_tmpstr , '<?' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( '<?', '',  $spmybpz_tmpstr );
@@ -753,6 +762,7 @@ wp_reset_query();
 			$spmybpz_pos = strpos( strtolower($spmybpz_tmpstr) , 'javascript:' );
 			if( $spmybpz_pos !== false ){
 				$spmybpz_tmpstr = str_replace( 'javascript:', '', strtolower( $spmybpz_tmpstr ) );
+			}
 			}
 			$spmybpz_page_msg[ $spmybpz_i ] = $spmybpz_tmpstr;
 			}			
@@ -816,8 +826,21 @@ if( strlen( $spmybpz_tmpstr ) > 2 ){
 	$spmybpz_page_counter = $spmybpz_data_str[1];
 	$spmybpz_posts = $spmybpz_data_str[2] ;
 	$spmybpz_pages = $spmybpz_data_str[3] ;
+	if( !isset( $spmybpz_bottom ) ){
+	$spmybpz_bottom = 'Bottom' ;
+	$spmybpz_data_str[4] = 'Bottom' ;
+	}
 	$spmybpz_bottom = $spmybpz_data_str[4] ;
+	if( !isset( $spmybpz_ranking ) ){
+	$spmybpz_ranking = 100 ;
+	$spmybpz_data_str[5] = 100 ;
+	}	
 	$spmybpz_ranking = $spmybpz_data_str[5] ;
+	if( !isset( $spmybpz_java ) ){
+	$spmybpz_java = 'Allow' ;
+	$spmybpz_data_str[6]  = 'Allow' ;
+	}	
+	$spmybpz_java = $spmybpz_data_str[6] ;
 	}
 }
 
