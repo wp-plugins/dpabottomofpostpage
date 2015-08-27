@@ -4,16 +4,18 @@ Donate link: https://www.dpabadbot.com/
 Tags: post footer, page footer, bottom of post, bottom of page, ads, adverts, advertisments, affiliate
 Requires at least: 3.9.1
 Tested up to: 4.3
-Stable tag: 1.18 [20150825]
+Stable tag: 1.19 [20150827]
 License: GPLv2 or later
 
 This plugin can add several messages or adverts to the bottom of every WordPress post and page and now messages can be shown in in Home, Category & Archives summary pages. You can select which post or page displays the messages.
 
 == Description ==
 
-This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms. The plugin is SEO sensitive by allowing or diasbling a message to be part of the webpage SEO. You can show post messages in Home, Category & Archives summary pages. 
+Please Deactivate and Delete previous version before installing this version. This plugin allows you to add more than one message at the bottom of your WordPress post or page. You can have as many messages as you need as there is no limit to how many messages you have at the bottom of your post or page. Examples of messages are Google Authorship and Copyright notice, Googles Ads from AdSense, Facebook + Google+ and Twitter Like and Share buttons, and even other affiliate adverts like advertisements from Commission Junction, ClickBank and other affiliate programs and even Sign Up forms. The plugin is SEO sensitive by allowing or diasbling a message to be part of the webpage SEO. You can show post messages in Home, Category & Archives summary pages. Can process and display shortcodes.
 
 With version 1.05 you can disable some pages or post from displaying messages.
+
+As of version 1.19 shortcodes can now be displayed through the messages.
 
 My thanks to Cynthia K. Wunsch, http://www.striketherightnote.com, for requesting me to allow the posts to be shown in Home, Category & Archives summary pages.
 My thanks to Scott Million, http://www.apartmentforrentinsaigon.com, for requesting me for some pages and some post not to display messages.
@@ -129,6 +131,9 @@ Found some undefined variables and set them. Added the ability to delete message
 == 1.18 ==
 Simplified the .htaccess file in plugin and upload directory. Made option to allow or disallow  javascript.
 
+== 1.19 ==
+Allowed shortcodes to be processed and displayed in the messages.
+
 
 == Upgrade Notice ==
 
@@ -198,4 +203,7 @@ Found some undefined variables and set them. Added the ability to delete message
 
 == 1.18 ==
 Simplified the .htaccess file in plugin and upload directory. Made option to allow or disallow  javascript.
+
+== 1.19 ==
+Allowed shortcodes to be processed and displayed in the messages.
 

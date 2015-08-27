@@ -238,6 +238,7 @@ $spmybpz_tmpstr = spmybpz_zbopp_read_file( $spmybpz_setup_file );
 	$spmybpz_data_str[5] = 100;
 	$spmybpz_java = 'Allow' ;
 	$spmybpz_data_str[6] = 'Allow';
+	
 	$spmybpz_tmpstr = serialize( $spmybpz_data_str );	
 	spmybpz_zbopp_write_file( $spmybpz_setup_file, $spmybpz_tmpstr );
 }
@@ -269,6 +270,7 @@ $spmybpz_post_SEO[$spmybpz_i][4] = ''; //Home summany page
 $spmybpz_post_SEO[$spmybpz_i][5] = ''; //Category summary page
 $spmybpz_post_SEO[$spmybpz_i][6] = ''; //Archive summary page
 $spmybpz_post_SEO[$spmybpz_i][7] = ''; //Title of Message - so that you will remember what it is about months later
+$spmybpz_post_SEO[$spmybpz_i][8] = ''; //ShortCode setting
 }
 }
 	
@@ -285,6 +287,7 @@ $spmybpz_post_SEO[$spmybpz_i][4] = ''; //Home summany page
 $spmybpz_post_SEO[$spmybpz_i][5] = ''; //Category summary page
 $spmybpz_post_SEO[$spmybpz_i][6] = ''; //Archive summary page
 $spmybpz_post_SEO[$spmybpz_i][7] = ''; //Title of Message - so that you will remember what it is about months later
+$spmybpz_post_SEO[$spmybpz_i][8] = ''; //ShortCode setting
 }
 }
 
@@ -311,6 +314,7 @@ $spmybpz_page_SEO[$spmybpz_i][4] = ''; //Home summany page
 $spmybpz_page_SEO[$spmybpz_i][5] = ''; //Category summary page
 $spmybpz_page_SEO[$spmybpz_i][6] = ''; //Archive summary page
 $spmybpz_page_SEO[$spmybpz_i][7] = ''; //Title of Message - so that you will remember what it is months later
+$spmybpz_page_SEO[$spmybpz_i][8] = ''; //ShortCode setting
 }
 	}
 }  else {
@@ -326,6 +330,7 @@ $spmybpz_page_SEO[$spmybpz_i][4] = ''; //Home summany page
 $spmybpz_page_SEO[$spmybpz_i][5] = ''; //Category summary page
 $spmybpz_page_SEO[$spmybpz_i][6] = ''; //Archive summary page
 $spmybpz_page_SEO[$spmybpz_i][7] = ''; //Title of Message - so that you will remember what it is months later
+$spmybpz_post_SEO[$spmybpz_i][8] = ''; //ShortCode setting
 }
 }
 
@@ -548,6 +553,7 @@ if( $_POST['spmy_Save_Settings'] == 'Save All Settings' ) {
 			$spmybpz_post_SEO[$spmybpz_k][5] = ''; //Category summary page
 			$spmybpz_post_SEO[$spmybpz_k][6] = ''; //Archive summary page
 			$spmybpz_post_SEO[$spmybpz_k][7] = ''; //Title of Message - so that you will remember what it is about months later
+			$spmybpz_post_SEO[$spmybpz_i][8] = ''; //ShortCode setting
 			}
 		}
 	}
@@ -633,6 +639,11 @@ if( $_POST['spmy_Save_Settings'] == 'Save All Settings' ) {
 		if( isset( $_POST['spmy_ppost_TITLE'][$spmybpz_i] ) ) {
 		$spmybpz_post_SEO[$spmybpz_i][7] =  sanitize_text_field($_POST['spmy_ppost_TITLE'][$spmybpz_i]) ;	//version 1.02 add title
 		}
+		if( isset( $_POST['spmy_ppost_ShortCode'][$spmybpz_i] ) ) {	
+			$spmybpz_post_SEO[$spmybpz_i][8] =  $_POST['spmy_ppost_ShortCode'][$spmybpz_i] ;
+			} else {
+			$spmybpz_post_SEO[$spmybpz_i][8] =  '';
+			}			
 	if( $spmybpz_post_SEO[$spmybpz_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
 		$spmybpz_tempstr = base64_encode ( '<iframe src="'.$spmybpz_plugins_urldata.'/seopostmsg'.$spmybpz_i.'.html"  width="'.$spmybpz_post_SEO[$spmybpz_i][1].'" height="'.$spmybpz_post_SEO[$spmybpz_i][2].'"></iframe>' ) ; 
@@ -695,6 +706,11 @@ spmybpz_zbopp_write_file( $spmybpz_setup_seopost_file, serialize( $spmybpz_post_
 		if( isset( $_POST['spmy_ppage_TITLE'][$spmybpz_i] ) ) {	
 		$spmybpz_page_SEO[$spmybpz_i][7] =  sanitize_text_field($_POST['spmy_ppage_TITLE'][$spmybpz_i]) ;
 		}
+		if( isset( $_POST['spmy_ppage_ShortCode'][$spmybpz_i] ) ) {	
+		$spmybpz_page_SEO[$spmybpz_i][8] =  $_POST['spmy_ppage_ShortCode'][$spmybpz_i] ;
+		} else {
+			$spmybpz_page_SEO[$spmybpz_i][8] = '';
+			}
 	if( $spmybpz_page_SEO[$spmybpz_i][0] == 'SEO' ){ //if sensitive to SEO save info and display as iframe
 	
 		$spmybpz_tempstr = base64_encode ( '<div width="'.$spmybpz_page_SEO[$spmybpz_i][1].'" height="'.$spmybpz_page_SEO[$spmybpz_i][2].'"><iframe src="'.$spmybpz_plugins_urldata.'/seopagemsg'.$spmybpz_i.'.html' .'" width="'.$spmybpz_page_SEO[$spmybpz_i][1].'" height="'.$spmybpz_page_SEO[$spmybpz_i][2].'">   scrolling="auto" </iframe></div>' ) ; 
@@ -953,7 +969,7 @@ $spmybpz_tmpstr_page_html_array = unserialize( spmybpz_zbopp_read_file( $spmybpz
 }
 
 
-echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpabottomofpostpage Setup, Version 1.18 [20150825]</span>';
+echo '<br><span style="color:red;font-size:32px;font-style:normal;">Welcome to dpabottomofpostpage Setup, Version 1.19 [20150827]</span>';
 
 echo '<p><span style="color:blue;font-size:14px;font-style:normal;">This plugin sets up the data files that hold the messages you want to display at the bottom of every post or page.</p></span>
 <h3>Uses</h3>
@@ -1092,7 +1108,14 @@ $checkARC = '';
 if( !isset( $spmybpz_post_SEO[$spmybpz_i][7] ) ){
 	$spmybpz_post_SEO[$spmybpz_i][7] = '' ;
 	}
-
+if( !isset( $spmybpz_post_SEO[$spmybpz_i][8] ) ){
+	$spmybpz_post_SEO[$spmybpz_i][8] = '' ;
+	}
+if( $spmybpz_post_SEO[$spmybpz_i][8] == 'ShortCode' ){
+$checkShortCode = 'checked';
+} else {
+$checkShortCode = '';
+}
 
 ?>
 <span style="color:blue">Your Message Area <?php echo $spmybpz_j; ?> [ AFFECTS SEO<input type="radio" name="spmy_ppost_SEO[<?php echo $spmybpz_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio"  name="spmy_ppost_SEO[<?php echo $spmybpz_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppost_width[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_post_SEO[$spmybpz_i][1];?>"  maxlength="5"> Height: <input type="text"  size="6" name="spmy_ppost_height[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_post_SEO[$spmybpz_i][2];?>"  maxlength="5" >]
@@ -1102,7 +1125,7 @@ if( !isset( $spmybpz_post_SEO[$spmybpz_i][7] ) ){
 <input type="checkbox" name="spmy_ppost_CAT[<?php echo $spmybpz_i;?>]" value="CAT"  <?php echo $checkCAT; ?> >Archive Page
 <input type="checkbox" name="spmy_ppost_ARC[<?php echo $spmybpz_i;?>]" value="ARC"  <?php echo $checkARC; ?> ></span>
 <br>Title of Message: <br><input type="text" name="spmy_ppost_TITLE[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_post_SEO[$spmybpz_i][7];?>"  size="80" >
-<br>The Message:<br>
+<br><span style="color:blue">Is Message a shortcode: <input type="checkbox" name="spmy_ppost_ShortCode[<?php echo $spmybpz_i;?>]" value="ShortCode"  <?php echo $checkShortCode; ?> ></span>The Message: <br>
 <?php
 }
 ?>
@@ -1172,10 +1195,18 @@ if( !isset( $spmybpz_page_SEO[$spmybpz_i][1] ) ){
 	if( !isset( $spmybpz_page_SEO[$spmybpz_i][2] ) ){
 	$spmybpz_page_SEO[$spmybpz_i][2] = 140 ;
 	}	
+if( !isset( $spmybpz_page_SEO[$spmybpz_i][8] ) ){
+	$spmybpz_page_SEO[$spmybpz_i][8] = '' ;
+	}
+if( $spmybpz_page_SEO[$spmybpz_i][8] == 'ShortCode' ){
+$checkShortCode = 'checked';
+} else {
+$checkShortCode = '';
+}	
 ?>
 <span style="color:blue">Your Message Area <?php echo $spmybpz_j; ?> [ AFFECTS SEO<input type="radio"  name="spmy_ppage_SEO[<?php echo $spmybpz_i;?>]" value="SEO"  <?php echo $checkflag1; ?> > DOES NOT AFFECT SEO<input type="radio" name="spmy_ppage_SEO[<?php echo $spmybpz_i;?>]" value="NOT SEO" <?php echo $checkflag2; ?>  >][ Width:<input type="text" size="6" name="spmy_ppage_width[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_page_SEO[$spmybpz_i][1];?>"  maxlength="5"> Height: <input type="text"  size="6" name="spmy_ppage_height[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_page_SEO[$spmybpz_i][2];?>"  maxlength="5" >]</span>
 <br>Title of Message: <br><input type="text" name="spmy_ppage_TITLE[<?php echo $spmybpz_i;?>]" value="<?php echo $spmybpz_page_SEO[$spmybpz_i][7];?>"  size="80" >
-<br>The Message:<br>
+<br><span style="color:blue">Is Message a shortcode: <input type="checkbox" name="spmy_ppage_ShortCode[<?php echo $spmybpz_i;?>]" value="ShortCode"  <?php echo $checkShortCode; ?> ></span>The Message:<br>
 <?php
 }
 ?>
